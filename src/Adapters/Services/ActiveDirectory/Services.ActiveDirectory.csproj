@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Title>AutoMais.Services.ActiveDirectory</Title>
+		<Authors>Automais</Authors>
+		<Company>Becaoe</Company>
+		<Product>AutoMais.Services.ActiveDirectory</Product>
+		<Copyright>Becape</Copyright>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.13.0-beta.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Graph" Version="5.57.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Core.Application\Core.Application.csproj" />
+    <ProjectReference Include="..\..\..\Core\Core.Common\Core.Common.csproj" />
+    <ProjectReference Include="..\..\..\Core\Core.Domain\Core.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

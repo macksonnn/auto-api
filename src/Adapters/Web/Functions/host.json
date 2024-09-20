@@ -1,0 +1,27 @@
+{
+    "version": "2.0",
+    "logging": {
+        "applicationInsights": {
+            "samplingSettings": {
+                "isEnabled": true,
+                "excludedTypes": "Request"
+            },
+            "enableLiveMetricsFilters": true,
+            "LogLevel": {
+                "Default": "Information"
+            }
+        }
+    },
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "ServiceBusConnectionString": "Endpoint=sb://cpg-integrations-poc.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=Ewb225R3awh81P7jFl2V+zLIaK1q+9hky+ASbD63OT0=",
+    "SendGridApikey": "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",
+    "SendGridSenderEmail": "hamza.c@optimusinfo.com",
+    "SendGridSender": "Optimus Information",
+    "AzureADTenantId": "d0724daf-9471-4100-a3d6-c272708438b6",
+    "AzureADClientId": "ed825147-6e12-4992-bd5d-3383649937d2",
+    "AzureADClientSecret": "d4k8Q~0tqjASg3.tczN3x-J43RuTTX74gqt~~bjH",
+    "SharePointAppAdminList": "AppAdminList",
+    "SharePointRolesAndPermissionList": "RolesAndPermissions",
+    "SharePointSiteUrl": "https://princegeorgeca.sharepoint.com/sites/DevelopmentSandbox",
+    "SharePointSiteName": "Development Sandbox"
+}
