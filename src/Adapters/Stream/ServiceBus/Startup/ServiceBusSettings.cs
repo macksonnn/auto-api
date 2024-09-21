@@ -1,5 +1,5 @@
 ﻿
-namespace AutoMais.Stream.ServiceBus.Startup
+namespace Becape.Stream.ServiceBus.Startup
 {
     public  class ServiceBusSettings
     {

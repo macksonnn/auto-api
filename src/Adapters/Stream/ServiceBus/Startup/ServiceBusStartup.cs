@@ -1,9 +1,8 @@
-﻿using AutoMais.Core.Common;
-using AutoMais.Stream.ServiceBus.Service;
+﻿using Becape.Stream.ServiceBus.Service;
 using Azure.Messaging.ServiceBus;
-using Core.Common.Extensions;
+using Becape.Core.Common.Startup;
 
-namespace AutoMais.Stream.ServiceBus.Startup
+namespace Becape.Stream.ServiceBus.Startup
 {
     public class ServiceBusStartup : IStartupRegister
     {

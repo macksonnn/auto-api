@@ -1,9 +1,8 @@
-﻿using Azure.Messaging.ServiceBus;
-using FluentResults;
+﻿using System.Text.Json;
+using Azure.Messaging.ServiceBus;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
 
-namespace AutoMais.Stream.ServiceBus.Service
+namespace Becape.Stream.ServiceBus.Service
 {
     public class ServiceBusStreamService : IStream
     {
