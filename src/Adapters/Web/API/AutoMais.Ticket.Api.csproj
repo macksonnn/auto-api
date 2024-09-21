@@ -22,10 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\Core.Application\AutoMais.Ticket.Core.Application.csproj" />
     <ProjectReference Include="..\..\..\Core\Core.Domain\AutoMais.Ticket.Core.Domain.csproj" />
-    <ProjectReference Include="..\..\..\States\States.Mongo\AutoMais.Ticket.States.Mongo.csproj" />
-    <ProjectReference Include="..\..\Services\ActiveDirectory\Becape.Services.ActiveDirectory.csproj" />
-    <ProjectReference Include="..\..\Services\SendGrid\Becape.Services.SendGrid.csproj" />
-    <ProjectReference Include="..\..\Services\Sharepoint\Becape.Services.Sharepoint.csproj" />
+    <ProjectReference Include="..\..\States\States.Mongo\AutoMais.Ticket.States.Mongo.csproj" />
   </ItemGroup>
 
   <ItemGroup>
