@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
-using AutoMais.Stream.AzureEventHub.Startup;
+using Becape.Stream.AzureEventHub.Startup;
 using System.Text;
 using System.Text.Json;
+using Becape.Core.Common.Stream;
 
-namespace AutoMais.Stream.ServiceBus.Service
+namespace Becape.Stream.ServiceBus.Service
 {
     public class AzureEventHubStream : IStream
     {

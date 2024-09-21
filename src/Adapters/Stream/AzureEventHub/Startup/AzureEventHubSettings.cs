@@ -1,5 +1,5 @@
 ﻿
-namespace AutoMais.Stream.AzureEventHub.Startup
+namespace Becape.Stream.AzureEventHub.Startup
 {
     public class AzureEventHubSettings
     {

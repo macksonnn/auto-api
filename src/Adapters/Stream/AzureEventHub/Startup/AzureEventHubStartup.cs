@@ -1,7 +1,8 @@
-﻿using AutoMais.Core.Common;
-using AutoMais.Stream.ServiceBus.Service;
+﻿using Becape.Stream.ServiceBus.Service;
+using Becape.Core.Common.Startup;
+using Becape.Core.Common.Stream;
 
-namespace AutoMais.Stream.AzureEventHub.Startup;
+namespace Becape.Stream.AzureEventHub.Startup;
 
 public class AzureEventHubStartup : IStartupRegister
 {
