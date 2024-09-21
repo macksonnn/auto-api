@@ -31,8 +31,7 @@ namespace AutoMais.Ticket.Core.Application.Product.Commands
                 .GreaterThan(0);
 
             RuleFor(command => command.MaxItemsPerCart)
-                .NotEmpty()
-                .GreaterThan(0);
+                .GreaterThanOrEqualTo(0);
         }
     }
 
