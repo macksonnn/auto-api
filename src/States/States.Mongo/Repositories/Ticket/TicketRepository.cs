@@ -1,8 +1,5 @@
-﻿using MongoDB.Driver;
-using Core.Application.Ticket.State;
-using FluentResults;
+﻿using Core.Application.Ticket.State;
 using Core.Domain.Aggregates.Ticket;
-using AutoMais.Core.Common;
 using States.Mongo.Repositories.Ticket.Model;
 
 namespace States.Mongo.Repositories.Ticket;

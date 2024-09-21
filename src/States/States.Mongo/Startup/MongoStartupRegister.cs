@@ -1,13 +1,12 @@
-﻿using AutoMais.Core.Common;
-using Core.Common.States;
+﻿using Becape.Core.Common.Startup;
+using Core.Application;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
 using System.Reflection;
 
 namespace States.Mongo.Startup
 {
-    public class MongoSettings
+    public class MongoSettings : IApplication
     {
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }

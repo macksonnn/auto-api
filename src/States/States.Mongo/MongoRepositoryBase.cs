@@ -1,8 +1,4 @@
-﻿using Core.Common.States;
-using FluentResults;
-using MongoDB.Driver;
-
-namespace States.Mongo;
+﻿namespace States.Mongo;
 
 public abstract class MongoRepositoryBase<T> : IState where T : class
 {

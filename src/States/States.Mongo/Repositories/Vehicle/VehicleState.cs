@@ -1,7 +1,5 @@
-﻿using AutoMais.Core.Common;
-using Core.Application.Vehicle.States;
+﻿using Core.Application.Vehicle.States;
 using Core.Domain.Aggregates.Vehicle;
-using FluentResults;
 
 namespace States.Mongo.Repositories.Vehicle
 {
