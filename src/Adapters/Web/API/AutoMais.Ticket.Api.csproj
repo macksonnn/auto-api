@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Becape.Core.Common" Version="1.0.4" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
     <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
@@ -17,16 +18,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Core\Core.Application\Core.Application.csproj" />
-    <ProjectReference Include="..\..\..\Core\Core.Common\Core.Common.csproj" />
-    <ProjectReference Include="..\..\..\Core\Core.Domain\Core.Domain.csproj" />
-    <ProjectReference Include="..\..\..\States\States.Mongo\States.Mongo.csproj" />
-    <ProjectReference Include="..\..\Services\ActiveDirectory\Services.ActiveDirectory.csproj" />
-    <ProjectReference Include="..\..\Services\SendGrid\Services.SendGrid.csproj" />
-    <ProjectReference Include="..\..\Services\Sharepoint\Services.Sharepoint.csproj" />
-    <ProjectReference Include="..\..\Stream\AzureEventHub\Stream.AzureEventHub.csproj" />
-    <ProjectReference Include="..\..\Stream\RabbitMQ\Stream.Rabbit.csproj" />
-    <ProjectReference Include="..\..\Stream\ServiceBus\Stream.ServiceBus.csproj" />
+    <ProjectReference Include="..\..\..\Core\Core.Application\AutoMais.Ticket.Core.Application.csproj" />
+    <ProjectReference Include="..\..\..\Core\Core.Domain\AutoMais.Ticket.Core.Domain.csproj" />
+    <ProjectReference Include="..\..\..\States\States.Mongo\AutoMais.Ticket.States.Mongo.csproj" />
+    <ProjectReference Include="..\..\Services\ActiveDirectory\Becape.Services.ActiveDirectory.csproj" />
+    <ProjectReference Include="..\..\Services\SendGrid\Becape.Services.SendGrid.csproj" />
+    <ProjectReference Include="..\..\Services\Sharepoint\Becape.Services.Sharepoint.csproj" />
+    <ProjectReference Include="..\..\Stream\AzureEventHub\Becape.Stream.AzureEventHub.csproj" />
+    <ProjectReference Include="..\..\Stream\RabbitMQ\Becape.Stream.Rabbit.csproj" />
+    <ProjectReference Include="..\..\Stream\ServiceBus\Becape.Stream.ServiceBus.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>

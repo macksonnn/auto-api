@@ -1,10 +1,10 @@
 using AutoMais.Ticket.Api.Extensions;
-using Core.Common.Middlewares;
+using Becape.Core.Common.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.RegisterServices();
+builder.RegisterCommonServices();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -21,7 +21,7 @@ if (app.Environment.IsDevelopment())
 
 //Register the default Core error handling middleware
 app.UseLoggingMiddleware();
-app.RegisterEndpointDefinitions();
+//app.RegisterEndpointDefinitions(); //TODO: To be defined how to implement this in the future
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
