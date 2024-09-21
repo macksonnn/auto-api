@@ -1,7 +1,6 @@
 ﻿global using FluentResults;
 global using MediatR;
 global using Microsoft.Extensions.Logging;
-global using AutoMais.Core.Common;
 global using AutoMais.Core.Application;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;

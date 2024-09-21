@@ -1,6 +1,7 @@
 using AutoMais.Functions.Middleware;
 using AutoMais.Integrations.Startup;
 using AutoMais.Services.ActiveDirectory.Setup;
+using Becape.Core.Common;
 using Core.Application.Ticket.Commands;
 using Microsoft.Extensions.Hosting;
 
