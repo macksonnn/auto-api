@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Becape.Core.Common" Version="1.0.4" />
+    <PackageReference Include="Becape.Core.Common" Version="1.1.0" />
+    <PackageReference Include="Becape.Services.Streams.Rabbit" Version="1.0.0" />
+    <PackageReference Include="Becape.Services.Streams.ServiceBus" Version="1.0.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
     <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
@@ -24,9 +26,6 @@
     <ProjectReference Include="..\..\Services\ActiveDirectory\Becape.Services.ActiveDirectory.csproj" />
     <ProjectReference Include="..\..\Services\SendGrid\Becape.Services.SendGrid.csproj" />
     <ProjectReference Include="..\..\Services\Sharepoint\Becape.Services.Sharepoint.csproj" />
-    <ProjectReference Include="..\..\Stream\AzureEventHub\Becape.Stream.AzureEventHub.csproj" />
-    <ProjectReference Include="..\..\Stream\RabbitMQ\Becape.Stream.Rabbit.csproj" />
-    <ProjectReference Include="..\..\Stream\ServiceBus\Becape.Stream.ServiceBus.csproj" />
   </ItemGroup>
 
   <ItemGroup>
