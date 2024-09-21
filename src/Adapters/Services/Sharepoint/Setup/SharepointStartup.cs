@@ -3,7 +3,7 @@
 //using Microsoft.Extensions.Options;
 //using AutoMais.Services.Sharepoint.List;
 
-//namespace AutoMais.Services.Sharepoint.Setup
+//namespace Becape.Services.Sharepoint.Setup
 //{
 //    public static class SharepointStartup
 //    {

@@ -1,7 +1,7 @@
 ﻿//using Microsoft.Graph;
 //using System.Net.Mail;
 
-//namespace AutoMais.Services.Sharepoint.List
+//namespace Becape.Services.Sharepoint.List
 //{
 //    public class SharepointService : ISharepointService
 //    {

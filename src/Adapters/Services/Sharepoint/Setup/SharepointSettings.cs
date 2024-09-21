@@ -1,5 +1,5 @@
 ﻿
-//namespace AutoMais.Services.Sharepoint.Setup
+//namespace Becape.Services.Sharepoint.Setup
 //{
 //    public class SharepointSettings
 //    {
