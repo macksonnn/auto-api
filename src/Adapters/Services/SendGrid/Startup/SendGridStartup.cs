@@ -1,8 +1,8 @@
 ﻿//using Microsoft.Extensions.Options;
 //using Microsoft.Extensions.Configuration;
-//using AutoMais.Services.SendGrid.Service;
+//using Becape.Services.SendGrid.Service;
 
-//namespace AutoMais.Services.SendGrid.Startup
+//namespace Becape.Services.SendGrid.Startup
 //{
 //    public static class SendGridStartup
 //    {

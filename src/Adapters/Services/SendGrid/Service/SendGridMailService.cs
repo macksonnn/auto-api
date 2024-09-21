@@ -1,8 +1,8 @@
-﻿//using AutoMais.Core.Application.Adapters.Services;
-//using AutoMais.Core.Domain.Aggregates.Account;
-//using AutoMais.Services.SendGrid.Mail;
+﻿//using Becape.Core.Application.Adapters.Services;
+//using Becape.Core.Domain.Aggregates.Account;
+//using Becape.Services.SendGrid.Mail;
 
-//namespace AutoMais.Services.SendGrid.Service
+//namespace Becape.Services.SendGrid.Service
 //{
 //    public class SendGridMailService : IMailer
 //    {

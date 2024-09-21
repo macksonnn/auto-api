@@ -1,5 +1,5 @@
 ﻿
-namespace AutoMais.Services.SendGrid.Startup
+namespace Becape.Services.SendGrid.Startup
 {
     public class SendGridSettings
     {
