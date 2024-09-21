@@ -1,5 +1,4 @@
-﻿using Core.Common.States;
-using Core.Domain.Aggregates.Vehicle;
+﻿using Core.Domain.Aggregates.Vehicle;
 
 namespace Core.Application.Vehicle.States
 {

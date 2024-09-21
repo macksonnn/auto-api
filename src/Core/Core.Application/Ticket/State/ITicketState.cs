@@ -1,5 +1,4 @@
-﻿using Core.Common.States;
-using Core.Domain.Aggregates.Ticket;
+﻿using Core.Domain.Aggregates.Ticket;
 
 namespace Core.Application.Ticket.State
 {

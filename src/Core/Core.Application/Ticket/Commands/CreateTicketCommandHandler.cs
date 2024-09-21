@@ -1,6 +1,6 @@
-﻿using Core.Application.Ticket.State;
+﻿using Becape.Core.Common.Stream;
+using Core.Application.Ticket.State;
 using Core.Application.Ticket.Stream;
-using Core.Common.States;
 using Core.Domain.Aggregates.Ticket;
 using Core.Domain.Aggregates.Ticket.Commands;
 using Core.Domain.Aggregates.Ticket.Events;

@@ -20,15 +20,15 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Becape.Core.Common" Version="1.0.4" />
     <PackageReference Include="FluentResults" Version="3.16.0" />
-    <PackageReference Include="FluentValidation" Version="11.9.2" />
+    <PackageReference Include="FluentValidation" Version="11.10.0" />
     <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core.Common\Core.Common.csproj" />
-    <ProjectReference Include="..\Core.Domain\Core.Domain.csproj" />
+    <ProjectReference Include="..\Core.Domain\AutoMais.Ticket.Core.Domain.csproj" />
   </ItemGroup>
 
 </Project>
