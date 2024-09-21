@@ -1,5 +1,5 @@
 ﻿
-//namespace AutoMais.Stream.Rabbit.Startup
+//namespace Becape.Stream.Rabbit.Startup
 //{
 //    public  class RabbitMQSettings
 //    {

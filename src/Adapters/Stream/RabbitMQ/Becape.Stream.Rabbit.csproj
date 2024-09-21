@@ -13,13 +13,13 @@
 	</PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Becape.Core.Common" Version="1.0.4" />
     <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Core\Core.Application\Core.Application.csproj" />
-    <ProjectReference Include="..\..\..\Core\Core.Common\Core.Common.csproj" />
-    <ProjectReference Include="..\..\..\Core\Core.Domain\Core.Domain.csproj" />
+    <ProjectReference Include="..\..\..\Core\Core.Application\AutoMais.Ticket.Core.Application.csproj" />
+    <ProjectReference Include="..\..\..\Core\Core.Domain\AutoMais.Ticket.Core.Domain.csproj" />
   </ItemGroup>
 
 </Project>

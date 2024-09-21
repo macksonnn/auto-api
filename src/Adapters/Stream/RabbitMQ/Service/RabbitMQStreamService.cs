@@ -1,10 +1,10 @@
 ﻿//using Microsoft.Extensions.Logging;
-//using AutoMais.Core.Application.Adapters.Stream;
+//using Becape.Core.Application.Adapters.Stream;
 //using RabbitMQ.Client;
 //using System.Text.Json;
 //using System.Threading.Channels;
 
-//namespace AutoMais.Stream.Rabbit.Service
+//namespace Becape.Stream.Rabbit.Service
 //{
 //    public class RabbitMQStreamService : IStream
 //    {

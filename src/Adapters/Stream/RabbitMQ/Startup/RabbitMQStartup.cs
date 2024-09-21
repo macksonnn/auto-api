@@ -1,6 +1,7 @@
-﻿using AutoMais.Core.Common;
+﻿using Becape.Core.Common.Startup;
 
-namespace AutoMais.Stream.Rabbit.Startup;
+namespace Becape.Stream.Rabbit.Startup;
+
 public class RabbitMQStartup : IStartupRegister
 {
     public IServiceCollection Register(IServiceCollection services, IConfiguration configuration)
