@@ -13,14 +13,13 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.13.0-beta.1" />
+    <PackageReference Include="Becape.Core.Common" Version="1.0.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Graph" Version="5.57.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Core\Core.Application\Core.Application.csproj" />
-    <ProjectReference Include="..\..\..\Core\Core.Common\Core.Common.csproj" />
-    <ProjectReference Include="..\..\..\Core\Core.Domain\Core.Domain.csproj" />
+    <ProjectReference Include="..\..\..\Core\Core.Application\AutoMais.Ticket.Core.Application.csproj" />
   </ItemGroup>
 
 </Project>

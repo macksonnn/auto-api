@@ -1,10 +1,10 @@
 ﻿
-//using AutoMais.Core.Domain.Aggregates.Account;
-//using AutoMais.Core.Domain.Aggregates.Account.Commands;
+//using Becape.Core.Domain.Aggregates.Account;
+//using Becape.Core.Domain.Aggregates.Account.Commands;
 //using Microsoft.Graph;
 //using Microsoft.Graph.Models;
 
-//namespace AutoMais.Services.ActiveDirectory
+//namespace Becape.Services.ActiveDirectory
 //{
 //    public class UserManagement : IUserManagement
 //    {

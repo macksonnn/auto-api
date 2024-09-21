@@ -4,7 +4,7 @@ using Microsoft.Graph;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
 
-namespace AutoMais.Services.ActiveDirectory.Setup
+namespace Becape.Services.ActiveDirectory.Setup
 {
     public static class ActiveDirectoryStartup
     {

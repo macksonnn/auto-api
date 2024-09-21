@@ -1,5 +1,5 @@
 ﻿
-namespace AutoMais.Services.ActiveDirectory.Setup
+namespace Becape.Services.ActiveDirectory.Setup
 {
     public class ActiveDirectorySettings
     {
