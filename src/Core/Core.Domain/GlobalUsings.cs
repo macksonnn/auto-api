@@ -1,2 +1,2 @@
-﻿global using AutoMais.Core.Common;
+﻿global using Becape.Core.Common;
 global using FluentResults;
