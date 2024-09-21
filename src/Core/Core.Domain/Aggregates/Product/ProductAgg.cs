@@ -14,9 +14,6 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Product
         public decimal MaxItemsPerCart { get; internal set; }
         public DateTime CreatedDate { get; internal set; }
 
-        [JsonIgnore]
-        public ProductAgg Product { get; private set; }
-
         /// <summary>
         /// Creates a new Aggregate with all business rules to be validated
         /// </summary>
