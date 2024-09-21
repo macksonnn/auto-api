@@ -1,7 +1,7 @@
-﻿using Core.Domain.Aggregates.Vehicle.Commands;
-using Core.Domain.Aggregates.Vehicle.Events;
+﻿using AutoMais.Ticket.Core.Domain.Aggregates.Vehicle.Commands;
+using AutoMais.Ticket.Core.Domain.Aggregates.Vehicle.Events;
 
-namespace Core.Application.Vehicle
+namespace AutoMais.Ticket.Core.Application.Vehicle
 {
 
     public class CreateVehicleCommandValidator : AbstractValidator<CreateVehicleCommand>
@@ -14,7 +14,7 @@ namespace Core.Application.Vehicle
         }
     }
 
-    public class CreateVehicleCommandHandler : MediatR.IRequestHandler<CreateVehicleCommand, Result<VehicleCreated>>
+    public class CreateVehicleCommandHandler : IRequestHandler<CreateVehicleCommand, Result<VehicleCreated>>
     {
         public Task<Result<VehicleCreated>> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
         {

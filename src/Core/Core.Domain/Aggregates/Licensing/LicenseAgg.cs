@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Domain.Aggregates.Licensing
+namespace AutoMais.Ticket.Core.Domain.Aggregates.Licensing
 {
     public class LicenseAgg : AggRoot
     {

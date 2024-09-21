@@ -20,10 +20,13 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Becape.Core.Common" Version="1.1.0" />
     <PackageReference Include="FluentResults" Version="3.16.0" />
     <PackageReference Include="FluentValidation" Version="11.10.0" />
     <PackageReference Include="MediatR" Version="12.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Becape.Core.Common\src\Becape.Core.Common.csproj" />
   </ItemGroup>
 
 </Project>

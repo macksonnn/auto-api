@@ -1,5 +1,4 @@
-﻿
-namespace AutoMais.Core.Application.Adapters.Stream
+﻿namespace AutoMais.Ticket.Core.Application.Adapters.Stream
 {
     /// <summary>
     /// Define the names of the Topics used in this solution

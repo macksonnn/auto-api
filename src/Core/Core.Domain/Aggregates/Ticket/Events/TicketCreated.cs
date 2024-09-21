@@ -1,6 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
+using System.Text.Json.Serialization;
 
-namespace Core.Domain.Aggregates.Ticket.Events
+namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
 {
     public class TicketCreated
     {

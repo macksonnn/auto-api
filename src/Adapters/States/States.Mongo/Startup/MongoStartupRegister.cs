@@ -1,5 +1,5 @@
-﻿using Becape.Core.Common.Startup;
-using Core.Application;
+﻿using AutoMais.Ticket.Core.Application;
+using Becape.Core.Common.Startup;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -35,17 +35,17 @@ namespace States.Mongo.Startup
                 return client.GetDatabase(mongoSettings.DatabaseName);
             });
 
-            var startupRegisterType = typeof(IState);
+            var startupRegisterType = typeof(IState<>);
 
             var assembly = Assembly.GetExecutingAssembly();
-            var repositoryTypes = assembly.GetTypes()
-                .Where(t => t.IsClass && !t.IsAbstract && startupRegisterType.IsAssignableFrom(t))
+            var repositoryTypes = assembly.GetExportedTypes()
+                .Where(t => t.IsClass && !t.IsAbstract && t.GetInterface(startupRegisterType.Name) != null)
                 .ToList();
             
             foreach (var repositoryType in repositoryTypes)
             {
                 var interfaces = repositoryType.GetInterfaces()
-                    .Where(@interface => @interface != startupRegisterType)
+                    .Where(@interface => @interface != startupRegisterType && @interface.Name != startupRegisterType.Name)
                     .ToList();
 
                 if (interfaces.Count != 1)

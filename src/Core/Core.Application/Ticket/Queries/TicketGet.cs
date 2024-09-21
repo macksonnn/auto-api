@@ -1,17 +1,15 @@
-﻿
+﻿using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
 
-using Core.Domain.Aggregates.Ticket;
-
-namespace Core.Application.Ticket.Queries
+namespace AutoMais.Ticket.Core.Application.Ticket.Queries
 {
     public record TicketGetOne : QueryOneBase<TicketAgg>
     {
         public TicketGetOne(string id)
         {
-            TicketId = id;
+            Id = id;
         }
 
-        public string TicketId { get; set; }
+        public string Id { get; set; }
     }
 
 

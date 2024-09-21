@@ -1,44 +1,43 @@
-﻿using Core.Application.Ticket.State;
-using Core.Domain.Aggregates.Ticket;
-using States.Mongo.Repositories.Ticket.Model;
+﻿using AutoMais.Ticket.Core.Application.Ticket.State;
+using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
 
 namespace States.Mongo.Repositories.Ticket;
 
-public class TicketRepository : MongoRepositoryBase<TicketModel>, ITicketState
+public class TicketRepository : MongoRepositoryBase<TicketAgg>, ITicketState
 {
     public TicketRepository(IMongoDatabase database) : base(database, "Tickets")
     {
 
     }
 
-    public async Task<Result<TicketAgg>> AddAsync(TicketAgg ticket)
-    {
-        var result = await base.SaveAsync(TicketModel.FromDomain(ticket));
+    //public async Task<Result<TicketAgg>> AddAsync(TicketAgg ticket)
+    //{
+    //    var result = await base.SaveAsync(TicketModel.FromDomain(ticket));
 
-        if (result.IsSuccess)
-        {
-            return Result.Ok(ticket);
-        }
-        else
-            return Result.Fail<TicketAgg>("Insert failed").WithErrors(result.Errors);
-    }
+    //    if (result.IsSuccess)
+    //    {
+    //        return Result.Ok(ticket);
+    //    }
+    //    else
+    //        return Result.Fail<TicketAgg>("Insert failed").WithErrors(result.Errors);
+    //}
 
-    public Result<TicketAgg> GetTicket(string id)
-    {
-        var model = db.Find(p => p.ID == id).FirstOrDefault();
+    //public Result<TicketAgg> GetTicket(string id)
+    //{
+    //    var model = db.Find(p => p.ID == id).FirstOrDefault();
 
-        return TicketModel.ToDomain(model);
-    }
+    //    return TicketModel.ToDomain(model);
+    //}
 
-    public Result<TicketAgg> GetTicket(string id, string attendantId)
-    {
-        throw new NotImplementedException();
-    }
+    //public Result<TicketAgg> GetTicket(string id, string attendantId)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public Result<IEnumerable<TicketAgg>> GetTickets(QueryManyBase queryMany)
-    {
-        throw new NotImplementedException();
-    }
+    //public Result<IEnumerable<TicketAgg>> GetTickets(QueryManyBase queryMany)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
     //#region Write
     //public bool Add(Core.Domain.Aggregates.Ticket.TicketAgg ticket)

@@ -1,52 +1,34 @@
-﻿using Core.Application.Ticket.Queries;
-using Core.Domain.Aggregates.Ticket;
-using Core.Domain.Aggregates.Ticket.Commands;
-using Core.Domain.Aggregates.Ticket.Events;
-using System.Threading;
+﻿using AutoMais.Ticket.Core.Application.Ticket.Queries;
+using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
+using Becape.Core.Common.Startup;
 
 namespace AutoMais.Ticket.Api.Controllers
 {
-    //public class TicketEndpoints : IEndpointDefinition
-    //{
-    //    //TODO: Find a way to register a global endpoint filter to manipulare the result
-    //    //TODO: view https://khalidabuhakmeh.com/global-endpoint-filters-with-aspnet-core-minimal-apis
-    //    public void RegisterEndpoints(WebApplication app)
-    //    {
-    //        app.MapPost("/api/ticket", async ([FromBody] CreateTicketCommand command, IMediator mediator) =>
-    //        {
-    //            return await mediator.Send(command);
-    //        });
-
-    //        app.MapGet("/api/ticket", async ([FromBody] CreateTicketCommand command, IMediator mediator) =>
-    //        {
-    //            return await mediator.Send(command);
-    //        });
-    //    }
-    //}
-
-
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TicketController : ControllerBase
+    public class TicketEndpoints : IEndpointDefinition
     {
-        private readonly IMediator _mediator;
-        public TicketController(IMediator mediator)
+        //TODO: Find a way to register a global endpoint filter to manipulare the result
+        //TODO: view https://khalidabuhakmeh.com/global-endpoint-filters-with-aspnet-core-minimal-apis
+        public void RegisterEndpoints(RouteGroupBuilder app)
         {
-            _mediator = mediator;
-        }
+            var v1 = app.MapGroup("/api/v1");
 
-        [HttpGet("{id}")]
-        public Task<Result<TicketAgg>> Get([FromRoute] string id, CancellationToken cancellationToken)
-        {
-            var query = new TicketGetOne(id);
-            return _mediator.Send(query, cancellationToken);
-        }
+            v1.MapGet("/ticket/{id}", async ([FromRoute] string id, IMediator mediator, CancellationToken cancellationToken) =>
+            {
+                var query = new TicketGetOne(id);
+                return await mediator.Send(query, cancellationToken);
+            });
+
+            v1.MapPost("/ticket/", async ([FromBody] CreateTicketCommand command, IMediator mediator, CancellationToken cancellationToken) =>
+            {
+                return await mediator.Send(command, cancellationToken);
+            });
 
 
-        [HttpPost()]
-        public Task<Result<TicketCreated>> Create([FromBody] CreateTicketCommand command, CancellationToken cancellationToken)
-        {
-            return _mediator.Send(command, cancellationToken);
+            v1.MapPost("/ticket/{id}/product", async ([FromRoute] string id, [FromBody] AddProductToTicketCommand command, IMediator mediator, CancellationToken cancellationToken) =>
+            {
+                command.ChangeTicket(id);                
+                return await mediator.Send(command, cancellationToken);
+            });
         }
     }
 }

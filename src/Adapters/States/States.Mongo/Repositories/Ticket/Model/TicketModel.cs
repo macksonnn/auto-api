@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 using FluentResults;
-using Core.Domain.Aggregates.Ticket;
+using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
 
 namespace States.Mongo.Repositories.Ticket.Model;
 
@@ -32,7 +32,7 @@ public class TicketModel
     internal static Result<TicketAgg> ToDomain(TicketModel model)
     {
         if (model is null)
-            return Result.Fail("Ticket not found");
+            return Result.Fail<TicketAgg>("Ticket not found");
 
         var ticketResult = TicketAgg.Create(model.ID, model.Description, model.CreatedDate, model.AbandonedDate, model.ClosedDate);
 

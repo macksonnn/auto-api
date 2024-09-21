@@ -1,11 +1,11 @@
-﻿using Becape.Core.Common.Stream;
-using Core.Application.Ticket.State;
-using Core.Application.Ticket.Stream;
-using Core.Domain.Aggregates.Ticket;
-using Core.Domain.Aggregates.Ticket.Commands;
-using Core.Domain.Aggregates.Ticket.Events;
+﻿using AutoMais.Ticket.Core.Application.Ticket.State;
+using AutoMais.Ticket.Core.Application.Ticket.Stream;
+using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
+using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
+using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
+using Becape.Core.Common.Stream;
 
-namespace Core.Application.Ticket.Commands
+namespace AutoMais.Ticket.Core.Application.Ticket.Commands
 {
     /// <summary>
     /// The command validator contains the rules to ensure the object is valid
@@ -50,7 +50,7 @@ namespace Core.Application.Ticket.Commands
 
             if (ticketHasBeenCreated.IsSuccess)
             {
-                var saveResult = await state.AddAsync(ticketHasBeenCreated.Value.Ticket);
+                var saveResult = await state.Add(ticketHasBeenCreated.Value.Ticket);
                 if (saveResult?.Value != null)
                 {
                     var ticketCreated = saveResult?.Value?.Created() ?? fail;

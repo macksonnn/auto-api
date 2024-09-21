@@ -1,6 +1,6 @@
 ﻿using System.Net.Mail;
 
-namespace AutoMais.Core.Application.Adapters.Services
+namespace AutoMais.Ticket.Core.Application.Adapters.Services
 {
     public interface ISharepointService
     {

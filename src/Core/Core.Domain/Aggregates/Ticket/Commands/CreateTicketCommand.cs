@@ -1,6 +1,6 @@
-﻿using Core.Domain.Aggregates.Ticket.Events;
+﻿using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
 
-namespace Core.Domain.Aggregates.Ticket.Commands;
+namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 
 /// <summary>
 /// Definition of the Command to create a new ticket with the required properties

@@ -1,6 +1,5 @@
 ﻿using Becape.Core.Common.ActionFilters;
 using Becape.Core.Common.Startup;
-using Becape.Core.Common.Validation;
 
 namespace AutoMais.Ticket.Api.Startup
 {

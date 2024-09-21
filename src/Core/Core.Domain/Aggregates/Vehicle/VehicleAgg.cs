@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Domain.Aggregates.Vehicle
+namespace AutoMais.Ticket.Core.Domain.Aggregates.Vehicle
 {
     public class VehicleAgg : AggRoot
     {

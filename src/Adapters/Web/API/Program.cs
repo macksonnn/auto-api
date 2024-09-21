@@ -1,4 +1,4 @@
-using AutoMais.Ticket.Api.Extensions;
+using Becape.Core.Common.Startup;
 using Becape.Core.Common.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,12 +19,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//Register the default Core error handling middleware
-app.UseLoggingMiddleware();
-//app.RegisterEndpointDefinitions(); //TODO: To be defined how to implement this in the future
+app.RegisterEndpointDefinitions(); //TODO: To be defined how to implement this in the future
 app.UseHttpsRedirection();
 app.UseAuthorization();
-app.MapControllers();
-app.UseErrorMiddleware();
 
 app.Run();
