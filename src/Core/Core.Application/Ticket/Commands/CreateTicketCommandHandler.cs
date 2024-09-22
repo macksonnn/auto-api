@@ -38,7 +38,7 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
     /// <summary>
     /// The command handler is the Application class responsible for connect multiple adapters and run the business logic in the domain
     /// </summary>
-    public class CreateTicketCommandHandler(IStream stream, ITicketState state) : IRequestHandler<CreateTicketCommand, Result<TicketCreated>>
+    public class CreateTicketCommandHandler(ITicketState state, IMediator mediator) : IRequestHandler<CreateTicketCommand, Result<TicketCreated>>
     {
         public async Task<Result<TicketCreated>> Handle(CreateTicketCommand request, CancellationToken cancellationToken)
         {
@@ -54,7 +54,9 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
                 if (saveResult?.Value != null)
                 {
                     var ticketCreated = saveResult?.Value?.Created() ?? fail;
-                    await stream.SendEventAsync(ticketCreated.Value, TicketStream.TicketCreated);
+
+                    mediator.Publish(ticketCreated.Value).ConfigureAwait(false);
+
                     return ticketCreated;
                 }
 
