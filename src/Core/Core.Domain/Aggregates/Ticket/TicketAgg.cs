@@ -99,7 +99,7 @@ public class TicketAgg : AggRoot
             result.WithValidationError("Quantity", $"Ticket exceeds maximum quantity of {productAgg.MaxItemsPerCart} of this product");
 
         if (existing != null)
-            existing.ChangeQuantity(existing.Quantity + productAgg.Quantity);
+            existing.ChangeQuantity(existing.Quantity + command.Quantity);
         else
             productList.Add(Product.Create(command, productAgg));
 
