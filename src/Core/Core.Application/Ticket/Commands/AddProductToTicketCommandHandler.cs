@@ -31,9 +31,6 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
 
             RuleFor(command => command.Quantity)
                 .GreaterThan(0);
-
-            RuleFor(command => command.UnitPrice)
-                .GreaterThan(0);
         }
     }
 
