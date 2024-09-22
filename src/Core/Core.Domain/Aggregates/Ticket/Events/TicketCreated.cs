@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
 {
-    public class TicketCreated
+    public class TicketCreated : MediatR.INotification
     {
         public string TicketId { get; private set; }
 
