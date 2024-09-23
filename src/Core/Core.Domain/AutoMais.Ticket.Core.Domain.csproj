@@ -29,4 +29,9 @@
     <ProjectReference Include="..\..\..\..\..\Becape.Core.Common\src\Becape.Core.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Attendant\Commands\" />
+    <Folder Include="Attendant\Events\" />
+  </ItemGroup>
+
 </Project>
