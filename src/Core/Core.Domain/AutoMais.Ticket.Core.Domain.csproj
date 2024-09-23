@@ -30,8 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Attendant\Commands\" />
-    <Folder Include="Attendant\Events\" />
+    <Folder Include="Aggregates\Attendant\Commands\" />
+    <Folder Include="Aggregates\Attendant\Events\" />
   </ItemGroup>
 
-</Project>
+</Project> 

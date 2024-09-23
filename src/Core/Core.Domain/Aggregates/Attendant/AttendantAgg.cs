@@ -1,5 +1,4 @@
-﻿
-namespace AutoMais.Ticket.Core.Domain.Attendant
+﻿namespace AutoMais.Ticket.Core.Domain.Aggregates.Attendant
 {
     public class AttendantAgg : AggRoot
     {
@@ -25,7 +24,8 @@ namespace AutoMais.Ticket.Core.Domain.Attendant
 
         public static AttendantAgg Create(string name, string cardId)
         {
-            return new AttendantAgg() {
+            return new AttendantAgg()
+            {
                 Id = Guid.NewGuid().ToString(),
                 Name = name,
                 CardId = cardId,
