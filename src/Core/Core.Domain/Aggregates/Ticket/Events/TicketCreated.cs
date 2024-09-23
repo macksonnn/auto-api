@@ -1,9 +1,8 @@
-﻿using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
 {
-    public class TicketCreated : MediatR.INotification
+    public class TicketCreated : IDomainEvent
     {
         public string TicketId { get; private set; }
 
