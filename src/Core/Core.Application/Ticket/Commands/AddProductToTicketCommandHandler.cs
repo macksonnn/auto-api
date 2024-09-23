@@ -55,7 +55,6 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
             {
                 var update = await ticketState.Update(request.TicketId, ticket);
                 if (update.IsSuccess)
-                    await mediator.Publish(addResult.Value);
                     mediator.Publish(addResult.Value, cancellationToken);
             }
 
