@@ -12,6 +12,7 @@ public class TicketModel
     public ObjectId _Id { get; set; }
     [BsonRepresentation(BsonType.String)]
     public string ID { get; set; }
+    public string AttendantId { get; private set; }
     public DateTime CreatedDate { get; private set; }
     public DateTime? AbandonedDate { get; private set; }
     public DateTime? ClosedDate { get; private set; }
@@ -34,7 +35,7 @@ public class TicketModel
         if (model is null)
             return Result.Fail<TicketAgg>("Ticket not found");
 
-        var ticketResult = TicketAgg.Create(model.ID, model.Description, model.CreatedDate, model.AbandonedDate, model.ClosedDate);
+        var ticketResult = TicketAgg.Create(model.ID, model.AttendantId, model.Description, model.CreatedDate, model.AbandonedDate, model.ClosedDate);
 
         return ticketResult;
     }

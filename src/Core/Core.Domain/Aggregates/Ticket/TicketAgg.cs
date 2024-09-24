@@ -8,6 +8,8 @@ public class TicketAgg : AggRoot
 {
     public string Id { get; internal set; }
     public string Description { get; internal set; }
+    public string AttendantId { get; internal set; }
+
     public DateTime CreatedDate { get; internal set; }
     public DateTime? AbandonedDate { get; internal set; }
     public DateTime? ClosedDate { get; internal set; }
@@ -45,6 +47,7 @@ public class TicketAgg : AggRoot
         Id = Guid.NewGuid().ToString();
         Description = $"Ticket for {command.Plate}";
         CreatedDate = DateTime.Now;
+        AttendantId = command.AttendantId;
     }
 
     public static Result<TicketCreated> Create(CreateTicketCommand command)
@@ -67,7 +70,7 @@ public class TicketAgg : AggRoot
     /// <summary>
     /// Creates a new Aggregate
     /// </summary>
-    public static Result<TicketAgg> Create(string id, string description, DateTime createdDate, DateTime? abandonedDate, DateTime? closedDate)
+    public static Result<TicketAgg> Create(string id, string attendantId, string description, DateTime createdDate, DateTime? abandonedDate, DateTime? closedDate)
     {
         var ticket = new TicketAgg();
         ticket.Id = id;
@@ -75,6 +78,7 @@ public class TicketAgg : AggRoot
         ticket.CreatedDate = createdDate;
         ticket.AbandonedDate = abandonedDate;
         ticket.ClosedDate = closedDate;
+        ticket.AttendantId = attendantId;
 
         return Result.Ok(ticket);
     }
