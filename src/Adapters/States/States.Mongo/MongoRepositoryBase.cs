@@ -53,6 +53,16 @@ public abstract class MongoRepositoryBase<T> : IState<T> where T : class
         return await db.Find(filter).FirstOrDefaultAsync();
     }
 
+    public async Task<T> Get(Expression<Func<T, bool>> filter)
+    {
+        return await db.Find(filter).FirstOrDefaultAsync();
+    }
+
+    public async Task<IEnumerable<T>> GetMany(Expression<Func<T, bool>> filter)
+    {
+        return await db.Find(filter).ToListAsync();
+    }
+
     public async Task<Result> Update(string id, T entity)
     {
         var filter = Builders<T>.Filter.Eq("Id", id);
