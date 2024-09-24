@@ -1,5 +1,4 @@
-﻿
-using Becape.Core.Common;
+﻿using System.Linq.Expressions;
 
 namespace States.Mongo;
 
@@ -35,12 +34,12 @@ public abstract class MongoRepositoryBase<T> : IState<T> where T : class
         try
         {
             var filter = Builders<T>.Filter.Eq("Id", id);
-            var deleteResult = db.DeleteOneAsync(filter);
+            var deleteResult = await db.DeleteOneAsync(filter);
 
-            if (deleteResult.IsCompletedSuccessfully)
+            if (deleteResult.DeletedCount > 0)
                 return Result.Ok();
             else
-                return Result.Fail(deleteResult?.Exception?.Message ?? "Delete failed");
+                return Result.Fail("Delete failed");
         }
         catch (Exception e)
         {
@@ -64,5 +63,23 @@ public abstract class MongoRepositoryBase<T> : IState<T> where T : class
             return Result.Ok();
         else
             return Result.Fail("Update failed");
+    }
+
+    public async Task<Result<IEnumerable<T>>> GetPagedAsync(Expression<Func<T, bool>> filter, int pageNumber, int pageSize, Expression<Func<T, object>> sortBy = null, bool ascending = true)
+    {
+        var find = db.Find(filter);
+
+        if (sortBy is not null)
+        {
+            var sort = ascending ? Builders<T>.Sort.Ascending(sortBy) : Builders<T>.Sort.Descending(sortBy);
+            find.Sort(sort);
+        }
+
+        var result = await find
+            .Skip(((pageNumber <= 0 ? 1 : pageNumber) - 1) * pageSize)
+            .Limit(pageSize)
+            .ToListAsync();
+
+        return Result.Ok(result.AsEnumerable());
     }
 }
