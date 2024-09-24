@@ -75,7 +75,7 @@ public abstract class MongoRepositoryBase<T> : IState<T> where T : class
             return Result.Fail("Update failed");
     }
 
-    public async Task<Result<IEnumerable<T>>> GetPagedAsync(Expression<Func<T, bool>> filter, int pageNumber, int pageSize, Expression<Func<T, object>> sortBy = null, bool ascending = true)
+    public async Task<IEnumerable<T>> GetPagedAsync(Expression<Func<T, bool>> filter, int pageNumber, int pageSize, Expression<Func<T, object>> sortBy = null, bool ascending = true)
     {
         var find = db.Find(filter);
 
@@ -85,11 +85,9 @@ public abstract class MongoRepositoryBase<T> : IState<T> where T : class
             find.Sort(sort);
         }
 
-        var result = await find
+        return await find
             .Skip(((pageNumber <= 0 ? 1 : pageNumber) - 1) * pageSize)
             .Limit(pageSize)
             .ToListAsync();
-
-        return Result.Ok(result.AsEnumerable());
     }
 }
