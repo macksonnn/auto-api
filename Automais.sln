@@ -42,7 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pumps", "Pumps", "{E4E7960A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMais.Ticket.States.Mongo", "src\Adapters\States\States.Mongo\AutoMais.Ticket.States.Mongo.csproj", "{E6181675-6B1C-4D34-9107-99906C4E0D9D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Becape.Core.Common", "..\..\Becape.Core.Common\src\Becape.Core.Common.csproj", "{820BC427-3F51-4C8E-AC53-1C2680C5B5D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Becape.Core.Common", "..\Becape.Core.Common\src\Becape.Core.Common.csproj", "{B1FD714F-A724-4725-8584-D0026760810D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,10 +66,10 @@ Global
 		{E6181675-6B1C-4D34-9107-99906C4E0D9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6181675-6B1C-4D34-9107-99906C4E0D9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6181675-6B1C-4D34-9107-99906C4E0D9D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{820BC427-3F51-4C8E-AC53-1C2680C5B5D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{820BC427-3F51-4C8E-AC53-1C2680C5B5D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{820BC427-3F51-4C8E-AC53-1C2680C5B5D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{820BC427-3F51-4C8E-AC53-1C2680C5B5D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1FD714F-A724-4725-8584-D0026760810D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1FD714F-A724-4725-8584-D0026760810D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1FD714F-A724-4725-8584-D0026760810D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1FD714F-A724-4725-8584-D0026760810D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,7 +86,6 @@ Global
 		{FAD9F3B8-8854-4F0B-82C5-421F92D44E23} = {90CF196C-B249-487A-B806-69810D31C319}
 		{E4E7960A-190E-4A3E-B33A-033CB3D943C4} = {90CF196C-B249-487A-B806-69810D31C319}
 		{E6181675-6B1C-4D34-9107-99906C4E0D9D} = {FAD9F3B8-8854-4F0B-82C5-421F92D44E23}
-		{820BC427-3F51-4C8E-AC53-1C2680C5B5D4} = {5D32653B-8639-46AC-93E6-DC1139CCA2B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE04B0CA-C745-4EB6-8B3B-583BD6822054}

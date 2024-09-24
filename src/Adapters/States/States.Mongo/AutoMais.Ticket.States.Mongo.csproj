@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Becape.Core.Common\src\Becape.Core.Common.csproj" />
     <ProjectReference Include="..\..\..\Core\Core.Application\AutoMais.Ticket.Core.Application.csproj" />
     <ProjectReference Include="..\..\..\Core\Core.Domain\AutoMais.Ticket.Core.Domain.csproj" />
   </ItemGroup>
