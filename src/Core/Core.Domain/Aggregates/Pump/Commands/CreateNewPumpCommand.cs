@@ -2,7 +2,7 @@
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Pump.Commands;
 
-public record CreateNewPumpCommand : ICommand<PumpCreatedEvent>
+public record CreateNewPumpCommand : ICommand<PumpCreated>
 {
     public int Number { get; init; }
     public string Description { get; init; }
