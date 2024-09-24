@@ -2,8 +2,6 @@
 using AutoMais.Ticket.Core.Domain.Aggregates.Pump;
 using AutoMais.Ticket.Core.Domain.Aggregates.Pump.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Pump.Events;
-using FluentResults;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AutoMais.Ticket.Core.Application.Pump.Commands
 {
