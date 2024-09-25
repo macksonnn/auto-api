@@ -10,7 +10,7 @@ namespace AutoMais.Ticket.Api.Startup
             // this namespace is for Minimal APIs
             services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(opts => opts.SerializerOptions.IncludeFields = true);
             //Register all validators founded in the Core.Application project
-            services.AddControllers(options => { options.Filters.Add<ResultTypeFilter>(); });
+            //services.AddControllers(options => { options.Filters.Add<ResultTypeFilter>(); });
 
             return services;
         }
