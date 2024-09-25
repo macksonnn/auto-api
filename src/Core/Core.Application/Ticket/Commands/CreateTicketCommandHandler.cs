@@ -18,9 +18,6 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
 
             RuleFor(command => command.AttendantId)
                 .MinimumLength(6)
-                .WithMessage("Minimum length should be {MinimumLength} characters");
-
-            RuleFor(command => command.AttendantId)
                 .NotEqual("Lucas")
                 .WithMessage("Text not equal Lucas");
             //TODO: Implement Attendant validator service
@@ -53,7 +50,7 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
                 {
                     var ticketCreated = saveResult?.Value?.Created() ?? fail;
 
-                    mediator.Publish(ticketCreated.Value);
+                    await mediator.Publish(ticketCreated.Value);
 
                     return ticketCreated;
                 }
