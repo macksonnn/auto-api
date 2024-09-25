@@ -1,5 +1,4 @@
-﻿using AutoMais.Ticket.Core.Domain.Aggregates.Product;
-using AutoMais.Ticket.Core.Domain.Aggregates.Pump.Commands;
+﻿using AutoMais.Ticket.Core.Domain.Aggregates.Pump.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Pump.Events;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Pump;
@@ -50,16 +49,16 @@ public class PumpAgg : AggRoot
     }
 
 
-    public static Result<PumpAgg> Create(int number, string description, string supplierType)
+    public static Result<PumpAgg> Create(CreateNewPumpCommand command)
     {
         var result = Result.Ok();
 
         var pump = new PumpAgg
         {
             Id = Guid.NewGuid(),
-            Number = number,
-            Description = description,
-            SupplierType = supplierType
+            Number = command.Number,
+            Description = command.Description,
+            SupplierType = command.SupplierType
         };
 
         return result.ToResult(pump);

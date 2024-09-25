@@ -32,7 +32,7 @@ namespace AutoMais.Ticket.Core.Application.Pump.Commands
             if (existing != null)
                 return Result.Ok().WithValidationError("Number", $"Pump with No.{request.Number} already exists");
 
-            var pump = PumpAgg.Create(request.Number, request.Description, request.SupplierType);
+            var pump = PumpAgg.Create(request);
 
             var fail = Result.Fail<PumpCreated>("Pump creation failed");
 
