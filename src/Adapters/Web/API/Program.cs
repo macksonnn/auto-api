@@ -21,6 +21,6 @@ if (app.Environment.IsDevelopment())
 
 app.RegisterEndpointDefinitions(); //TODO: To be defined how to implement this in the future
 app.UseHttpsRedirection();
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.Run();
