@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMais.Ticket.Core.Application.Attendant.State;
+using AutoMais.Ticket.Core.Domain.Aggregates.Attendant;
 
-namespace AutoMais.Ticket.States.Mongo.Repositories.Attendant;
-public class AttendantRepository
+namespace States.Mongo.Repositories.Ticket;
+public class AttendantRepository : MongoRepositoryBase<AttendantAgg>, IAttendantState
 {
+    public AttendantRepository(IMongoDatabase database) : base(database)
+    {
+    }
 }
