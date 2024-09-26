@@ -42,12 +42,12 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
             var ticket = await ticketState.Get(request.TicketId);
 
             if (ticket == null)
-                result.WithError("Ticket not found");
+                return result.WithError("Ticket not found");
 
             var product = await productState.Get(request.ProductId);
 
             if (product == null)
-                result.WithError("Product not found");
+                return result.WithError("Product not found");
 
             var addResult = ticket.AddProduct(request, product);
 
@@ -55,7 +55,7 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
             {
                 var update = await ticketState.Update(request.TicketId, ticket);
                 if (update.IsSuccess)
-                    await mediator.Publish(addResult.Value);
+                    mediator.Publish(addResult.Value, cancellationToken);
             }
 
             addResult.WithErrors(result.Errors);

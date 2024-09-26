@@ -1,36 +1,36 @@
-﻿using AutoMais.Ticket.Core.Domain.Aggregates.Attendant.Commands;
-using AutoMais.Ticket.Core.Domain.Aggregates.Attendant.Events;
-using System.Reflection.Metadata.Ecma335;
-
-namespace AutoMais.Ticket.Core.Domain.Aggregates.Attendant;
-public class AttendantAgg
+﻿namespace AutoMais.Ticket.Core.Domain.Aggregates.Attendant
 {
-    public string Id { get; internal set; }
-    public string RfId { get; internal set; }
-    public string Nome { get; internal set; }
-    public string CodigoProtheus { get; internal set; }
-    public DateTime CreateDate { get; internal set; }
-
-    /// <summary>
-    /// Creates a new Attendant
-    /// </summary>
-    /// <param name="command"></param>
-    private AttendantAgg(CreateAttendantCommand command)
+    public class AttendantAgg : AggRoot
     {
-        this.RfId = command.RfId;
-        this.Nome = command.Nome;
-        this.CodigoProtheus = command.CodigoProtheus;
-        this.CreateDate = DateTime.Now;
-        Id = command.Id;
-    }
+        public string Id { get; internal set; }
+        public string Name { get; internal set; }
+        public string CardId { get; internal set; }
+        public DateTime CreatedDate { get; internal set; }
+        public DateTime? DisabledDate { get; internal set; }
+        public bool IsEnabled { get { return DisabledDate == null; } }
 
-    public static Result<AttendantCreated> Create(CreateAttendantCommand command)
-    {
-        Result result = Result.Ok();
-        AttendantAgg agg = new AttendantAgg(command);
-        return result.ToResult(agg.Created());
-    }
 
-    public AttendantCreated Created()
-        => new(Id, RfId, Nome, CodigoProtheus) { Attendant = this };
+        public AttendantAgg Disable()
+        {
+            DisabledDate = DateTime.Now;
+            return this;
+        }
+
+        public AttendantAgg ChangeCard(string newCard)
+        {
+            CardId = newCard;
+            return this;
+        }
+
+        public static AttendantAgg Create(string name, string cardId)
+        {
+            return new AttendantAgg()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = name,
+                CardId = cardId,
+                CreatedDate = DateTime.Now
+            };
+        }
+    }
 }
