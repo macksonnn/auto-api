@@ -10,27 +10,22 @@ public sealed class CreateAttendantValidator : AbstractValidator<CreateAttendant
 {
     public CreateAttendantValidator()
     {
-        RuleFor(cmd => cmd.Id)
+        RuleFor(cmd => cmd.CardId)
             .NotEmpty()
-            .WithMessage("The AttendantId can't be empty");
+            .WithMessage("The Attendant' CardId can't be empty");
 
-        RuleFor(cmd => cmd.RfId)
+        RuleFor(cmd => cmd.Name)
+            .NotNull()
             .NotEmpty()
-            .WithMessage("The RfId can't be empty");
+            .WithMessage("The Name can't be empty");
 
-        RuleFor(cmd => cmd.CodigoProtheus)
-            .NotEmpty()
-            .WithMessage("The Protheus's Code can't be empty");
-
-        RuleFor(cmd => cmd.Nome)
-            .NotEmpty()
-            .WithMessage("The Protheus's Code can't be empty");
-
-        RuleFor(cmd => cmd.Nome)
-        .MinimumLength(6)
+        RuleFor(cmd => cmd.Name)
+        .MinimumLength(2)
         .WithMessage("Minimum length should be {MinimumLength} characters");
 
-
+        RuleFor(cmd => cmd.Name)
+        .MaximumLength(75)
+        .WithMessage("Maximum length should be {MaximumLength} characters");
 
     }
 }
@@ -38,6 +33,13 @@ public class CreateAttendantCommandHandler(IAttendantState state, IMediator medi
 {
     public async Task<Result<AttendantCreated>> Handle(CreateAttendantCommand request, CancellationToken cancellationToken)
     {
+        AttendantAgg? existing = await state.Get(request.CardId);
+        if (existing != null)
+        {
+            var result = Result.Ok();
+            return result.WithError("This CardId is already in use");
+        }
+
         Result<AttendantCreated>? attendantHasBeenCreated = AttendantAgg.Create(request);
         Result<AttendantCreated>? fail = Result.Fail<AttendantCreated>("Attendant creation failed!");
 

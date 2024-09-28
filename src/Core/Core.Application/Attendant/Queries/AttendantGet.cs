@@ -11,4 +11,5 @@ public record AttendantGetOne : QueryOneBase<AttendantAgg>
 }
 
 public record AttendantGetMany: QueryManyBase
-{ }
+{ 
+}
