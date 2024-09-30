@@ -13,6 +13,7 @@ public class TicketAgg : AggRoot
     public DateTime CreatedDate { get; internal set; }
     public DateTime? AbandonedDate { get; internal set; }
     public DateTime? ClosedDate { get; internal set; }
+
     public IEnumerable<Product> Products { get; internal set; } = new List<Product>();
 
     public decimal TotalItems { 
@@ -33,7 +34,7 @@ public class TicketAgg : AggRoot
     /// <summary>
     /// Enable create a new Ticket only inside this namespace
     /// </summary>
-    internal TicketAgg()
+    private TicketAgg()
     {
 
     }
@@ -70,7 +71,7 @@ public class TicketAgg : AggRoot
     /// <summary>
     /// Creates a new Aggregate
     /// </summary>
-    public static Result<TicketAgg> Create(string id, string attendantId, string description, DateTime createdDate, DateTime? abandonedDate, DateTime? closedDate)
+    private static Result<TicketAgg> Create(string id, string attendantId, string description, DateTime createdDate, DateTime? abandonedDate, DateTime? closedDate)
     {
         var ticket = new TicketAgg();
         ticket.Id = id;
