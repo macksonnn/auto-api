@@ -6,7 +6,7 @@ public class AttendantGetQueryHandler(IAttendantState state) : IRequestHandler<A
 {
     public async Task<Result<AttendantAgg>> Handle(AttendantGetOne request, CancellationToken cancellationToken)
     {
-        return await state.Get(request.Id);
+        return await state.GetByCard(request.Id);
     }
 }
 
