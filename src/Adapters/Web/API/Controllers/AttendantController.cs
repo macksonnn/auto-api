@@ -1,13 +1,12 @@
 ﻿using AutoMais.Ticket.Core.Application.Attendant.Queries;
 using AutoMais.Ticket.Core.Domain.Aggregates.Attendant.Commands;
-using Becape.Core.Common.Startup;
 
 namespace AutoMais.Ticket.Api.Controllers;
 public class AttendantController : IEndpointDefinition
 {
     public void RegisterEndpoints(RouteGroupBuilder app)
     {
-        var v1 = app.MapGroup("/api/v2/attendant");
+        var v1 = app.MapGroup("/api/v1/attendants");
 
         v1.MapGet("/{id}", async ([FromRoute] string id, IMediator mediator, CancellationToken cancellationToken) =>
         {
