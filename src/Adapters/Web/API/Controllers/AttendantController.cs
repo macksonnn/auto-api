@@ -14,6 +14,16 @@ public class AttendantController : IEndpointDefinition
             return await mediator.Send(query, cancellationToken);
         });
 
+        v1.MapPatch("/{id}/disable", async ([FromRoute] string id, IMediator mediator, CancellationToken cancellationToken) =>
+        {
+            return await mediator.Send(new DisableAttendantCommand(id), cancellationToken);
+        });
+        
+        v1.MapPatch("/{id}/enable", async ([FromRoute] string id, IMediator mediator, CancellationToken cancellationToken) =>
+        {
+            return await mediator.Send(new EnableAttendantCommand(id), cancellationToken);
+        });
+
         v1.MapPost("/", async ([FromBody] CreateAttendantCommand command, IMediator mediator, CancellationToken cancellationToken) =>
         {
             return await mediator.Send(command, cancellationToken);

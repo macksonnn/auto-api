@@ -26,11 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Aggregates\Attendant\Commands\" />
-    <Folder Include="Aggregates\Attendant\Events\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\AutoMais.Core.Common\src\AutoMais.Core.Common.csproj" />
   </ItemGroup>
 

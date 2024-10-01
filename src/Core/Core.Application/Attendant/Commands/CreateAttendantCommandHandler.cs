@@ -29,18 +29,19 @@ public sealed class CreateAttendantValidator : AbstractValidator<CreateAttendant
 
     }
 }
+
 public class CreateAttendantCommandHandler(IAttendantState state, IMediator mediator) : IRequestHandler<CreateAttendantCommand, Result<AttendantCreated>>
 {
-    public async Task<Result<AttendantCreated>> Handle(CreateAttendantCommand request, CancellationToken cancellationToken)
+    public async Task<Result<AttendantCreated>> Handle(CreateAttendantCommand command, CancellationToken cancellationToken)
     {
-        AttendantAgg? existing = await state.GetByCard(request.CardId);
+        AttendantAgg? existing = await state.GetByCard(command.CardId);
         if (existing != null)
         {
             var result = Result.Ok();
             return result.WithValidationError("CardId", "This CardId is already in use");
         }
 
-        var attendantHasBeenCreated = AttendantAgg.Create(request);
+        var attendantHasBeenCreated = AttendantAgg.Create(command);
 
         if (attendantHasBeenCreated.IsSuccess)
         {
