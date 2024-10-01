@@ -7,7 +7,7 @@ public class TicketsOfAttendantQueryHandler(ITicketState state) : IRequestHandle
 {
     public async Task<Result<IEnumerable<TicketAgg>>> Handle(TicketsOfAttendant request, CancellationToken cancellationToken)
     {
-        var items = await state.GetPagedAsync(x => x.AttendantId == request.AttendantId, request.PageNumber, request.PageSize);
+        var items = await state.GetPagedAsync(x => x.Attendant.CardId == request.CardId, request.PageNumber, request.PageSize);
 
         return Result.Ok(items);
     }

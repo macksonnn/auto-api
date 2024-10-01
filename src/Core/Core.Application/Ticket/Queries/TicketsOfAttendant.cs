@@ -6,12 +6,12 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Queries
     {
         public TicketsOfAttendant(string attendantId, int pageSize, int pageNumber)
         {
-            AttendantId = attendantId;
+            CardId = attendantId;
             PageNumber = pageNumber;
             PageSize = pageSize;
         }
 
-        public string AttendantId { get; set; }
+        public string CardId { get; set; }
         public int PageNumber { get; set; } = 0;
         public int PageSize { get; set; } = 20;
     }
@@ -23,9 +23,9 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Queries
     {
         public TicketsOfAttendantValidator()
         {
-            RuleFor(command => command.AttendantId)
+            RuleFor(command => command.CardId)
                 .NotEmpty()
-                .WithMessage("The AttendantId can't be empty.");
+                .WithMessage("The CardId can't be empty.");
         }
     }
 }

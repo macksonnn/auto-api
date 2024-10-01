@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Becape.Services.Streams.Rabbit" Version="1.0.0" />
-    <PackageReference Include="Becape.Services.Streams.ServiceBus" Version="1.0.0" />
+    <PackageReference Include="AutoMais.Services.Streams.ServiceBus" Version="1.1.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
     <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />

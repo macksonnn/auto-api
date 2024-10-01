@@ -1,5 +1,5 @@
-using Becape.Core.Common.Startup;
-using Becape.Core.Common.Middlewares;
+using AutoMais.Core.Common.Startup;
+using AutoMais.Core.Common.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 

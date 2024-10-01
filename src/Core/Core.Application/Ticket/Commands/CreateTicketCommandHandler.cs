@@ -1,7 +1,10 @@
-﻿using AutoMais.Ticket.Core.Application.Ticket.State;
+﻿using AutoMais.Ticket.Core.Application.Attendant.State;
+using AutoMais.Ticket.Core.Application.Ticket.State;
+using AutoMais.Ticket.Core.Domain.Aggregates.Product;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
+using FluentResults;
 
 namespace AutoMais.Ticket.Core.Application.Ticket.Commands
 {
@@ -12,11 +15,11 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
     {
         public CreateTicketCommandValidator()
         {
-            RuleFor(command => command.AttendantId)
+            RuleFor(command => command.CardId)
                 .NotEmpty()
                 .WithMessage("The AttendantId can't be empty.");
 
-            RuleFor(command => command.AttendantId)
+            RuleFor(command => command.CardId)
                 .MinimumLength(6)
                 .NotEqual("Lucas")
                 .WithMessage("Text not equal Lucas");
@@ -33,19 +36,21 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
     /// <summary>
     /// The command handler is the Application class responsible for connect multiple adapters and run the business logic in the domain
     /// </summary>
-    public class CreateTicketCommandHandler(ITicketState state, IMediator mediator) : IRequestHandler<CreateTicketCommand, Result<TicketCreated>>
+    public class CreateTicketCommandHandler(ITicketState ticketState, IAttendantState attendantState, IMediator mediator) : IRequestHandler<CreateTicketCommand, Result<TicketCreated>>
     {
         public async Task<Result<TicketCreated>> Handle(CreateTicketCommand request, CancellationToken cancellationToken)
         {
-            //Ir no banco
-            //chamr serviço de api externo 
-
-            var ticketHasBeenCreated = TicketAgg.Create(request);
             var fail = Result.Fail<TicketCreated>("Ticket creation failed");
+
+            var attendantAgg = await attendantState.GetByCard(request.CardId);
+            if (attendantAgg == null)
+                return fail.WithValidationError("CardId", $"Attendant not found");
+
+            var ticketHasBeenCreated = TicketAgg.Create(request, Domain.Aggregates.Ticket.Attendant.Create(attendantAgg));
 
             if (ticketHasBeenCreated.IsSuccess)
             {
-                var saveResult = await state.Add(ticketHasBeenCreated.Value.Ticket);
+                var saveResult = await ticketState.Add(ticketHasBeenCreated.Value.Ticket);
                 if (saveResult?.Value != null)
                 {
                     var ticketCreated = saveResult?.Value?.Created() ?? fail;

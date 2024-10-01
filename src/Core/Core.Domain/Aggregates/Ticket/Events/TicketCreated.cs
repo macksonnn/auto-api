@@ -12,6 +12,8 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
         public TicketAgg Ticket { get; private set; }
         public string Description { get; private set; }
 
+        public Attendant Attendant { get; private set; }
+
         //TODO: Add the possible payment types
 
         public static TicketCreated Create(TicketAgg ticket)
@@ -21,7 +23,8 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
                 TicketId = ticket.Id,
                 Description = ticket.Description,
                 CreatedDate = ticket.CreatedDate,
-                Ticket = ticket
+                Ticket = ticket,
+                Attendant = ticket.Attendant
             };
         }
     }

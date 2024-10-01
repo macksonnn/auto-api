@@ -8,7 +8,7 @@ public class TicketAgg : AggRoot
 {
     public string Id { get; internal set; }
     public string Description { get; internal set; }
-    public string AttendantId { get; internal set; }
+    public Attendant Attendant { get; internal set; }
 
     public DateTime CreatedDate { get; internal set; }
     public DateTime? AbandonedDate { get; internal set; }
@@ -43,19 +43,19 @@ public class TicketAgg : AggRoot
     /// Creates a new Aggregate with all business rules to be validated
     /// </summary>
     /// <param name="command"></param>
-    private TicketAgg(CreateTicketCommand command)
+    private TicketAgg(CreateTicketCommand command, Attendant attendant)
     {
         Id = Guid.NewGuid().ToString();
         Description = $"Ticket for {command.Plate}";
         CreatedDate = DateTime.Now;
-        AttendantId = command.AttendantId;
+        Attendant = attendant;
     }
 
-    public static Result<TicketCreated> Create(CreateTicketCommand command)
+    public static Result<TicketCreated> Create(CreateTicketCommand command, Attendant attendant)
     {
         var result = Result.Ok();
         //Add additional validations and return failures in Result if needed
-        var agg = new TicketAgg(command);
+        var agg = new TicketAgg(command, attendant);
 
         if (command.Plate == "Lucas")
             result.WithError("Plate cannot be equals Lucas");
@@ -71,7 +71,7 @@ public class TicketAgg : AggRoot
     /// <summary>
     /// Creates a new Aggregate
     /// </summary>
-    private static Result<TicketAgg> Create(string id, string attendantId, string description, DateTime createdDate, DateTime? abandonedDate, DateTime? closedDate)
+    private static Result<TicketAgg> Create(string id, string description, DateTime createdDate, DateTime? abandonedDate, DateTime? closedDate, Attendant attendant)
     {
         var ticket = new TicketAgg();
         ticket.Id = id;
@@ -79,7 +79,7 @@ public class TicketAgg : AggRoot
         ticket.CreatedDate = createdDate;
         ticket.AbandonedDate = abandonedDate;
         ticket.ClosedDate = closedDate;
-        ticket.AttendantId = attendantId;
+        ticket.Attendant = attendant;
 
         return Result.Ok(ticket);
     }
