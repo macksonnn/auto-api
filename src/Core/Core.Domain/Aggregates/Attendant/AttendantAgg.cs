@@ -49,10 +49,13 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Attendant
             return AttendantCreated.Create(this);
         }
 
-        public AttendantAgg Disable()
+        public Result<AttendantDisabled> Disable()
         {
+            if (this.IsEnabled == false)
+                return Result.Fail("Attendant already disabled").WithValidationError("DisabledDate", "This attendant has already been disabled");
+
             DisabledDate = DateTime.Now;
-            return this;
+            return Result.Ok(AttendantDisabled.Create(this));
         }
 
         public AttendantAgg ChangeCard(string newCard)
