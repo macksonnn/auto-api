@@ -57,8 +57,8 @@ public class TicketAgg : AggRoot
         //Add additional validations and return failures in Result if needed
         var agg = new TicketAgg(command, attendant);
 
-        if (command.Plate == "Lucas")
-            result.WithError("Plate cannot be equals Lucas");
+        //if (command.Plate == "Lucas")
+        //    result.WithError("Plate cannot be equals Lucas");
 
         return result.ToResult(agg.Created());
     }
