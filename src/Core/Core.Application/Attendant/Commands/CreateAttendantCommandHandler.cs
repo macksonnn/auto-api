@@ -33,27 +33,25 @@ public class CreateAttendantCommandHandler(IAttendantState state, IMediator medi
 {
     public async Task<Result<AttendantCreated>> Handle(CreateAttendantCommand request, CancellationToken cancellationToken)
     {
-        AttendantAgg? existing = await state.Get(request.CardId);
+        AttendantAgg? existing = await state.GetByCard(request.CardId);
         if (existing != null)
         {
             var result = Result.Ok();
-            return result.WithError("This CardId is already in use");
+            return result.WithValidationError("CardId", "This CardId is already in use");
         }
 
-        Result<AttendantCreated>? attendantHasBeenCreated = AttendantAgg.Create(request);
-        Result<AttendantCreated>? fail = Result.Fail<AttendantCreated>("Attendant creation failed!");
+        var attendantHasBeenCreated = AttendantAgg.Create(request);
 
         if (attendantHasBeenCreated.IsSuccess)
         {
             Result<AttendantAgg>? saveResult = await state.Add(attendantHasBeenCreated.Value.Attendant);
 
-            if (saveResult?.Value != null)
+            if (saveResult.IsSuccess && saveResult?.Value != null)
             {
-                var attendantCreated = saveResult?.Value?.Created() ?? fail;
-                mediator.Publish(attendantCreated.Value).ConfigureAwait(false);
-                return attendantCreated;
+                await mediator.Publish(attendantHasBeenCreated.Value);
+                return attendantHasBeenCreated;
             }
-            return fail.WithErrors(saveResult?.Errors);
+            return Result.Fail<AttendantCreated>("Attendant creation failed!").WithErrors(saveResult?.Errors);
         }
         return attendantHasBeenCreated;
     }
