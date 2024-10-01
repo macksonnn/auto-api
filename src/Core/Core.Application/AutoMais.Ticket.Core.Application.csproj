@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Becape.Core.Common\src\Becape.Core.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\AutoMais.Core.Common\src\AutoMais.Core.Common.csproj" />
     <ProjectReference Include="..\Core.Domain\AutoMais.Ticket.Core.Domain.csproj" />
   </ItemGroup>
 

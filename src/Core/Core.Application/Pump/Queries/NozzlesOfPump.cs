@@ -1,6 +1,5 @@
 ﻿using AutoMais.Ticket.Core.Application.Pump.State;
 using AutoMais.Ticket.Core.Domain.Aggregates.Pump;
-using Becape.Core.Common.Startup;
 
 namespace AutoMais.Ticket.Core.Application.Pump.Queries
 {

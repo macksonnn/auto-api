@@ -26,12 +26,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Becape.Core.Common\src\Becape.Core.Common.csproj" />
+    <Folder Include="Aggregates\Attendant\Commands\" />
+    <Folder Include="Aggregates\Attendant\Events\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Aggregates\Attendant\Commands\" />
-    <Folder Include="Aggregates\Attendant\Events\" />
+    <ProjectReference Include="..\..\..\..\..\AutoMais.Core.Common\src\AutoMais.Core.Common.csproj" />
   </ItemGroup>
 
 </Project> 

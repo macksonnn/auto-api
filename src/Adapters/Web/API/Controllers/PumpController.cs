@@ -1,9 +1,5 @@
 ﻿using AutoMais.Ticket.Core.Application.Pump.Queries;
-using AutoMais.Ticket.Core.Application.Ticket.Queries;
-using AutoMais.Ticket.Core.Domain.Aggregates.Pump;
 using AutoMais.Ticket.Core.Domain.Aggregates.Pump.Commands;
-using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
-using Becape.Core.Common.Startup;
 
 namespace AutoMais.Ticket.Api.Controllers
 {

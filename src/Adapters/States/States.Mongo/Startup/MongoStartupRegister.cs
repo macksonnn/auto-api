@@ -1,5 +1,4 @@
 ﻿using AutoMais.Ticket.Core.Application;
-using Becape.Core.Common.Startup;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;

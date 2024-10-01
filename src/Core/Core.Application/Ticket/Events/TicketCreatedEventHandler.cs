@@ -1,6 +1,6 @@
 ﻿using AutoMais.Ticket.Core.Application.Ticket.Stream;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
-using Becape.Core.Common.Stream;
+using AutoMais.Core.Common.Stream;
 
 namespace AutoMais.Ticket.Core.Application.Ticket.Events
 {

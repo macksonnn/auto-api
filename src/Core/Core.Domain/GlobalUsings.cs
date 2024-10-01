@@ -1,3 +1,3 @@
-﻿global using Becape.Core.Common;
-global using FluentResults;
-global using Becape.Core.Common.Extensions;
+﻿global using FluentResults;
+global using AutoMais.Core.Common;
+global using AutoMais.Core.Common.Extensions;
