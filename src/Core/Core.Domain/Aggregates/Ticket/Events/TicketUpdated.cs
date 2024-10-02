@@ -9,13 +9,20 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
 
         public DateTime CreatedDate { get; private set; }
 
-        [JsonIgnore] //Make this property non-serializable
-        public TicketAgg Ticket { get; private set; }
         public string Description { get; private set; }
+        public decimal ProductsPrice { get; private set; }
+        public decimal ProductsQuantity { get; private set; }
+
+        public decimal FuelVolume { get; private set; }
+        public decimal FuelPrice { get; private set; }
+        public decimal TotalCost { get; private set; }
 
         public Attendant Attendant { get; private set; }
+        public IEnumerable<Supply> Supplies { get; private set; }
+        public IEnumerable<Product> Products { get; private set; }
 
-        //TODO: Add the possible payment types
+        [JsonIgnore] //Make this property non-serializable
+        public TicketAgg Ticket { get; private set; }
 
         public static TicketUpdated Create(TicketAgg ticket)
         {
@@ -26,7 +33,14 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
                 Description = ticket.Description,
                 CreatedDate = ticket.CreatedDate,
                 Ticket = ticket,
-                Attendant = ticket.Attendant
+                Attendant = ticket.Attendant,
+                Supplies = ticket.Supplies,
+                Products = ticket.Products,
+                ProductsPrice = ticket.ProductsTotalPrice,
+                ProductsQuantity = ticket.ProductsTotalQuantity,
+                FuelVolume = ticket.FuelTotalVolume,
+                FuelPrice = ticket.FuelTotalPrice,
+                TotalCost = ticket.TotalCost
             };
         }
     }

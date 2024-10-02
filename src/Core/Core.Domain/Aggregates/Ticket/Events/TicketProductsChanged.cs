@@ -18,6 +18,6 @@ public class TicketProductsChanged : IDomainEvent
 
     public static TicketProductsChanged Create(TicketAgg ticket)
     {
-        return new TicketProductsChanged(ticket.Id, ticket.TotalItems, ticket.TotalPrice);
+        return new TicketProductsChanged(ticket.Id, ticket.ProductsTotalQuantity, ticket.ProductsTotalPrice);
     }
 }

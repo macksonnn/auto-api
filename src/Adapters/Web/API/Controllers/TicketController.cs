@@ -26,6 +26,24 @@ namespace AutoMais.Ticket.Api.Controllers
                 return await mediator.Send(query, cancellationToken);
             });
 
+
+
+            v1.MapPatch("/{TicketId}/fuel/pump/{PumpNumber}/nozzle/{NozzleNumber}/{Quantity}", async (IMediator mediator, CancellationToken cancellationToken,
+                [FromRoute] string TicketId,
+                [FromRoute] int PumpNumber,
+                [FromRoute] int NozzleNumber,
+                [FromRoute] int Quantity) =>
+            {
+                var command = new AddFuelToTicketCommand()
+                {
+                    TicketId = TicketId,
+                    PumpNumber = PumpNumber,
+                    NozzleNumber = NozzleNumber,
+                    Quantity = Quantity
+                };
+                return await mediator.Send(command, cancellationToken);
+            });
+
             v1.MapPost("/", async ([FromBody] CreateTicketCommand command, IMediator mediator, CancellationToken cancellationToken) =>
             {
                 return await mediator.Send(command, cancellationToken);

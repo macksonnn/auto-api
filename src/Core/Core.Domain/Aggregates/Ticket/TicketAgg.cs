@@ -1,4 +1,5 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Product;
+using AutoMais.Ticket.Core.Domain.Aggregates.Pump;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
 using System.Security.Cryptography;
@@ -17,19 +18,45 @@ public class TicketAgg : AggRoot
     public DateTime? ClosedDate { get; internal set; }
 
     public IEnumerable<Product> Products { get; internal set; } = new List<Product>();
+    public IEnumerable<Supply> Supplies { get; internal set; } = new List<Supply>();
 
-    public decimal TotalItems { 
+    public decimal ProductsTotalQuantity
+    {
         get
         {
             return Products.Sum(p => p.Quantity);
-        } 
+        }
     }
 
-    public decimal TotalPrice
+    public decimal ProductsTotalPrice
     {
         get
         {
             return Products.Sum(p => p.Total);
+        }
+    }
+
+    public decimal FuelTotalVolume
+    {
+        get
+        {
+            return Supplies.Sum(p => p.Quantity);
+        }
+    }
+
+    public decimal FuelTotalPrice
+    {
+        get
+        {
+            return Supplies.Sum(p => p.TotalCost);
+        }
+    }
+
+    public decimal TotalCost
+    {
+        get
+        {
+            return FuelTotalPrice + ProductsTotalPrice;
         }
     }
 
@@ -74,23 +101,6 @@ public class TicketAgg : AggRoot
         return TicketCreated.Create(this);
     }
 
-    /// <summary>
-    /// Creates a new Aggregate
-    /// </summary>
-    private static Result<TicketAgg> Create(string id, string description, DateTime createdDate, DateTime? abandonedDate, DateTime? closedDate, Attendant attendant)
-    {
-        var ticket = new TicketAgg();
-        ticket.Id = id;
-        ticket.Description = description;
-        ticket.CreatedDate = createdDate;
-        ticket.AbandonedDate = abandonedDate;
-        ticket.ClosedDate = closedDate;
-        ticket.Attendant = attendant;
-
-        return Result.Ok(ticket);
-    }
-
-
     public Result<TicketProductsChanged> AddProduct(AddProductToTicketCommand command, ProductAgg productAgg)
     {
         var result = Result.Ok();
@@ -118,6 +128,28 @@ public class TicketAgg : AggRoot
 
         return result.ToResult(TicketProductsChanged.Create(this));
 
+    }
+
+    public Result<TicketUpdated> AddOrUpdateSupply(Nozzle nozzle, decimal quantity)
+    {
+        var list = this.Supplies.ToList();
+        var index = list.FindIndex(x => x.Nozzle.Number == nozzle.Number);
+        if (index >= 0)
+        {
+            list[index].IncreaseQuantity(quantity);
+        } else
+        {
+            list.Add(Supply.Create(nozzle, quantity));
+        }
+
+        Supplies = list;
+
+        return this.Updated();
+    }
+
+    private Result<TicketUpdated> Updated()
+    {
+        return TicketUpdated.Create(this);
     }
 
     //public Result<ProductRemoved> RemoveProduct(RemoveProductFromTicket command)

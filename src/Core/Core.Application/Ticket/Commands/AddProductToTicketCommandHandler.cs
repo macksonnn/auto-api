@@ -36,24 +36,24 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
 
     public class AddProductToTicketCommandHandler (ITicketState ticketState, IProductState productState, IMediator mediator) : IRequestHandler<AddProductToTicketCommand, Result<TicketProductsChanged>>
     {
-        public async Task<Result<TicketProductsChanged>> Handle(AddProductToTicketCommand command, CancellationToken cancellationToken)
+        public async Task<Result<TicketProductsChanged>> Handle(AddProductToTicketCommand request, CancellationToken cancellationToken)
         {
             var result = Result.Ok();
-            var ticket = await ticketState.Get(command.TicketId);
+            var ticket = await ticketState.Get(request.TicketId);
 
             if (ticket == null)
                 return result.WithError("Ticket not found");
 
-            var product = await productState.Get(command.ProductId);
+            var product = await productState.Get(request.ProductId);
 
             if (product == null)
                 return result.WithError("Product not found");
 
-            var addResult = ticket.AddProduct(command, product);
+            var addResult = ticket.AddProduct(request, product);
 
             if (addResult.IsSuccess)
             {
-                var update = await ticketState.Update(command.TicketId, ticket);
+                var update = await ticketState.Update(request.TicketId, ticket);
                 if (update.IsSuccess)
                     await mediator.Publish(addResult.Value, cancellationToken);
             }
