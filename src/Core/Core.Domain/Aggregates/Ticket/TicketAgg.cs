@@ -1,12 +1,14 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Product;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
+using System.Security.Cryptography;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
 
 public class TicketAgg : AggRoot
 {
     public string Id { get; internal set; }
+    public string Code { get; internal set; }
     public string Description { get; internal set; }
     public Attendant Attendant { get; internal set; }
 
@@ -46,6 +48,10 @@ public class TicketAgg : AggRoot
     private TicketAgg(CreateTicketCommand command, Attendant attendant)
     {
         Id = Guid.NewGuid().ToString();
+        Code = RandomNumberGenerator.GetString(
+            choices: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+            length: 6
+        );
         Description = $"Ticket for {command.Plate}";
         CreatedDate = DateTime.Now;
         Attendant = attendant;

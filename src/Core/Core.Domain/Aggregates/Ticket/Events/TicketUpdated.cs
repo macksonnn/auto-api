@@ -2,7 +2,7 @@
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
 {
-    public class TicketCreated : IDomainEvent
+    public class TicketUpdated : IDomainEvent
     {
         public string TicketId { get; private set; }
         public string Code { get; private set; }
@@ -17,9 +17,9 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
 
         //TODO: Add the possible payment types
 
-        public static TicketCreated Create(TicketAgg ticket)
+        public static TicketUpdated Create(TicketAgg ticket)
         {
-            return new TicketCreated
+            return new TicketUpdated
             {
                 TicketId = ticket.Id,
                 Code = ticket.Code,

@@ -1,7 +1,4 @@
-﻿
-
-using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
-using MediatR;
+﻿using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands; 
 
@@ -10,8 +7,7 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 /// </summary>
 /// <param name="ProductId">The product unique identifier</param>
 /// <param name="Quantity">The quantity of the product</param>
-/// <param name="UnitPrice">The product Unit price</param>
-public record AddProductToTicketCommand(string ProductId, decimal Quantity) : IRequest<Result<TicketProductsChanged>>
+public record AddProductToTicketCommand(string ProductId, decimal Quantity) : ICommand<TicketProductsChanged>
 {
     public string TicketId { get; private set; }
 
