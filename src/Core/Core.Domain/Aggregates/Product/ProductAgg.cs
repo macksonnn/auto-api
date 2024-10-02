@@ -1,6 +1,5 @@
-﻿using AutoMais.Ticket.Core.Domain.Aggregates.Product.Events;
-using AutoMais.Ticket.Core.Domain.Aggregates.Product.Commands;
-using System.Text.Json.Serialization;
+﻿using AutoMais.Ticket.Core.Domain.Aggregates.Product.Commands;
+using AutoMais.Ticket.Core.Domain.Aggregates.Product.Events;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Product
 {
@@ -13,6 +12,7 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Product
         public int Quantity { get; internal set; }
         public decimal MaxItemsPerCart { get; internal set; }
         public DateTime CreatedDate { get; internal set; }
+        public bool isEnabled { get; internal set; }
 
         /// <summary>
         /// Creates a new Aggregate with all business rules to be validated
@@ -27,6 +27,19 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Product
             Quantity = command.Quantity;
             MaxItemsPerCart = command.MaxItemsPerCart;
             CreatedDate = DateTime.Now;
+            isEnabled = true;
+        }
+
+        public Result<ProductUpdated> Disable()
+        {
+            this.isEnabled = false;
+            return Result.Ok(ProductUpdated.Create(this));
+        }
+
+        public Result<ProductUpdated> Enable()
+        {
+            this.isEnabled = true;
+            return Result.Ok(ProductUpdated.Create(this));
         }
 
         public static Result<ProductCreated> Create(CreateProductCommand command)
@@ -41,9 +54,23 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Product
             return result.ToResult(agg.Created());
         }
 
+        public Result<ProductUpdated> Change(UpdateProductCommand command)
+        {
+            var result = Result.Ok();
+            //Add additional validations and return failures in Result if needed
+
+            this.Name = command.Name;
+            this.Description = command.Description;
+            this.Price = command.Price;
+            this.Quantity = command.Quantity;
+            this.MaxItemsPerCart = command.MaxItemsPerCart;
+
+            return result.ToResult(ProductUpdated.Create(this));
+        }
+
         public ProductCreated Created()
         {
-            return new ProductCreated(Id, Name, Price, Quantity) { Product = this };
+            return ProductCreated.Create(this);
         }
     }
 }
