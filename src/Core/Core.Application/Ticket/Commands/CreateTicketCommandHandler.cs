@@ -1,10 +1,8 @@
 ﻿using AutoMais.Ticket.Core.Application.Attendant.State;
 using AutoMais.Ticket.Core.Application.Ticket.State;
-using AutoMais.Ticket.Core.Domain.Aggregates.Product;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
-using FluentResults;
 
 namespace AutoMais.Ticket.Core.Application.Ticket.Commands
 {
@@ -17,7 +15,7 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
         {
             RuleFor(command => command.CardId)
                 .NotEmpty()
-                .WithMessage("The AttendantId can't be empty.");
+                .WithMessage("The CardId can't be empty.");
 
             RuleFor(command => command.CardId)
                 .MinimumLength(6)
