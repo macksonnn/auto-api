@@ -32,6 +32,17 @@ namespace AutoMais.Ticket.Api.Controllers
                 return await mediator.Send(new RemoveNozzleCommand(pumpNumber, nozzleId), cancellationToken);
             });
 
+            v1.MapPatch("/{pumpNumber}/nozzles/{nozzleId}/fuel", async (IMediator mediator, CancellationToken cancellationToken,
+                [FromRoute] int pumpNumber,
+                [FromRoute] int nozzleId,
+                [FromBody] ChangeNozzleFuelCommand command) =>
+            {
+                command.NozzleId = nozzleId;
+                command.PumpNumber = pumpNumber;
+
+                return await mediator.Send(command, cancellationToken);
+            });
+
             v1.MapPost("/", async (IMediator mediator, CancellationToken cancellationToken,
                 [FromBody] CreateNewPumpCommand command) =>
             {
@@ -40,7 +51,7 @@ namespace AutoMais.Ticket.Api.Controllers
 
             v1.MapPost("/{pumpNumber}/nozzles", async (IMediator mediator, CancellationToken cancellationToken,
                 [FromRoute] int pumpNumber, 
-                [FromBody] AddNozzleCommand command) =>
+                [FromBody] CreateNozzleCommand command) =>
             {
                 command.ChangePumpNumber(pumpNumber);
                 return await mediator.Send(command, cancellationToken);

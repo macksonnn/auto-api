@@ -1,5 +1,7 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Pump.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Pump.Events;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Pump;
 
@@ -13,7 +15,7 @@ public class PumpAgg : AggRoot
 
 
 
-    public Result<NozzleCreated> AddNozzle(AddNozzleCommand command)
+    public Result<NozzleCreated> AddNozzle(CreateNozzleCommand command)
     {
         var result = Result.Ok();
 
@@ -22,7 +24,7 @@ public class PumpAgg : AggRoot
         if (nozzles.Any(x => x.Number == command.Number))
             return result.WithValidationError("Nozzle", $"Nozzle No.{command.Number} already exists");
 
-        var nozzle = Nozzle.Create(command.Number, command.Description, command.Color);
+        var nozzle = Nozzle.Create(command);
         nozzles.Add(nozzle);
 
         Nozzles = nozzles;
@@ -64,4 +66,13 @@ public class PumpAgg : AggRoot
         return result.ToResult(pump);
     }
 
+    public void ChangeNozzle(Nozzle nozzle)
+    {
+        var list = this.Nozzles.ToList();
+        var index = list.FindIndex(x => x.Number == nozzle.Number);
+
+        list[index] = nozzle;
+
+        this.Nozzles = list;
+    }
 }

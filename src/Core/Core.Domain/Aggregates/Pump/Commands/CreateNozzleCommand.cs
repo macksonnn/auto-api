@@ -2,7 +2,7 @@
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Pump.Commands
 {
-    public record AddNozzleCommand() : ICommand<NozzleCreated>
+    public record CreateNozzleCommand() : ICommand<NozzleCreated>
     {
         public int Number { get; set; }
         public string Description { get; set; }

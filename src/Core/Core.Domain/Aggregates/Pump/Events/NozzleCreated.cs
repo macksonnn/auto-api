@@ -1,13 +1,19 @@
 ﻿
-namespace AutoMais.Ticket.Core.Domain.Aggregates.Pump.Events
+namespace AutoMais.Ticket.Core.Domain.Aggregates.Pump.Events;
+
+public class NozzleCreated : Nozzle, IDomainEvent
 {
-    public class NozzleCreated : Nozzle, IDomainEvent
+    public NozzleCreated(Nozzle nozzle)
     {
-        public NozzleCreated(Nozzle nozzle)
-        {
-            this.Color = nozzle.Color;
-            this.Description = nozzle.Description;
-            this.Number = nozzle.Number;
-        }
+        this.Color = nozzle.Color;
+        this.Description = nozzle.Description;
+        this.Number = nozzle.Number;
+    }
+}
+
+public record FuelChanged : Fuel, IDomainEvent
+{
+    public FuelChanged(Fuel fuel) : base(fuel)
+    {
     }
 }

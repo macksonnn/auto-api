@@ -7,7 +7,7 @@ namespace AutoMais.Ticket.Core.Application.Pump.Commands
     /// <summary>
     /// The command validator contains the rules to ensure the object is valid
     /// </summary>
-    public sealed class AddNozzleCommandValidator : AbstractValidator<AddNozzleCommand>
+    public sealed class AddNozzleCommandValidator : AbstractValidator<CreateNozzleCommand>
     {
         public AddNozzleCommandValidator()
         {
@@ -26,9 +26,9 @@ namespace AutoMais.Ticket.Core.Application.Pump.Commands
         }
     }
 
-    public class AddNozzleCommandHandler(IPumpState state, IMediator mediator) : IRequestHandler<AddNozzleCommand, Result<NozzleCreated>>
+    public class AddNozzleCommandHandler(IPumpState state, IMediator mediator) : IRequestHandler<CreateNozzleCommand, Result<NozzleCreated>>
     {
-        public async Task<Result<NozzleCreated>> Handle(AddNozzleCommand request, CancellationToken cancellationToken)
+        public async Task<Result<NozzleCreated>> Handle(CreateNozzleCommand request, CancellationToken cancellationToken)
         {
             var pump = await state.Get(x => x.Number == request.PumpNumber);
 
