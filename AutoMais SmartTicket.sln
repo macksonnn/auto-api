@@ -42,7 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pumps", "Pumps", "{E4E7960A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMais.Ticket.States.Mongo", "src\Adapters\States\States.Mongo\AutoMais.Ticket.States.Mongo.csproj", "{E6181675-6B1C-4D34-9107-99906C4E0D9D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMais.Core.Common", "..\..\AutoMais.Core.Common\src\AutoMais.Core.Common.csproj", "{9D0D3C3B-855A-4AA5-AA4A-BCD1AB12C8A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMais.Core.Common", "..\AutoMais.Core.Common\src\AutoMais.Core.Common.csproj", "{9D0D3C3B-855A-4AA5-AA4A-BCD1AB12C8A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\AutoMais.Core.Common\src\AutoMais.Core.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\AutoMais.Core.Common\src\AutoMais.Core.Common.csproj" />
     <ProjectReference Include="..\..\..\Core\Core.Application\AutoMais.Ticket.Core.Application.csproj" />
     <ProjectReference Include="..\..\..\Core\Core.Domain\AutoMais.Ticket.Core.Domain.csproj" />
   </ItemGroup>
