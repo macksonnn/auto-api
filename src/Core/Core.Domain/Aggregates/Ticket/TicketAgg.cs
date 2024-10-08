@@ -27,6 +27,10 @@ public class TicketAgg : AggRoot
         {
             return Products.Sum(p => p.Quantity);
         }
+        private set
+        {
+
+        }
     }
 
     public decimal ProductsTotalPrice
@@ -34,6 +38,10 @@ public class TicketAgg : AggRoot
         get
         {
             return Products.Sum(p => p.Total);
+        }
+        private set
+        {
+
         }
     }
 
@@ -43,6 +51,10 @@ public class TicketAgg : AggRoot
         {
             return Supplies.Sum(p => p.Quantity);
         }
+        private set
+        {
+
+        }
     }
 
     public decimal FuelTotalPrice
@@ -51,6 +63,10 @@ public class TicketAgg : AggRoot
         {
             return Supplies.Sum(p => p.Cost);
         }
+        private set
+        {
+
+        }
     }
 
     public decimal TotalCost
@@ -58,6 +74,10 @@ public class TicketAgg : AggRoot
         get
         {
             return FuelTotalPrice + ProductsTotalPrice;
+        }
+        private set
+        {
+
         }
     }
 
