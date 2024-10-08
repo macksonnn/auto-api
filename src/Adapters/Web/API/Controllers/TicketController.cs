@@ -83,6 +83,18 @@ namespace AutoMais.Ticket.Api.Controllers
                 var command = new RemoveProductFromTicketCommand(ticketId, productId);
                 return await mediator.Send(command, cancellationToken);
             });
+
+
+            v1.MapPatch("/{ticketId}/product/{productId}/quantity/{quantity}", async (
+                [FromRoute] string ticketId,
+                [FromRoute] string productId,
+                [FromRoute] decimal quantity,
+                IMediator mediator,
+                CancellationToken cancellationToken) =>
+            {
+                var command = new ChangeProductQuantityOnTicketCommand(ticketId, productId, quantity);
+                return await mediator.Send(command, cancellationToken);
+            });
         }
     }
 }

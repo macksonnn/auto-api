@@ -28,3 +28,18 @@ public record RemoveProductFromTicketCommand(string TicketId, string ProductId) 
     [JsonIgnore]
     public ProductAgg? Product { get; set; }
 };
+
+
+/// <summary>
+/// Command to remove an existing product from the ticket
+/// </summary>
+/// <param name="TicketId">The ticket to remove the product from</param>
+/// <param name="ProductId">The product unique identifier</param>
+public record ChangeProductQuantityOnTicketCommand(string TicketId, string ProductId, decimal Quantity) : ICommand<TicketUpdated>
+{
+    [JsonIgnore]
+    public TicketAgg? Ticket { get; set; }
+
+    [JsonIgnore]
+    public ProductAgg? Product { get; set; }
+};
