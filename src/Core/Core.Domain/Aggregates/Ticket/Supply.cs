@@ -8,15 +8,17 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket
         public DateTime? FinishedDate { get; private set; }
         public DateTime? LastUpdatedDate { get; private set; }
         public SupplyStatus Status { get; private set; }
-        public decimal TotalCost
-        {
-            get
-            {
-                return (Nozzle?.Fuel?.Price ?? 0) * Quantity;
-            }
-        }
+        public decimal Cost { get; private set; }
         public decimal Quantity { get; private set; }
         public Nozzle Nozzle { get; private set; }
+
+        public Result ChangeQuantityAndCost(decimal quantity, decimal cost)
+        {
+            Quantity = quantity;
+            Cost = quantity;
+            Status = SupplyStatus.InProgress;
+            return Result.Ok();
+        }
 
         public Result IncreaseQuantity(decimal quantity)
         {

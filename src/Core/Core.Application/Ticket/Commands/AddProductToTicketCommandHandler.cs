@@ -21,13 +21,6 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
                 .WithMessage("The ProductId can't be empty.")
                 .MinimumLength(6)
                 .WithMessage("Minimum length should be 6 characters");
-                //.MustAsync(async (item, value, token) => {
-
-                //    var product = await productState.Get(value);
-
-                //    return product is not null;
-                //})
-                //.WithMessage("Product not found");
 
             RuleFor(command => command.Quantity)
                 .GreaterThan(0);

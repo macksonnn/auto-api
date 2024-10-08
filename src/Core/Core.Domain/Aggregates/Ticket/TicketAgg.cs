@@ -48,7 +48,7 @@ public class TicketAgg : AggRoot
     {
         get
         {
-            return Supplies.Sum(p => p.TotalCost);
+            return Supplies.Sum(p => p.Cost);
         }
     }
 
@@ -76,7 +76,7 @@ public class TicketAgg : AggRoot
     {
         Id = Guid.NewGuid().ToString();
         Code = RandomNumberGenerator.GetString(
-            choices: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+            choices: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
             length: 6
         );
         Description = $"Ticket for {command.Plate}";
@@ -84,14 +84,36 @@ public class TicketAgg : AggRoot
         Attendant = attendant;
     }
 
-    public static Result<TicketCreated> Create(CreateTicketCommand command, Attendant attendant)
+
+    /// <summary>
+    /// Creates a new Aggregate with all business rules to be validated
+    /// </summary>
+    /// <param name="command"></param>
+    private TicketAgg(CreateTicketForAttendantCommand command, Attendant attendant)
+    {
+        Id = Guid.NewGuid().ToString();
+        Code = RandomNumberGenerator.GetString(
+            choices: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+            length: 6
+        );
+        Description = $"Ticket for Card {command.CardId}";
+        CreatedDate = DateTime.Now;
+        Attendant = attendant;
+    }
+
+    public static Result<TicketCreated> Create(CreateTicketForAttendantCommand command, Attendant attendant)
     {
         var result = Result.Ok();
         //Add additional validations and return failures in Result if needed
         var agg = new TicketAgg(command, attendant);
 
-        //if (command.Plate == "Lucas")
-        //    result.WithError("Plate cannot be equals Lucas");
+        return result.ToResult(agg.Created());
+    }
+
+    public static Result<TicketCreated> Create(CreateTicketCommand command, Attendant attendant)
+    {
+        var result = Result.Ok();
+        var agg = new TicketAgg(command, attendant);
 
         return result.ToResult(agg.Created());
     }
@@ -127,7 +149,6 @@ public class TicketAgg : AggRoot
         Products = productList;
 
         return result.ToResult(TicketProductsChanged.Create(this));
-
     }
 
     public Result<TicketUpdated> AddOrUpdateSupply(Nozzle nozzle, decimal quantity)
@@ -137,7 +158,8 @@ public class TicketAgg : AggRoot
         if (index >= 0)
         {
             list[index].IncreaseQuantity(quantity);
-        } else
+        }
+        else
         {
             list.Add(Supply.Create(nozzle, quantity));
         }
@@ -147,10 +169,32 @@ public class TicketAgg : AggRoot
         return this.Updated();
     }
 
+
+
+    public Result<TicketUpdated> AddOrUpdateSupply(Nozzle nozzle, AddFuelToTicketCommand command)
+    {
+        var list = this.Supplies.ToList();
+        var index = list.FindIndex(x => x.Nozzle.Number == nozzle.Number);
+        if (index >= 0)
+        {
+            list[index].ChangeQuantityAndCost(command.Quantity, command.Cost);
+        }
+        else
+        {
+            list.Add(Supply.Create(nozzle, command.Quantity));
+        }
+
+        Supplies = list;
+
+        return this.Updated();
+    }
+
+
     private Result<TicketUpdated> Updated()
     {
         return TicketUpdated.Create(this);
     }
+
 
     //public Result<ProductRemoved> RemoveProduct(RemoveProductFromTicket command)
     //{

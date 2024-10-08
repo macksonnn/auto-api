@@ -18,6 +18,7 @@ public record AddFuelToTicketCommand() : ICommand<TicketUpdated>
     public int PumpNumber { get; init; }
     public int NozzleNumber { get; init; }
     public decimal Quantity { get; init; }
+    public decimal Cost { get; init; }
 
     [JsonIgnore]
     public PumpAgg Pump { get; set; }
