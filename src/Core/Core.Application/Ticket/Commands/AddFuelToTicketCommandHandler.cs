@@ -1,5 +1,7 @@
-﻿using AutoMais.Ticket.Core.Application.Pump.State;
+﻿using AutoMais.Ticket.Core.Application.Attendant.State;
+using AutoMais.Ticket.Core.Application.Pump.State;
 using AutoMais.Ticket.Core.Application.Ticket.State;
+using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
 
@@ -11,30 +13,30 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
     /// </summary>
     public sealed class AddFuelToTicketCommandValidator : AbstractValidator<AddFuelToTicketCommand>
     {
-        public AddFuelToTicketCommandValidator(IPumpState pumpState, ITicketState ticketState)
+        public AddFuelToTicketCommandValidator(IPumpState pumpState, IAttendantState attendantState)
         {
-            RuleFor(command => command.TicketId)
+            RuleFor(command => command.CardId)
                 .NotEmpty()
-                .MustAsync(async (obj, prop, c) =>
+                .MustAsync(async (instance, propValue, c) =>
                 {
-                    obj.Ticket = await ticketState.Get(x => x.Code == prop || x.Id == prop);
-                    return obj.Ticket != null;
+                    instance.Attendant = await attendantState.Get(x => x.CardId == propValue);
+                    return instance.Attendant != null;
                 });
 
             RuleFor(command => command.PumpNumber)
                 .NotEmpty()
-                .MustAsync(async (obj, prop, c) =>
+                .MustAsync(async (instance, propValue, cancellationToken) =>
                 {
-                    obj.Pump = await pumpState.Get(x => x.Number == prop);
-                    return obj.Pump != null;
+                    instance.Pump = await pumpState.Get(x => x.Number == propValue);
+                    return instance.Pump != null;
                 }).DependentRules(() =>
                 {
                     RuleFor(command => command.NozzleNumber)
                         .NotEmpty()
-                        .MustAsync(async (instance, property, token) =>
+                        .Must((instance, property, token) =>
                         {
-                            var nozzle = instance?.Pump?.Nozzles?.FirstOrDefault(x => x.Number == property);
-                            return nozzle != null;
+                            instance.Nozzle = instance?.Pump?.Nozzles?.FirstOrDefault(x => x.Number == property);
+                            return instance?.Nozzle != null;
                         });
                 });
 
@@ -43,33 +45,44 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
         }
     }
 
-    public class AddFuelToTicketCommandHandler(ITicketState ticketState, IPumpState pumpState, IMediator mediator) : IRequestHandler<AddFuelToTicketCommand, Result<TicketUpdated>>
+    public class AddFuelToTicketCommandHandler(ITicketState ticketState, IMediator mediator) : IRequestHandler<AddFuelToTicketCommand, Result<TicketUpdated>>
     {
         public async Task<Result<TicketUpdated>> Handle(AddFuelToTicketCommand command, CancellationToken cancellationToken)
         {
-            if (command.Pump == null)
-                return Result.Fail<TicketUpdated>("Pump not found");
+            var openedTicket = await ticketState.Get(x => x.Attendant.CardId == command.CardId && x.Status == TicketStatusEnum.Opened);
 
-            if (command.Ticket == null)
-                return Result.Fail<TicketUpdated>("Ticket not found");
-
-            var nozzle = command.Pump.Nozzles.FirstOrDefault(x => x.Number == command.NozzleNumber);
-
-            if (nozzle == null)
-                return Result.Fail<TicketUpdated>("Nozzle not found");
-
-            var updated = command.Ticket.AddOrUpdateSupply(nozzle, command.Quantity);
-
-            if (updated.IsSuccess)
+            if (openedTicket == null)
             {
-                var saved = await ticketState.Update(command.Ticket.Id, command.Ticket);
-                if (saved.IsSuccess)
-                    await mediator.Publish(updated.Value);
-
-                updated.WithErrors(saved.Errors);
+                var ticketCreated = await mediator.Send(new CreateTicketForAttendantCommand(command.CardId, command.PumpNumber, command.NozzleNumber));
+                
+                if (ticketCreated.IsSuccess)
+                    openedTicket = ticketCreated.Value.Ticket;
+                else
+                    return Result.Fail<TicketUpdated>("Failure creating ticket").WithErrors(ticketCreated.Errors);
             }
 
-            return updated;
+            var result = Result.Ok();
+
+            if (openedTicket != null)
+            {
+                var updated = openedTicket.AddOrUpdateSupply(command.Nozzle!, command);
+
+                if (updated.IsSuccess)
+                {
+                    var saved = await ticketState.Update(openedTicket.Id, updated.Value.Ticket);
+                    if (saved.IsSuccess)
+                    {
+                        await mediator.Publish(updated.Value);
+                        return updated.Value;                        
+                    }
+                    else
+                        result.WithErrors(saved.Errors);
+                }
+
+                result.WithErrors(updated.Errors);
+            }
+
+            return result;
         }
     }
 }

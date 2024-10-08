@@ -11,6 +11,7 @@ public class TicketAgg : AggRoot
     public string Id { get; internal set; }
     public string Code { get; internal set; }
     public string Description { get; internal set; }
+    public TicketStatusEnum Status { get; internal set; } = TicketStatusEnum.Opened;
     public Attendant Attendant { get; internal set; }
 
     public DateTime CreatedDate { get; internal set; }
@@ -82,6 +83,7 @@ public class TicketAgg : AggRoot
         Description = $"Ticket for {command.Plate}";
         CreatedDate = DateTime.Now;
         Attendant = attendant;
+        Status = TicketStatusEnum.Opened;
     }
 
 
@@ -99,6 +101,7 @@ public class TicketAgg : AggRoot
         Description = $"Ticket for Card {command.CardId}";
         CreatedDate = DateTime.Now;
         Attendant = attendant;
+        Status = TicketStatusEnum.Opened;
     }
 
     public static Result<TicketCreated> Create(CreateTicketForAttendantCommand command, Attendant attendant)

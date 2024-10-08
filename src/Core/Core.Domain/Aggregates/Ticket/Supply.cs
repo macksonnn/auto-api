@@ -15,7 +15,7 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket
         public Result ChangeQuantityAndCost(decimal quantity, decimal cost)
         {
             Quantity = quantity;
-            Cost = quantity;
+            Cost = cost;
             Status = SupplyStatus.InProgress;
             return Result.Ok();
         }
