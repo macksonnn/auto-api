@@ -3,7 +3,7 @@ using AutoMais.Ticket.Core.Domain.Aggregates.Pump;
 
 namespace AutoMais.Ticket.Core.Application.Pump.Queries
 {
-    public record PumpGet : QueryOneBase<PumpAgg>
+    public record PumpGet : IQuery<PumpAgg>
     {
         public PumpGet(int number)
         {
@@ -13,7 +13,7 @@ namespace AutoMais.Ticket.Core.Application.Pump.Queries
         public int Number { get; set; }
     }
 
-    public class PumpGetQueryHandler(IPumpState state) : IRequestHandler<PumpGet, Result<PumpAgg>>
+    public class PumpGetQueryHandler(IPumpState state) : IQueryHandler<PumpGet, PumpAgg>
     {
         public async Task<Result<PumpAgg>> Handle(PumpGet request, CancellationToken cancellationToken)
         {

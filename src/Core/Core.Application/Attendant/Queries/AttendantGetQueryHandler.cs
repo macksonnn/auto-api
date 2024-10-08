@@ -2,7 +2,8 @@
 using AutoMais.Ticket.Core.Domain.Aggregates.Attendant;
 
 namespace AutoMais.Ticket.Core.Application.Attendant.Queries;
-public class AttendantGetQueryHandler(IAttendantState state) : IRequestHandler<AttendantGetOne, Result<AttendantAgg>>
+
+public class AttendantGetQueryHandler(IAttendantState state) : IQueryHandler<AttendantGetOne, AttendantAgg>
 {
     public async Task<Result<AttendantAgg>> Handle(AttendantGetOne request, CancellationToken cancellationToken)
     {

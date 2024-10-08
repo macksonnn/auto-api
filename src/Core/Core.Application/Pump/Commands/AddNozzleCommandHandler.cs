@@ -26,7 +26,7 @@ namespace AutoMais.Ticket.Core.Application.Pump.Commands
         }
     }
 
-    public class AddNozzleCommandHandler(IPumpState state, IMediator mediator) : IRequestHandler<CreateNozzleCommand, Result<NozzleCreated>>
+    public class AddNozzleCommandHandler(IPumpState state, IMediator mediator) : ICommandHandler<CreateNozzleCommand, NozzleCreated>
     {
         public async Task<Result<NozzleCreated>> Handle(CreateNozzleCommand request, CancellationToken cancellationToken)
         {

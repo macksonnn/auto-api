@@ -2,7 +2,7 @@
 
 namespace AutoMais.Ticket.Core.Application.Ticket.Queries
 {
-    public record TicketGetOne : QueryOneBase<TicketAgg>
+    public record TicketGetOne : IQuery<TicketAgg>
     {
         public TicketGetOne(string id)
         {
@@ -12,8 +12,4 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Queries
         public string Id { get; set; }
     }
 
-
-    public record TicketGetMany : QueryManyBase
-    {
-    }
 }

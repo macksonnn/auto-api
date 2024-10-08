@@ -35,7 +35,7 @@ namespace AutoMais.Ticket.Core.Application.Product.Commands
         }
     }
 
-    public class CreateProductCommandHandler(IProductState productState) : IRequestHandler<CreateProductCommand, Result<ProductCreated>>
+    public class CreateProductCommandHandler(IProductState productState) : ICommandHandler<CreateProductCommand, ProductCreated>
     {
         public async Task<Result<ProductCreated>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {

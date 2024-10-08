@@ -1,7 +1,7 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Attendant;
 
 namespace AutoMais.Ticket.Core.Application.Attendant.Queries;
-public record AttendantGetOne : QueryOneBase<AttendantAgg>
+public record AttendantGetOne : IQuery<AttendantAgg>
 {
     public AttendantGetOne(string id)
     {

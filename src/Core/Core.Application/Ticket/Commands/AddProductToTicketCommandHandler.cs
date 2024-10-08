@@ -27,7 +27,7 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
         }
     }
 
-    public class AddProductToTicketCommandHandler (ITicketState ticketState, IProductState productState, IMediator mediator) : IRequestHandler<AddProductToTicketCommand, Result<TicketProductsChanged>>
+    public class AddProductToTicketCommandHandler (ITicketState ticketState, IProductState productState, IMediator mediator) : ICommandHandler<AddProductToTicketCommand, TicketProductsChanged>
     {
         public async Task<Result<TicketProductsChanged>> Handle(AddProductToTicketCommand request, CancellationToken cancellationToken)
         {

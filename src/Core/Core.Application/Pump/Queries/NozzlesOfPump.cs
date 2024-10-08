@@ -30,13 +30,13 @@ namespace AutoMais.Ticket.Core.Application.Pump.Queries
         }
     }
 
-    public class NozzlesOfPumpQueryHandler(IPumpState state) : IRequestHandler<NozzlesOfPump, Result<IEnumerable<Nozzle>>>
+    public class NozzlesOfPumpQueryHandler(IPumpState state) : IQueryManyHandler<NozzlesOfPump, Nozzle>
     {
         public async Task<Result<IEnumerable<Nozzle>>> Handle(NozzlesOfPump request, CancellationToken cancellationToken)
         {
             var items = await state.Get(x => x.Number == request.Number);
 
-            return Result.Ok(items?.Nozzles);
+            return Result.Ok(items.Nozzles);
         }
     }
 }

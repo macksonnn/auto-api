@@ -2,7 +2,7 @@
 
 namespace AutoMais.Ticket.Core.Application.Product.Queries
 {
-    public record ProductGetOne : QueryOneBase<ProductAgg>
+    public record ProductGetOne : IQuery<ProductAgg>
     {
         public ProductGetOne(string id)
         {
@@ -10,10 +10,5 @@ namespace AutoMais.Ticket.Core.Application.Product.Queries
         }
 
         public string Id { get; set; }
-    }
-
-
-    public record ProductGetMany : QueryManyBase
-    {
     }
 }

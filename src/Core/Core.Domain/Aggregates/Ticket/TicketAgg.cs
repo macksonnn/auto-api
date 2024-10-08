@@ -192,16 +192,17 @@ public class TicketAgg : AggRoot
         return this.Updated();
     }
 
-    //public Result<RefuelingUpdated> UpdateRefueling(UpdateRefueling command)
-    //{
+    public Result<TicketUpdated> ChangeProduct(ProductAgg product, decimal quantity)
+    {
+        var list = this.Products.ToList();
+        var index = list.FindIndex(x => x.Id == product.Id);
+        if (index < 0)
+            return Result.Fail<TicketUpdated>("Product not found").WithValidationError("ProductId", "Ticket does not contain this product");
 
-    //}
+        list[index].ChangeQuantity(quantity);
 
-    //public Result<RefuelingUpdated> StopFuelling(UpdateRefueling command)
-    //{
+        this.Products = list;
 
-    //}
+        return this.Updated();
+    }
 }
-
-
-

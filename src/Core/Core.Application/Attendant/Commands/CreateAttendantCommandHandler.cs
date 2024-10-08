@@ -30,7 +30,7 @@ public sealed class CreateAttendantValidator : AbstractValidator<CreateAttendant
     }
 }
 
-public class CreateAttendantCommandHandler(IAttendantState state, IMediator mediator) : IRequestHandler<CreateAttendantCommand, Result<AttendantCreated>>
+public class CreateAttendantCommandHandler(IAttendantState state, IMediator mediator) : ICommandHandler<CreateAttendantCommand, AttendantCreated>
 {
     public async Task<Result<AttendantCreated>> Handle(CreateAttendantCommand command, CancellationToken cancellationToken)
     {

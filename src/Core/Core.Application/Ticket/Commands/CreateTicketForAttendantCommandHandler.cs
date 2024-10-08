@@ -41,7 +41,7 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
         }
     }
 
-    public class CreateTicketForAttendantCommandHandler(ITicketState ticketState, IMediator mediator) : IRequestHandler<CreateTicketForAttendantCommand, Result<TicketCreated>>
+    public class CreateTicketForAttendantCommandHandler(ITicketState ticketState, IMediator mediator) : ICommandHandler<CreateTicketForAttendantCommand, TicketCreated>
     {
         public async Task<Result<TicketCreated>> Handle(CreateTicketForAttendantCommand command, CancellationToken cancellationToken)
         {

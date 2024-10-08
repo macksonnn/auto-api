@@ -1,10 +1,9 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Attendant.Events;
-using MediatR;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Attendant.Commands;
 
 #pragma warning disable
-public class DisableAttendantCommand : IRequest<Result<AttendantDisabled>>
+public class DisableAttendantCommand : ICommand<AttendantDisabled>
 {
     public string AttendantId { get; private set; }
 
@@ -14,7 +13,7 @@ public class DisableAttendantCommand : IRequest<Result<AttendantDisabled>>
     }
 }
 
-public class EnableAttendantCommand : IRequest<Result<AttendantDisabled>>
+public class EnableAttendantCommand : ICommand<AttendantDisabled>
 {
     public string AttendantId { get; private set; }
 

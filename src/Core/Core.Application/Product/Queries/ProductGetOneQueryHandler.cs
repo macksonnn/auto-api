@@ -3,7 +3,7 @@ using AutoMais.Ticket.Core.Domain.Aggregates.Product;
 
 namespace AutoMais.Ticket.Core.Application.Product.Queries;
 
-public class ProductGetOneQueryHandler(IProductState state) : IRequestHandler<ProductGetOne, Result<ProductAgg>>
+public class ProductGetOneQueryHandler(IProductState state) : IQueryHandler<ProductGetOne, ProductAgg>
 {
     public async Task<Result<ProductAgg>> Handle(ProductGetOne request, CancellationToken cancellationToken)
     {

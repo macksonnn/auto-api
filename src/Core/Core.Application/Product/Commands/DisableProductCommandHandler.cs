@@ -1,5 +1,4 @@
 ﻿using AutoMais.Ticket.Core.Application.Ticket.State;
-using AutoMais.Ticket.Core.Domain.Aggregates.Product;
 using AutoMais.Ticket.Core.Domain.Aggregates.Product.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Product.Events;
 
@@ -17,7 +16,7 @@ namespace AutoMais.Ticket.Core.Application.Product.Commands
         }
     }
 
-    public class DisableProductCommandHandler(IProductState productState) : IRequestHandler<DisableProductCommand, Result<ProductUpdated>>
+    public class DisableProductCommandHandler(IProductState productState) : ICommandHandler<DisableProductCommand, ProductUpdated>
     {
         public async Task<Result<ProductUpdated>> Handle(DisableProductCommand request, CancellationToken cancellationToken)
         {

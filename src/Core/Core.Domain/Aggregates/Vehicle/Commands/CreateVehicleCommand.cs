@@ -2,5 +2,5 @@
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Vehicle.Commands
 {
-    public record CreateVehicleCommand(string plate, string brand, string model, string color, VehicleTypeEnum type, string ownerId) : MediatR.IRequest<Result<VehicleCreated>>;
+    public record CreateVehicleCommand(string plate, string brand, string model, string color, VehicleTypeEnum type, string ownerId) : ICommand<VehicleCreated>;
 }

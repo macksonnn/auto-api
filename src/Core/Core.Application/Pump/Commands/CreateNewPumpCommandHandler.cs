@@ -23,7 +23,7 @@ namespace AutoMais.Ticket.Core.Application.Pump.Commands
         }
     }
 
-    public class CreateNewPumpCommandHandler(IPumpState state, IMediator mediator) : IRequestHandler<CreateNewPumpCommand, Result<PumpCreated>>
+    public class CreateNewPumpCommandHandler(IPumpState state, IMediator mediator) : ICommandHandler<CreateNewPumpCommand, PumpCreated>
     {
         public async Task<Result<PumpCreated>> Handle(CreateNewPumpCommand request, CancellationToken cancellationToken)
         {

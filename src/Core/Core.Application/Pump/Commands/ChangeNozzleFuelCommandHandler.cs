@@ -29,7 +29,7 @@ public sealed class ChangeNozzleFuelCommandValidator : AbstractValidator<ChangeN
     }
 }
 
-public class ChangeNozzleFuelCommandHandler(IPumpState pumpState, IMediator mediator) : IRequestHandler<ChangeNozzleFuelCommand, Result<FuelChanged>>
+public class ChangeNozzleFuelCommandHandler(IPumpState pumpState, IMediator mediator) : ICommandHandler<ChangeNozzleFuelCommand, FuelChanged>
 {
     public async Task<Result<FuelChanged>> Handle(ChangeNozzleFuelCommand request, CancellationToken cancellationToken)
     {

@@ -45,7 +45,7 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
         }
     }
 
-    public class AddFuelToTicketCommandHandler(ITicketState ticketState, IMediator mediator) : IRequestHandler<AddFuelToTicketCommand, Result<TicketUpdated>>
+    public class AddFuelToTicketCommandHandler(ITicketState ticketState, IMediator mediator) : ICommandHandler<AddFuelToTicketCommand, TicketUpdated>
     {
         public async Task<Result<TicketUpdated>> Handle(AddFuelToTicketCommand command, CancellationToken cancellationToken)
         {

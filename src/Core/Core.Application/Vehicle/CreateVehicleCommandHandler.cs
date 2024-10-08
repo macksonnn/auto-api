@@ -14,7 +14,7 @@ namespace AutoMais.Ticket.Core.Application.Vehicle
         }
     }
 
-    public class CreateVehicleCommandHandler : IRequestHandler<CreateVehicleCommand, Result<VehicleCreated>>
+    public class CreateVehicleCommandHandler : ICommandHandler<CreateVehicleCommand, VehicleCreated>
     {
         public Task<Result<VehicleCreated>> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
         {

@@ -16,7 +16,7 @@ public sealed class DisableAttendantCommandValidator : AbstractValidator<Disable
     }
 }
 
-public class DisableAttendantCommandHandler(IAttendantState state, IMediator mediator) : IRequestHandler<DisableAttendantCommand, Result<AttendantDisabled>>
+public class DisableAttendantCommandHandler(IAttendantState state, IMediator mediator) : ICommandHandler<DisableAttendantCommand, AttendantDisabled>
 {
     public async Task<Result<AttendantDisabled>> Handle(DisableAttendantCommand request, CancellationToken cancellationToken)
     {

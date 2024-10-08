@@ -7,5 +7,5 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 /// </summary>
 /// <param name="cardId">The Attendant's CardId who is creating the ticket</param>
 /// <param name="Plate">The plate number of the vehicle to be associated with the ticket</param>
-public record CreateTicketCommand(string CardId, string Plate) : MediatR.IRequest<Result<TicketCreated>>;
+public record CreateTicketCommand(string CardId, string Plate) : ICommand<TicketCreated>;
 
