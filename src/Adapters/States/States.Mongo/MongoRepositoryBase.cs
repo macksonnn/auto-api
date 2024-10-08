@@ -69,7 +69,7 @@ public abstract class MongoRepositoryBase<T> : IState<T> where T : class
 
         var updateResult = await db.ReplaceOneAsync(filter, entity);
 
-        if (updateResult.ModifiedCount > 0)
+        if (updateResult.MatchedCount > 0)
             return Result.Ok();
         else
             return Result.Fail("Update failed");
