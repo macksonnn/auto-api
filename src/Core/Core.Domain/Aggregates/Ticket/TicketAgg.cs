@@ -154,26 +154,6 @@ public class TicketAgg : AggRoot
         return result.ToResult(TicketProductsChanged.Create(this));
     }
 
-    public Result<TicketUpdated> AddOrUpdateSupply(Nozzle nozzle, decimal quantity)
-    {
-        var list = this.Supplies.ToList();
-        var index = list.FindIndex(x => x.Nozzle.Number == nozzle.Number);
-        if (index >= 0)
-        {
-            list[index].IncreaseQuantity(quantity);
-        }
-        else
-        {
-            list.Add(Supply.Create(nozzle, quantity));
-        }
-
-        Supplies = list;
-
-        return this.Updated();
-    }
-
-
-
     public Result<TicketUpdated> AddOrUpdateSupply(Nozzle nozzle, AddFuelToTicketCommand command)
     {
         var list = this.Supplies.ToList();
@@ -184,7 +164,7 @@ public class TicketAgg : AggRoot
         }
         else
         {
-            list.Add(Supply.Create(nozzle, command.Quantity));
+            list.Add(Supply.Create(nozzle, command.Quantity, command.Cost));
         }
 
         Supplies = list;
@@ -199,10 +179,18 @@ public class TicketAgg : AggRoot
     }
 
 
-    //public Result<ProductRemoved> RemoveProduct(RemoveProductFromTicket command)
-    //{
+    public Result<TicketUpdated> RemoveProduct(RemoveProductFromTicketCommand command)
+    {
+        var list = this.Products.ToList();
+        var index = list.FindIndex(x => x.Id == command.ProductId);
+        if (index < 0)
+            return Result.Fail<TicketUpdated>("Product not found").WithValidationError("ProductId", "Ticket does not contain this product");
 
-    //}
+        list.RemoveAt(index);
+        this.Products = list;
+
+        return this.Updated();
+    }
 
     //public Result<RefuelingUpdated> UpdateRefueling(UpdateRefueling command)
     //{

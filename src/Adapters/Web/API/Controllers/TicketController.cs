@@ -64,9 +64,23 @@ namespace AutoMais.Ticket.Api.Controllers
             });
 
 
-            v1.MapPost("/{id}/product", async ([FromRoute] string id, [FromBody] AddProductToTicketCommand command, IMediator mediator, CancellationToken cancellationToken) =>
+            v1.MapPost("/{ticketId}/product", async (
+                [FromRoute] string ticketId, 
+                [FromBody] AddProductToTicketCommand command, 
+                IMediator mediator, 
+                CancellationToken cancellationToken) =>
             {
-                command.ChangeTicket(id);                
+                command.TicketId = ticketId;
+                return await mediator.Send(command, cancellationToken);
+            });
+
+            v1.MapDelete("/{ticketId}/product/{productId}", async (
+                [FromRoute] string ticketId, 
+                [FromRoute] string productId, 
+                IMediator mediator, 
+                CancellationToken cancellationToken) =>
+            {
+                var command = new RemoveProductFromTicketCommand(ticketId, productId);
                 return await mediator.Send(command, cancellationToken);
             });
         }

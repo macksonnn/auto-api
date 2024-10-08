@@ -1,4 +1,6 @@
-﻿using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
+﻿using AutoMais.Ticket.Core.Domain.Aggregates.Product;
+using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
+using System.Text.Json.Serialization;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands; 
 
@@ -9,10 +11,20 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 /// <param name="Quantity">The quantity of the product</param>
 public record AddProductToTicketCommand(string ProductId, decimal Quantity) : ICommand<TicketProductsChanged>
 {
-    public string TicketId { get; private set; }
-
-    public void ChangeTicket(string ticketId)
-    {
-        TicketId = ticketId;
-    }
+    public string TicketId { get; set; }
 }
+
+
+/// <summary>
+/// Command to remove an existing product from the ticket
+/// </summary>
+/// <param name="TicketId">The ticket to remove the product from</param>
+/// <param name="ProductId">The product unique identifier</param>
+public record RemoveProductFromTicketCommand(string TicketId, string ProductId) : ICommand<TicketUpdated>
+{
+    [JsonIgnore]
+    public TicketAgg? Ticket { get; set; }
+
+    [JsonIgnore]
+    public ProductAgg? Product { get; set; }
+};

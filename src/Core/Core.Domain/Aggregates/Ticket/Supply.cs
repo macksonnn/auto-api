@@ -33,14 +33,15 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket
             return Result.Ok();
         }
 
-        internal static Supply Create(Nozzle nozzle, decimal quantity)
+        internal static Supply Create(Nozzle nozzle, decimal quantity, decimal cost)
         {
             return new Supply()
             {
                 StartedDate = DateTime.Now,
                 Status = SupplyStatus.NotStarted,
                 Nozzle = nozzle,
-                Quantity = quantity
+                Quantity = quantity,
+                Cost = cost
             };
         }
     }
