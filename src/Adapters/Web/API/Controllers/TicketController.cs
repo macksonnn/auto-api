@@ -95,6 +95,17 @@ namespace AutoMais.Ticket.Api.Controllers
                 var command = new ChangeProductQuantityOnTicketCommand(ticketId, productId, quantity);
                 return await mediator.Send(command, cancellationToken);
             });
+
+
+            v1.MapPatch("/{ticketId}/driver/{CPF}", async (
+                [FromRoute] string ticketId,
+                [FromRoute] string CPF,
+                IMediator mediator,
+                CancellationToken cancellationToken) =>
+            {
+                var command = new ChangeTicketDriverCommand(ticketId, CPF);
+                return await mediator.Send(command, cancellationToken);
+            });
         }
     }
 }
