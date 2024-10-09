@@ -8,6 +8,7 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
         public string Code { get; private set; }
 
         public DateTime CreatedDate { get; private set; }
+        public DateTime LastUpdatedDate { get; private set; }
 
         public string Description { get; private set; }
         public decimal ProductsPrice { get; private set; }
@@ -18,6 +19,7 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
         public decimal TotalCost { get; private set; }
 
         public Attendant Attendant { get; private set; }
+        public Driver Driver{ get; private set; }
         public IEnumerable<Supply> Supplies { get; private set; }
         public IEnumerable<Product> Products { get; private set; }
 
@@ -34,13 +36,15 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
                 CreatedDate = ticket.CreatedDate,
                 Ticket = ticket,
                 Attendant = ticket.Attendant,
+                Driver = ticket.Driver,
                 Supplies = ticket.Supplies,
                 Products = ticket.Products,
                 ProductsPrice = ticket.ProductsTotalPrice,
                 ProductsQuantity = ticket.ProductsTotalQuantity,
                 FuelVolume = ticket.FuelTotalVolume,
                 FuelPrice = ticket.FuelTotalPrice,
-                TotalCost = ticket.TotalCost
+                TotalCost = ticket.TotalCost,
+                LastUpdatedDate = ticket.LastUpdatedDate
             };
         }
     }

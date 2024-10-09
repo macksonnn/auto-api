@@ -16,6 +16,7 @@ public class TicketAgg : AggRoot
     public Driver Driver { get; internal set; }
 
     public DateTime CreatedDate { get; internal set; }
+    public DateTime LastUpdatedDate { get; internal set; }
     public DateTime? AbandonedDate { get; internal set; }
     public DateTime? ClosedDate { get; internal set; }
 
@@ -103,6 +104,7 @@ public class TicketAgg : AggRoot
         );
         Description = $"Ticket for {command.Plate}";
         CreatedDate = DateTime.Now;
+        LastUpdatedDate = DateTime.Now;
         Attendant = attendant;
         Status = TicketStatusEnum.Opened;
     }
@@ -121,6 +123,7 @@ public class TicketAgg : AggRoot
         );
         Description = $"Ticket for Card {command.CardId}";
         CreatedDate = DateTime.Now;
+        LastUpdatedDate = DateTime.Now;
         Attendant = attendant;
         Status = TicketStatusEnum.Opened;
     }
@@ -172,6 +175,8 @@ public class TicketAgg : AggRoot
 
         Products = productList;
 
+        this.LastUpdatedDate = DateTime.Now;
+
         return result.ToResult(TicketProductsChanged.Create(this));
     }
 
@@ -189,6 +194,7 @@ public class TicketAgg : AggRoot
         }
 
         Supplies = list;
+        this.LastUpdatedDate = DateTime.Now;
 
         return this.Updated();
     }
@@ -209,6 +215,7 @@ public class TicketAgg : AggRoot
 
         list.RemoveAt(index);
         this.Products = list;
+        this.LastUpdatedDate = DateTime.Now;
 
         return this.Updated();
     }
@@ -217,6 +224,7 @@ public class TicketAgg : AggRoot
     public Result<TicketUpdated> ChangeDriver(ChangeTicketDriverCommand command)
     {
         this.Driver = Driver.Create(command.CPF);
+        this.LastUpdatedDate = DateTime.Now;
 
         return this.Updated();
     }
@@ -231,6 +239,7 @@ public class TicketAgg : AggRoot
         list[index].ChangeQuantity(quantity);
 
         this.Products = list;
+        this.LastUpdatedDate = DateTime.Now;
 
         return this.Updated();
     }
