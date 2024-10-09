@@ -73,7 +73,7 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
                     if (saved.IsSuccess)
                     {
                         await mediator.Publish(updated.Value);
-                        return updated.Value;                        
+                        return updated.Value;
                     }
                     else
                         result.WithErrors(saved.Errors);

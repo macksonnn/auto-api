@@ -13,6 +13,7 @@ public class TicketAgg : AggRoot
     public string Description { get; internal set; }
     public TicketStatusEnum Status { get; internal set; } = TicketStatusEnum.Opened;
     public Attendant Attendant { get; internal set; }
+    public Driver Driver { get; internal set; }
 
     public DateTime CreatedDate { get; internal set; }
     public DateTime? AbandonedDate { get; internal set; }
@@ -208,6 +209,14 @@ public class TicketAgg : AggRoot
 
         list.RemoveAt(index);
         this.Products = list;
+
+        return this.Updated();
+    }
+
+
+    public Result<TicketUpdated> ChangeDriver(ChangeTicketDriverCommand command)
+    {
+        this.Driver = Driver.Create(command.CPF);
 
         return this.Updated();
     }
