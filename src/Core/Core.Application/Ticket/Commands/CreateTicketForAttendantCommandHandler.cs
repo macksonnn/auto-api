@@ -45,16 +45,14 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
     {
         public async Task<Result<TicketCreated>> Handle(CreateTicketForAttendantCommand command, CancellationToken cancellationToken)
         {
-            if (command.Pump == null)
-                return Result.Fail<TicketCreated>("Pump not found");
-
-            if (command.Attendant == null)
-                return Result.Fail<TicketCreated>("Attendant not found");
-
             var nozzle = command.Pump.Nozzles.FirstOrDefault(x => x.Number == command.NozzleNumber);
 
             if (nozzle == null)
                 return Result.Fail<TicketCreated>("Nozzle not found");
+
+            var existingTicket = ticketState.Get(x => x.Attendant.CardId == command.CardId && (x.Status == TicketStatusEnum.Opened || x.Status == TicketStatusEnum.InProgress));
+
+            //TODO: Implementar uma lógica para reutilizar um ticket em aberto
 
             var ticketCreated = TicketAgg.Create(command, Domain.Aggregates.Ticket.Attendant.Create(command.Attendant));
 
