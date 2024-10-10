@@ -17,7 +17,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.RegisterEndpointDefinitions(); //TODO: To be defined how to implement this in the future
+app.RegisterEndpointDefinitions();
 app.UseHttpsRedirection();
 //app.UseAuthorization();
 

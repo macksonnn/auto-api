@@ -28,7 +28,6 @@
 
 //            _logger.LogInformation("Account {AccountId} has a scheduled block. Sending email to admins.", notification.AccountId);
 
-//            //TODO: find a way to get all admins
 //            var adminEmails = await _sharepointService.GetAdminEmails();
 
 //            string operationText = $"The account with email address: \"{notification.Email}\" has been scheduled to be disabled in Active Airectory in {notification.BlockingDate} UTC.";

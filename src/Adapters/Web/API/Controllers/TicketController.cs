@@ -5,8 +5,6 @@ namespace AutoMais.Ticket.Api.Controllers
 {
     public class TicketEndpoints : IEndpointDefinition
     {
-        //TODO: Find a way to register a global endpoint filter to manipulare the result
-        //TODO: view https://khalidabuhakmeh.com/global-endpoint-filters-with-aspnet-core-minimal-apis
         public void RegisterEndpoints(RouteGroupBuilder app)
         {
             var v1 = app.MapGroup("/api/v1/tickets");

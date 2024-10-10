@@ -28,7 +28,6 @@
 
 //            _logger.LogInformation("Account {AccountId} blocked. Sending email to admins.", notification.AccountId);
 
-//            //TODO: find a way to get all admins
 //            var adminEmails = await _sharepointService.GetAdminEmails();
 
 //            string operationText = $"The account with email address: \"{notification.Email}\" has been disabled in active directory. Please ensure the right blocking in your respective system.";
