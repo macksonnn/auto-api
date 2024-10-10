@@ -44,6 +44,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMais.Ticket.States.Mong
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMais.Core.Common", "..\AutoMais.Core.Common\src\AutoMais.Core.Common.csproj", "{9D0D3C3B-855A-4AA5-AA4A-BCD1AB12C8A2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMais.Services.Vehicles.APIPlacas", "src\Adapters\Services\APIPlacas\src\AutoMais.Services.Vehicles.APIPlacas.csproj", "{68CEF6B9-0A96-4ECE-A422-8C861ED3736C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{9D0D3C3B-855A-4AA5-AA4A-BCD1AB12C8A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D0D3C3B-855A-4AA5-AA4A-BCD1AB12C8A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D0D3C3B-855A-4AA5-AA4A-BCD1AB12C8A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68CEF6B9-0A96-4ECE-A422-8C861ED3736C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68CEF6B9-0A96-4ECE-A422-8C861ED3736C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68CEF6B9-0A96-4ECE-A422-8C861ED3736C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68CEF6B9-0A96-4ECE-A422-8C861ED3736C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,6 +93,7 @@ Global
 		{E4E7960A-190E-4A3E-B33A-033CB3D943C4} = {90CF196C-B249-487A-B806-69810D31C319}
 		{E6181675-6B1C-4D34-9107-99906C4E0D9D} = {FAD9F3B8-8854-4F0B-82C5-421F92D44E23}
 		{9D0D3C3B-855A-4AA5-AA4A-BCD1AB12C8A2} = {5D32653B-8639-46AC-93E6-DC1139CCA2B0}
+		{68CEF6B9-0A96-4ECE-A422-8C861ED3736C} = {5BA9CE22-CE5C-4DB3-856D-63A49A3F5C31}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE04B0CA-C745-4EB6-8B3B-583BD6822054}
