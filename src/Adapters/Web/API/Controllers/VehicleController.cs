@@ -1,11 +1,9 @@
-﻿using AutoMais.Ticket.Core.Domain.Aggregates.Vehicle.Services;
+﻿using AutoMais.Ticket.Core.Application.Vehicle.Adapters.Services;
 
 namespace AutoMais.Ticket.Api.Controllers
 {
     public class VehicleController : IEndpointDefinition
     {
-        //TODO: Find a way to register a global endpoint filter to manipulare the result
-        //TODO: view https://khalidabuhakmeh.com/global-endpoint-filters-with-aspnet-core-minimal-apis
         public void RegisterEndpoints(RouteGroupBuilder app)
         {
             var v1 = app.MapGroup("/api/v1/vehicles");

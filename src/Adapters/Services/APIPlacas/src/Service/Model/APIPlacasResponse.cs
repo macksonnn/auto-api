@@ -80,8 +80,9 @@ namespace AutoMais.Services.Vehicles.APIPlacas.Service.Model
         public List<DadosFipe> dados { get; set; }
     }
 
-    public class ConsultaPlaca : IDomainEvent
+    public record ConsultaPlaca
     {
+        public string _id { get; set; }
         public string MARCA { get; set; }
         public string MODELO { get; set; }
         public string SUBMODELO { get; set; }
@@ -125,4 +126,6 @@ namespace AutoMais.Services.Vehicles.APIPlacas.Service.Model
         public string uf { get; set; }
         public int year { get; set; }
     }
+
+    public record VehiclePlateDownloaded : ConsultaPlaca, IDomainEvent;
 }
