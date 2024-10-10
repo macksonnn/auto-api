@@ -1,6 +1,6 @@
 ﻿using AutoMais.Core.Common.Startup;
 using AutoMais.Services.Vehicles.APIPlacas.Service;
-using AutoMais.Ticket.Core.Application.Adapters.Services;
+using AutoMais.Ticket.Core.Domain.Aggregates.Vehicle.Services;
 
 namespace AutoMais.Services.Vehicles.APIPlacas.Startup
 {

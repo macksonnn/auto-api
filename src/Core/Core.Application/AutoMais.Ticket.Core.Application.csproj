@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\AutoMais.Core.Common\src\AutoMais.Core.Common.csproj" />
+    <ProjectReference Include="..\..\Adapters\Services\APIPlacas\src\AutoMais.Services.Vehicles.APIPlacas.csproj" />
     <ProjectReference Include="..\Core.Domain\AutoMais.Ticket.Core.Domain.csproj" />
   </ItemGroup>
 

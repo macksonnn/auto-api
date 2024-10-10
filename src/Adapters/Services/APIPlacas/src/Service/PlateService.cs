@@ -1,7 +1,7 @@
 ﻿using AutoMais.Services.Vehicles.APIPlacas.Service.Model;
 using AutoMais.Services.Vehicles.APIPlacas.Startup;
-using AutoMais.Ticket.Core.Application.Adapters.Services;
 using AutoMais.Ticket.Core.Domain.Aggregates.Vehicle;
+using AutoMais.Ticket.Core.Domain.Aggregates.Vehicle.Services;
 using FluentResults;
 using MediatR;
 using System.Text.Json;
