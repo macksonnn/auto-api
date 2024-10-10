@@ -11,25 +11,12 @@ namespace AutoMais.Services.Vehicles.APIPlacas.Service
     /// <summary>
     /// This class is the implementation of the IStream to connect to the Azure Service Bus.
     /// </summary>
-    public class PlateService : IPlateService
+    public class PlateService(IMediator mediator, HttpClient client, APIPlacasSettings settings) : IPlateService
     {
-        private readonly HttpClient _client;
-        private readonly ILogger _logger;
-        private readonly APIPlacasSettings _settings;
-        private readonly IMediator _mediator;
-
-        public PlateService(ILogger logger, IMediator mediator, HttpClient client, APIPlacasSettings settings)
-        {
-            _client = client;
-            _logger = logger;
-            _settings = settings;
-            _mediator = mediator;
-        }
-
         public async Task<Result<VehicleAgg>> GetPlate(string plate)
         {
             plate = plate.Replace("-", string.Empty).Trim();
-            var response = await _client.GetAsync($"consulta/{plate}/{_settings.Token}");
+            var response = await client.GetAsync($"consulta/{plate}/{settings.Token}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -40,7 +27,7 @@ namespace AutoMais.Services.Vehicles.APIPlacas.Service
 
             if (result is not null)
             {
-                await _mediator.Publish(result);
+                await mediator.Publish(result);
             }
 
             return VehicleAgg.Create(

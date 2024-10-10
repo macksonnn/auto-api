@@ -1,6 +1,7 @@
-﻿using System.Linq.Expressions;
+﻿using MongoDB.Bson;
+using System.Linq.Expressions;
 
-namespace States.Mongo;
+namespace AutoMais.Ticket.States.Mongo;
 
 public abstract class MongoRepositoryBase<T> : IState<T> where T : class
 {
@@ -8,7 +9,7 @@ public abstract class MongoRepositoryBase<T> : IState<T> where T : class
 
     protected MongoRepositoryBase(IMongoDatabase database)
     {
-        db = database.GetCollection<T>((typeof(T).Name));
+        db = database.GetCollection<T>(typeof(T).Name);
     }
 
     protected MongoRepositoryBase(IMongoDatabase database, string collectionName)
@@ -21,6 +22,28 @@ public abstract class MongoRepositoryBase<T> : IState<T> where T : class
         try
         {
             await db.InsertOneAsync(entity);
+            return Result.Ok(entity);
+        }
+        catch (Exception e)
+        {
+            return Result.Fail(e.Message).WithError(e.Message);
+        }
+    }
+
+    public async Task<Result<T>> AddOrUpdate(string id, T entity)
+    {
+        try
+        {
+            var result = await db.ReplaceOneAsync(
+                filter: new BsonDocument("_id", id),
+                options: new ReplaceOptions { IsUpsert = true },
+                replacement: entity);
+
+            if (result.ModifiedCount == 0)
+            {
+                return Result.Fail("Entity not updated");
+            }
+
             return Result.Ok(entity);
         }
         catch (Exception e)

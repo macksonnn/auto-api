@@ -1,4 +1,4 @@
-﻿using AutoMais.Ticket.Core.Application.Adapters.Services;
+﻿using AutoMais.Ticket.Core.Domain.Aggregates.Vehicle.Services;
 
 namespace AutoMais.Ticket.Api.Controllers
 {

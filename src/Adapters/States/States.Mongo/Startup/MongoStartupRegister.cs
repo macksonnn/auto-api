@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace States.Mongo.Startup
+namespace AutoMais.Ticket.States.Mongo.Startup
 {
     public class MongoSettings : IApplication
     {
@@ -17,7 +17,7 @@ namespace States.Mongo.Startup
         {
             // Bind MongoSettings from configuration
             var settings = configuration.GetSection("StateSettings:MongoDB").Get<MongoSettings>();
-            services.AddSingleton<MongoSettings>(settings ?? new MongoSettings());
+            services.AddSingleton(settings ?? new MongoSettings());
 
             // Register MongoClient
             services.AddSingleton<IMongoClient>(sp =>

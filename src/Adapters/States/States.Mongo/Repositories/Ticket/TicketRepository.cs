@@ -1,7 +1,8 @@
 ﻿using AutoMais.Ticket.Core.Application.Ticket.Adapters;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
+using AutoMais.Ticket.States.Mongo;
 
-namespace States.Mongo.Repositories.Ticket;
+namespace AutoMais.Ticket.States.Mongo.Repositories.Ticket;
 
 public class TicketRepository : MongoRepositoryBase<TicketAgg>, ITicketState
 {
