@@ -40,7 +40,7 @@ namespace States.Mongo.Startup
             var repositoryTypes = assembly.GetExportedTypes()
                 .Where(t => t.IsClass && !t.IsAbstract && t.GetInterface(startupRegisterType.Name) != null)
                 .ToList();
-            
+
             foreach (var repositoryType in repositoryTypes)
             {
                 var interfaces = repositoryType.GetInterfaces()

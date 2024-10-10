@@ -1,6 +1,6 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
 
-namespace AutoMais.Ticket.Core.Application.Ticket.State
+namespace AutoMais.Ticket.Core.Application.Ticket.Adapters
 {
     public interface ITicketState : IState<TicketAgg>
     {

@@ -1,7 +1,5 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Pump.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Pump.Events;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Pump;
 

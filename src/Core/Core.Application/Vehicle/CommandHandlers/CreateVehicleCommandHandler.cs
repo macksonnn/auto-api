@@ -1,7 +1,7 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Vehicle.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Vehicle.Events;
 
-namespace AutoMais.Ticket.Core.Application.Vehicle
+namespace AutoMais.Ticket.Core.Application.Vehicle.CommandHandlers
 {
 
     public class CreateVehicleCommandValidator : AbstractValidator<CreateVehicleCommand>

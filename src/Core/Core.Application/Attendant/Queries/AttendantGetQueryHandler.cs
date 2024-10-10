@@ -11,4 +11,4 @@ public class AttendantGetQueryHandler(IAttendantState state) : IQueryHandler<Att
     }
 }
 
-     
+

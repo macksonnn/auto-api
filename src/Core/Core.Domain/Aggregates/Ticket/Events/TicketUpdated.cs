@@ -19,7 +19,7 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
         public decimal TotalCost { get; private set; }
 
         public Attendant Attendant { get; private set; }
-        public Driver Driver{ get; private set; }
+        public Driver Driver { get; private set; }
         public IEnumerable<Supply> Supplies { get; private set; }
         public IEnumerable<Product> Products { get; private set; }
 

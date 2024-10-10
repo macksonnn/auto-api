@@ -1,7 +1,6 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Attendant;
 using AutoMais.Ticket.Core.Domain.Aggregates.Pump;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
-using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;

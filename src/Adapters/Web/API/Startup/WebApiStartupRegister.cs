@@ -1,7 +1,4 @@
-﻿using AutoMais.Core.Common.ActionFilters;
-using AutoMais.Core.Common.Startup;
-
-namespace AutoMais.Ticket.Api.Startup
+﻿namespace AutoMais.Ticket.Api.Startup
 {
     public class WebApiStartupRegister : IStartupRegister
     {

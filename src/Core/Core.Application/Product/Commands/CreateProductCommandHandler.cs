@@ -1,4 +1,4 @@
-﻿using AutoMais.Ticket.Core.Application.Ticket.State;
+﻿using AutoMais.Ticket.Core.Application.Product.Adapters;
 using AutoMais.Ticket.Core.Domain.Aggregates.Product;
 using AutoMais.Ticket.Core.Domain.Aggregates.Product.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Product.Events;

@@ -13,7 +13,7 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Attendant
         public DateTime? DisabledDate { get; internal set; }
         public bool IsEnabled { get { return DisabledDate == null; } }
 
-        internal AttendantAgg() { }        
+        internal AttendantAgg() { }
         private AttendantAgg(CreateAttendantCommand cmd)
         {
             Id = Guid.NewGuid().ToString();

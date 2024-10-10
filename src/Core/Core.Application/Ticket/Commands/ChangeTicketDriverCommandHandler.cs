@@ -1,6 +1,6 @@
-﻿using AutoMais.Ticket.Core.Application.Ticket.State;
-using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
+﻿using AutoMais.Ticket.Core.Application.Ticket.Adapters;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
+using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
 
 namespace AutoMais.Ticket.Core.Application.Ticket.Commands
 {

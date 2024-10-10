@@ -2,7 +2,7 @@
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
 using System.Text.Json.Serialization;
 
-namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands; 
+namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 
 /// <summary>
 /// Command to insert a new product in an existing ticket

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AutoMais.Ticket.Core.Domain.Aggregates.Vehicle.Events
+﻿namespace AutoMais.Ticket.Core.Domain.Aggregates.Vehicle.Events
 {
     public class VehicleCreated : IDomainEvent
     {

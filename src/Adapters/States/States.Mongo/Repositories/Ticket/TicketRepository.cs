@@ -1,4 +1,4 @@
-﻿using AutoMais.Ticket.Core.Application.Ticket.State;
+﻿using AutoMais.Ticket.Core.Application.Ticket.Adapters;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
 
 namespace States.Mongo.Repositories.Ticket;

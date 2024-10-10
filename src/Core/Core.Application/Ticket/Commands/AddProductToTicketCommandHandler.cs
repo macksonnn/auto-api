@@ -1,4 +1,5 @@
-﻿using AutoMais.Ticket.Core.Application.Ticket.State;
+﻿using AutoMais.Ticket.Core.Application.Product.Adapters;
+using AutoMais.Ticket.Core.Application.Ticket.Adapters;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
 
@@ -27,7 +28,7 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
         }
     }
 
-    public class AddProductToTicketCommandHandler (ITicketState ticketState, IProductState productState, IMediator mediator) : ICommandHandler<AddProductToTicketCommand, TicketProductsChanged>
+    public class AddProductToTicketCommandHandler(ITicketState ticketState, IProductState productState, IMediator mediator) : ICommandHandler<AddProductToTicketCommand, TicketProductsChanged>
     {
         public async Task<Result<TicketProductsChanged>> Handle(AddProductToTicketCommand request, CancellationToken cancellationToken)
         {

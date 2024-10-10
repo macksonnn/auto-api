@@ -1,6 +1,6 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Vehicle;
 
-namespace AutoMais.Ticket.Core.Application.Vehicle.States
+namespace AutoMais.Ticket.Core.Application.Vehicle.Adapters.States
 {
     public interface IVehicleState : IState<VehicleAgg>
     {

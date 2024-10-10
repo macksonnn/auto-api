@@ -22,7 +22,7 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Product.Commands
         public bool IsEnabled { get; set; }
     }
 
-    public record DisableProductCommand (string Id) : ICommand<ProductUpdated> { }
+    public record DisableProductCommand(string Id) : ICommand<ProductUpdated> { }
     public record EnableProductCommand(string Id) : ICommand<ProductUpdated> { }
 
 }

@@ -11,7 +11,7 @@ namespace AutoMais.Ticket.Api.Controllers
         {
             var v1 = app.MapGroup("/api/v1/pumps");
 
-            v1.MapGet("/{id}", async (IMediator mediator, CancellationToken cancellationToken, 
+            v1.MapGet("/{id}", async (IMediator mediator, CancellationToken cancellationToken,
                 [FromRoute] int id) =>
             {
                 return await mediator.Send(new PumpGet(id), cancellationToken);
@@ -50,7 +50,7 @@ namespace AutoMais.Ticket.Api.Controllers
             });
 
             v1.MapPost("/{pumpNumber}/nozzles", async (IMediator mediator, CancellationToken cancellationToken,
-                [FromRoute] int pumpNumber, 
+                [FromRoute] int pumpNumber,
                 [FromBody] CreateNozzleCommand command) =>
             {
                 command.ChangePumpNumber(pumpNumber);

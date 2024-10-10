@@ -18,8 +18,8 @@ namespace AutoMais.Ticket.Api.Controllers
             });
 
             v1.MapGet("/attendant/{attendantId}", async (IMediator mediator, CancellationToken cancellationToken,
-                [FromRoute] string attendantId, 
-                [FromQuery] int pageSize = 20, 
+                [FromRoute] string attendantId,
+                [FromQuery] int pageSize = 20,
                 [FromQuery] int pageNumber = 1) =>
             {
                 var query = new TicketsOfAttendant(attendantId, pageSize, pageNumber);
@@ -65,9 +65,9 @@ namespace AutoMais.Ticket.Api.Controllers
 
 
             v1.MapPost("/{ticketId}/product", async (
-                [FromRoute] string ticketId, 
-                [FromBody] AddProductToTicketCommand command, 
-                IMediator mediator, 
+                [FromRoute] string ticketId,
+                [FromBody] AddProductToTicketCommand command,
+                IMediator mediator,
                 CancellationToken cancellationToken) =>
             {
                 command.TicketId = ticketId;
@@ -75,9 +75,9 @@ namespace AutoMais.Ticket.Api.Controllers
             });
 
             v1.MapDelete("/{ticketId}/product/{productId}", async (
-                [FromRoute] string ticketId, 
-                [FromRoute] string productId, 
-                IMediator mediator, 
+                [FromRoute] string ticketId,
+                [FromRoute] string productId,
+                IMediator mediator,
                 CancellationToken cancellationToken) =>
             {
                 var command = new RemoveProductFromTicketCommand(ticketId, productId);

@@ -1,4 +1,5 @@
-﻿using AutoMais.Ticket.Core.Application.Ticket.State;
+﻿using AutoMais.Ticket.Core.Application.Product.Adapters;
+using AutoMais.Ticket.Core.Application.Ticket.Adapters;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
 
@@ -13,7 +14,8 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
         {
             RuleFor(command => command.TicketId)
                 .NotEmpty()
-                .MustAsync(async (instance, propValue, cancellationToken) => { 
+                .MustAsync(async (instance, propValue, cancellationToken) =>
+                {
                     instance.Ticket = await ticketState.Get(propValue);
                     return instance.Ticket != null;
                 });
@@ -21,7 +23,8 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
             RuleFor(command => command.ProductId)
                 .NotEmpty()
                 .MinimumLength(6)
-                .MustAsync(async (instance, propValue, cancellationToken) => {
+                .MustAsync(async (instance, propValue, cancellationToken) =>
+                {
                     instance.Product = await productState.Get(propValue);
                     return instance.Product != null;
                 });
