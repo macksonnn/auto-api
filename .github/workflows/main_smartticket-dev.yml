@@ -12,10 +12,7 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-
-    env:
-        APPSETTINGS_PATH: ${{env.DOTNET_ROOT}}/myapp/appsettings.json
-    
+        
     steps:
       - name: Checkout repository and submodules
         uses: actions/checkout@v4
@@ -38,6 +35,8 @@ jobs:
 
         
       - name: Replace connection string variables in appsettings.json
+        env:
+            APPSETTINGS_PATH: '${{env.DOTNET_ROOT}}/myapp/appsettings.json'
         run: |
           sed -i "s/{MONGO_APPNAME}/${{ secrets.MONGO_APPNAME }}/g" $APPSETTINGS_PATH
           sed -i "s/{MONGO_DATABASENAME}/${{ secrets.MONGO_DATABASENAME }}/g" $APPSETTINGS_PATH
