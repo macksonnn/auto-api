@@ -6,7 +6,7 @@ public class AttendantController : IEndpointDefinition
 {
     public void RegisterEndpoints(RouteGroupBuilder app)
     {
-        var v1 = app.MapGroup("/api/v1/attendants");
+        var v1 = app.MapGroup("/v1/attendants");
 
         v1.MapGet("/{id}", async ([FromRoute] string id, IMediator mediator, CancellationToken cancellationToken) =>
         {
