@@ -20,11 +20,10 @@ public class DisableAttendantCommandHandler(IAttendantState state, IMediator med
 {
     public async Task<Result<AttendantDisabled>> Handle(DisableAttendantCommand request, CancellationToken cancellationToken)
     {
-        AttendantAgg? existing = await state.Get(request.AttendantId);
-        if (existing != null)
+        AttendantAgg? existing = await state.Get(a => a.CardId == request.AttendantId);
+        if (existing == null)
         {
-            var result = Result.Ok();
-            return result.WithValidationError("AttendantId", "Attendant not found");
+            return Result.Fail("Not found").WithValidationError("AttendantId", "Attendant not found");
         }
 
         var hasBeenChanged = existing.Disable();
