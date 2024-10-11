@@ -29,8 +29,8 @@ jobs:
 
       - name: Build with dotnet
         run: | 
-            dotnet build --configuration Release -o ${{env.DOTNET_ROOT}}/myapp
-            echo "APPSETTINGS_PATH=${{env.DOTNET_ROOT}}/myapp/appsettings.json" >> $GITHUB_ENV
+            dotnet build --configuration Release -o output/
+            echo "APPSETTINGS_PATH=$(pwd)/output/appsettings.json" >> $GITHUB_ENV
         
       - name: Replace connection string variables in appsettings.json
         run: |
