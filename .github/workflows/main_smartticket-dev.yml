@@ -54,13 +54,13 @@ jobs:
        
       - name: Replace variables in appsettings.json
         run: |
-          sed -i "s#{MONGO_APPNAME}#${{ secrets.MONGO_APPNAME }}#g" appsettings.json
-          sed -i "s#{MONGO_DATABASENAME}#${{ secrets.MONGO_DATABASENAME }}#g" appsettings.json
-          sed -i "s#{MONGO_PASSWORD}#${{ secrets.MONGO_PASSWORD }}#g" appsettings.json
-          sed -i "s#{MONGO_SERVER}#${{ secrets.MONGO_SERVER }}#g" appsettings.json
-          sed -i "s#{MONGO_USER}#${{ secrets.MONGO_USER }}#g" appsettings.json
-          sed -i "s#{SERVICES_APIPLACAS_TOKEN}#${{ secrets.SERVICES_APIPLACAS_TOKEN }}#g" appsettings.json
-          sed -i "s#{STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING}#${{ secrets.STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING }}#g" appsettings.json
+          sed -i "s#\{MONGO_APPNAME\}#${{ secrets.MONGO_APPNAME }}#g" appsettings.json
+          sed -i "s#\{MONGO_DATABASENAME\}#${{ secrets.MONGO_DATABASENAME }}#g" appsettings.json
+          sed -i "s#\{MONGO_PASSWORD\}#${{ secrets.MONGO_PASSWORD }}#g" appsettings.json
+          sed -i "s#\{MONGO_SERVER\}#${{ secrets.MONGO_SERVER }}#g" appsettings.json
+          sed -i "s#\{MONGO_USER\}#${{ secrets.MONGO_USER }}#g" appsettings.json
+          sed -i "s#\{SERVICES_APIPLACAS_TOKEN\}#${{ secrets.SERVICES_APIPLACAS_TOKEN }}#g" appsettings.json
+          sed -i "s#\{STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING\}#${{ secrets.STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING }}#g" appsettings.json
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
