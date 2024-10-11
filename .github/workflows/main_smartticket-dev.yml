@@ -56,9 +56,9 @@ jobs:
       - name: Set appsettings.json path
         run: echo "APPSETTINGS_PATH=$(pwd)/Release/appsettings.json" >> $GITHUB_ENV
 
+      - run: echo "$APPSETTINGS_PATH"
+
       - name: Replace connection string variables in appsettings.json
-        env:
-            APPSETTINGS_PATH: './myapp/appsettings.json'
         run: |
           sed -i "s/{MONGO_APPNAME}/${{ secrets.MONGO_APPNAME }}/g" $APPSETTINGS_PATH
           sed -i "s/{MONGO_DATABASENAME}/${{ secrets.MONGO_DATABASENAME }}/g" $APPSETTINGS_PATH
