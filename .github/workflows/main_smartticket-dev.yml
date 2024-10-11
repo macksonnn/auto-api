@@ -51,7 +51,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: .net-app
-          path: ./Release
        
       - name: Replace variables in appsettings.json
         run: |
@@ -62,7 +61,6 @@ jobs:
           sed -i "s#{MONGO_USER}#${{ secrets.MONGO_USER }}#g" appsettings.json
           sed -i "s#{SERVICES_APIPLACAS_TOKEN}#${{ secrets.SERVICES_APIPLACAS_TOKEN }}#g" appsettings.json
           sed -i "s#{STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING}#${{ secrets.STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING }}#g" appsettings.json
-        working-directory: ./Release
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
