@@ -29,6 +29,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReadmeFiles", "ReadmeFiles"
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipelines", "Pipelines", "{852F1CA1-FC00-4EAB-A67F-8C77C90484BE}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\main_smartticket-dev.yml = .github\workflows\main_smartticket-dev.yml
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMais.Ticket.Core.Application", "src\Core\Core.Application\AutoMais.Ticket.Core.Application.csproj", "{A2B26219-05FA-47FC-82AA-FF52C460E2A6}"
 EndProject
