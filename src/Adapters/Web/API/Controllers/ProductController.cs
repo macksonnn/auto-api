@@ -7,7 +7,7 @@ namespace AutoMais.Ticket.Api.Controllers
     {
         public void RegisterEndpoints(RouteGroupBuilder app)
         {
-            var v1 = app.MapGroup("/v1/products");
+            var v1 = app.MapGroup("/v1/products").WithTags("Products");
 
             v1.MapGet("/{id}", async ([FromRoute] string id, IMediator mediator, CancellationToken cancellationToken) =>
             {
