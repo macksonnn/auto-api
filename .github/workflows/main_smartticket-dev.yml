@@ -53,20 +53,18 @@ jobs:
           name: .net-app
           path: ./Release
        
-      - name: Set appsettings.json path
-        run: echo "APPSETTINGS_PATH=$(pwd)/Release/appsettings.json" >> $GITHUB_ENV
-
-      - run: echo "$APPSETTINGS_PATH"
-
-      - name: Replace connection string variables in appsettings.json
+      - name: Replace variables in appsettings.json
+        env:
+            $APPSETTINGS_PATH: "appsettings.json"
         run: |
-          sed -i "s/{MONGO_APPNAME}/${{ secrets.MONGO_APPNAME }}/g" $APPSETTINGS_PATH
-          sed -i "s/{MONGO_DATABASENAME}/${{ secrets.MONGO_DATABASENAME }}/g" $APPSETTINGS_PATH
-          sed -i "s/{MONGO_PASSWORD}/${{ secrets.MONGO_PASSWORD }}/g" $APPSETTINGS_PATH
-          sed -i "s/{MONGO_SERVER}/${{ secrets.MONGO_SERVER }}/g" $APPSETTINGS_PATH
-          sed -i "s/{MONGO_USER}/${{ secrets.MONGO_USER }}/g" $APPSETTINGS_PATH
-          sed -i "s/{SERVICES_APIPLACAS_TOKEN}/${{ secrets.SERVICES_APIPLACAS_TOKEN }}/g" $APPSETTINGS_PATH
-          sed -i "s/{STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING }/${{ secrets.STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING }}/g" $APPSETTINGS_PATH
+          sed -i "s#{MONGO_APPNAME}#${{ secrets.MONGO_APPNAME }}#g" $APPSETTINGS_PATH
+          sed -i "s#{MONGO_DATABASENAME}#${{ secrets.MONGO_DATABASENAME }}#g" $APPSETTINGS_PATH
+          sed -i "s#{MONGO_PASSWORD}#${{ secrets.MONGO_PASSWORD }}#g" $APPSETTINGS_PATH
+          sed -i "s#{MONGO_SERVER}#${{ secrets.MONGO_SERVER }}#g" $APPSETTINGS_PATH
+          sed -i "s#{MONGO_USER}#${{ secrets.MONGO_USER }}#g" $APPSETTINGS_PATH
+          sed -i "s#{SERVICES_APIPLACAS_TOKEN}#${{ secrets.SERVICES_APIPLACAS_TOKEN }}#g" $APPSETTINGS_PATH
+          sed -i "s#{STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING}#${{ secrets.STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING }}#g" $APPSETTINGS_PATH
+        working-directory: ./Release
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
