@@ -21,6 +21,15 @@ jobs:
           fetch-depth: 0      # Clona o histórico completo para evitar problemas com submódulos
           token: ${{ secrets.PAT_FOR_SUBMODULE }}  # Usa o token para autenticação
 
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.x'
+          include-prerelease: true
+
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+        
       - name: Replace connection string variables in appsettings.json
         run: |
           sed -i "s/{MONGO_APPNAME}/${{ secrets.MONGO_APPNAME }}/g" appsettings.json
@@ -30,15 +39,6 @@ jobs:
           sed -i "s/{MONGO_USER}/${{ secrets.MONGO_USER }}/g" appsettings.json
           sed -i "s/{SERVICES_APIPLACAS_TOKEN}/${{ secrets.SERVICES_APIPLACAS_TOKEN }}/g" appsettings.json
           sed -i "s/{STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING }/${{ secrets.STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING }}/g" appsettings.json
-          
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '8.x'
-          include-prerelease: true
-
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
