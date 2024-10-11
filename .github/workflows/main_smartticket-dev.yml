@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-
+    
     steps:
       - name: Checkout repository and submodules
         uses: actions/checkout@v4
@@ -21,16 +21,6 @@ jobs:
           fetch-depth: 0      # Clona o histórico completo para evitar problemas com submódulos
           token: ${{ secrets.PAT_FOR_SUBMODULE }}  # Usa o token para autenticação
 
-      - name: Replace connection string variables in appsettings.json
-        run: |
-          sed -i "s/{MONGO_APPNAME}/${{ secrets.MONGO_APPNAME }}/g" appsettings.json
-          sed -i "s/{MONGO_DATABASENAME}/${{ secrets.MONGO_DATABASENAME }}/g" appsettings.json
-          sed -i "s/{MONGO_PASSWORD}/${{ secrets.MONGO_PASSWORD }}/g" appsettings.json
-          sed -i "s/{MONGO_SERVER}/${{ secrets.MONGO_SERVER }}/g" appsettings.json
-          sed -i "s/{MONGO_USER}/${{ secrets.MONGO_USER }}/g" appsettings.json
-          sed -i "s/{SERVICES_APIPLACAS_TOKEN}/${{ secrets.SERVICES_APIPLACAS_TOKEN }}/g" appsettings.json
-          sed -i "s/{STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING }/${{ secrets.STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING }}/g" appsettings.json
-          
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
@@ -38,7 +28,19 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: | 
+            dotnet build --configuration Release -o ${{env.DOTNET_ROOT}}/myapp
+            echo "APPSETTINGS_PATH=${{env.DOTNET_ROOT}}/myapp/appsettings.json" >> $GITHUB_ENV
+        
+      - name: Replace connection string variables in appsettings.json
+        run: |
+          sed -i "s/{MONGO_APPNAME}/${{ secrets.MONGO_APPNAME }}/g" $APPSETTINGS_PATH
+          sed -i "s/{MONGO_DATABASENAME}/${{ secrets.MONGO_DATABASENAME }}/g" $APPSETTINGS_PATH
+          sed -i "s/{MONGO_PASSWORD}/${{ secrets.MONGO_PASSWORD }}/g" $APPSETTINGS_PATH
+          sed -i "s/{MONGO_SERVER}/${{ secrets.MONGO_SERVER }}/g" $APPSETTINGS_PATH
+          sed -i "s/{MONGO_USER}/${{ secrets.MONGO_USER }}/g" $APPSETTINGS_PATH
+          sed -i "s/{SERVICES_APIPLACAS_TOKEN}/${{ secrets.SERVICES_APIPLACAS_TOKEN }}/g" $APPSETTINGS_PATH
+          sed -i "s/{STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING }/${{ secrets.STREAMSETTINGS_AZURESERVICEBUS_CONNECTIONSTRING }}/g" $APPSETTINGS_PATH
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
