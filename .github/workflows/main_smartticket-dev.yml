@@ -19,7 +19,7 @@ jobs:
         with:
           submodules: true    # Inicializa e atualiza os submódulos
           fetch-depth: 0      # Clona o histórico completo para evitar problemas com submódulos
-          token: ${{ secrets.GITHUB_TOKEN }}  # Usa o token para autenticação
+          token: ${{ secrets.PAT_FOR_SUBMODULE }}  # Usa o token para autenticação
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
