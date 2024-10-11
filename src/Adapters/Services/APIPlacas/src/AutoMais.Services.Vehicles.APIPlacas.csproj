@@ -21,7 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\..\..\..\AutoMais.Core.Common\src\AutoMais.Core.Common.csproj" />
+		<ProjectReference Include="..\..\..\..\Core\AutoMais.Core.Common\src\AutoMais.Core.Common.csproj" />
 		<ProjectReference Include="..\..\..\..\Core\Core.Application\AutoMais.Ticket.Core.Application.csproj" />
 	</ItemGroup>
 
