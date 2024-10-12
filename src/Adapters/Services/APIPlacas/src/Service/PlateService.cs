@@ -49,7 +49,6 @@ namespace AutoMais.Services.Vehicles.APIPlacas.Service
 
         private async Task<Result<VehiclePlateDownloaded>> DownloadFromApi(string plate)
         {
-            plate = plate.Replace("-", string.Empty).Trim();
             var response = await client.GetAsync($"consulta/{plate}/{settings.Token}");
 
             if (!response.IsSuccessStatusCode)

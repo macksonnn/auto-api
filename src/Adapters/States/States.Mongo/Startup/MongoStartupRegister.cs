@@ -55,25 +55,6 @@ namespace AutoMais.Ticket.States.Mongo.Startup
                 services.AddScoped(interfaces[0], repositoryType);
             }
 
-
-            return services;
-        }
-
-        private IServiceCollection RegisterStates(IServiceCollection services, IConfiguration configuration)
-        {
-            //var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            //var startupRegisterType = typeof(IState);
-
-            //var startups = assemblies
-            //   .SelectMany(assembly => assembly.GetTypes())
-            //   .Where(type => startupRegisterType.IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract)
-            //   .Select(Activator.CreateInstance)
-            //   .Cast<IStartupRegister>()
-            //   .ToList();
-
-            //foreach (var startup in startups)
-            //    startup.Register(services, configuration);
-
             return services;
         }
     }

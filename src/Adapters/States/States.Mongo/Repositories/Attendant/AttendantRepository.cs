@@ -1,6 +1,5 @@
 ﻿using AutoMais.Ticket.Core.Application.Attendant.State;
 using AutoMais.Ticket.Core.Domain.Aggregates.Attendant;
-using AutoMais.Ticket.States.Mongo;
 
 namespace AutoMais.Ticket.States.Mongo.Repositories.Attendant;
 public class AttendantRepository : MongoRepositoryBase<AttendantAgg>, IAttendantState
