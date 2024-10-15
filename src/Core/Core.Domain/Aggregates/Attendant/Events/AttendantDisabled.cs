@@ -1,8 +1,12 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Attendant.Events;
-#pragma warning disable 
-public class AttendantDisabled : IDomainEvent
+
+
+public record AttendantDisabled : AttendantChanged;
+public record AttendantEnabled : AttendantChanged;
+
+public abstract record AttendantChanged : IDomainEvent
 {
     [JsonIgnore]
     public AttendantAgg Attendant { get; private set; }
@@ -12,32 +16,10 @@ public class AttendantDisabled : IDomainEvent
     public DateTime CreatedDate { get; private set; }
     public DateTime? DisableDate { get; set; }
     public string CardId { get; private set; }
+    public bool IsEnabled { get; private set; }
 
-    public static AttendantDisabled Create(AttendantAgg attendantAgg)
-        => new AttendantDisabled
-        {
-            AttendantId = attendantAgg.Id,
-            CardId = attendantAgg.CardId,
-            Name = attendantAgg.Name,
-            CreatedDate = attendantAgg.CreatedDate,
-            DisableDate = attendantAgg.DisabledDate,
-            Attendant = attendantAgg
-        };
 
-}
-
-public class AttendantEnabled : IDomainEvent
-{
-    [JsonIgnore]
-    public AttendantAgg Attendant { get; private set; }
-
-    public string AttendantId { get; private set; }
-    public string Name { get; private set; }
-    public DateTime CreatedDate { get; private set; }
-    public DateTime? DisableDate { get; set; }
-    public string CardId { get; private set; }
-
-    public static AttendantEnabled Create(AttendantAgg attendantAgg)
+    public static AttendantEnabled CreateEnabled(AttendantAgg attendantAgg)
         => new AttendantEnabled
         {
             AttendantId = attendantAgg.Id,
@@ -45,7 +27,20 @@ public class AttendantEnabled : IDomainEvent
             Name = attendantAgg.Name,
             CreatedDate = attendantAgg.CreatedDate,
             DisableDate = attendantAgg.DisabledDate,
+            IsEnabled = attendantAgg.IsEnabled,
             Attendant = attendantAgg
         };
 
+
+    public static AttendantDisabled CreateDisabled(AttendantAgg attendantAgg)
+        => new AttendantDisabled
+        {
+            AttendantId = attendantAgg.Id,
+            CardId = attendantAgg.CardId,
+            Name = attendantAgg.Name,
+            CreatedDate = attendantAgg.CreatedDate,
+            DisableDate = attendantAgg.DisabledDate,
+            IsEnabled = attendantAgg.IsEnabled,
+            Attendant = attendantAgg
+        };
 }

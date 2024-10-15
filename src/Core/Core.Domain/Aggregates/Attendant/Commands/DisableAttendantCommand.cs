@@ -1,24 +1,26 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Attendant.Events;
+using System.Text.Json.Serialization;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Attendant.Commands;
 
-#pragma warning disable
-public class DisableAttendantCommand : ICommand<AttendantDisabled>
+public record ChangeAttendantCommand<T>(string CardId, bool isEnabled) : ICommand<T> where T : IDomainEvent
 {
-    public string AttendantId { get; private set; }
+    [JsonIgnore]
+    public AttendantAgg Attendang { get; set; }
+}
 
-    public DisableAttendantCommand(string attendantId)
+public record DisableAttendantCommand : ChangeAttendantCommand<AttendantDisabled>
+{
+    public DisableAttendantCommand(string attendantId) : base(attendantId, false)
     {
-        AttendantId = attendantId;
+
     }
 }
 
-public class EnableAttendantCommand : ICommand<AttendantDisabled>
+public record EnableAttendantCommand : ChangeAttendantCommand<AttendantEnabled>
 {
-    public string AttendantId { get; private set; }
-
-    public EnableAttendantCommand(string attendantId)
+    public EnableAttendantCommand(string attendantId) : base(attendantId, true)
     {
-        AttendantId = attendantId;
+
     }
 }
