@@ -9,13 +9,10 @@ namespace AutoMais.Ticket.Core.Application.Attendant.Queries.GetAll
         
         public async Task<Result<IEnumerable<AttendantAgg>>> Handle(AttendantGetAll request, CancellationToken cancellationToken)
         {
-
             var attendants = await state.GetAll();
-
-            return new Result<IEnumerable<AttendantAgg>>
-            {
-                //ValueOrDefault = attendants,
-            };
+            var models = Result.Ok(attendants);
+            models.WithError("errr");
+            return models;
         }
     }
 
