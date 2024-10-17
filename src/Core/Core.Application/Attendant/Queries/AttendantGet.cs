@@ -10,6 +10,3 @@ public record AttendantGetOne : IQuery<AttendantAgg>
     public string Id { get; set; }
 }
 
-public record AttendantGetMany : QueryManyBase
-{
-}
