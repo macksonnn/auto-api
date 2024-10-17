@@ -1,28 +1,14 @@
-﻿//using AutoMais.Ticket.Core.Application.Vehicle.States;
-//using AutoMais.Ticket.Core.Domain.Aggregates.Vehicle;
+﻿using AutoMais.Ticket.Core.Application.Vehicle.Adapters.States;
+using AutoMais.Ticket.Core.Domain.Aggregates.Vehicle;
+using AutoMais.Ticket.States.Mongo;
 
-//namespace States.Mongo.Repositories.Vehicle
-//{
-//    internal class VehicleState : IVehicleState
-//    {
-//        public Task<Result<VehicleAgg>> AddAsync(VehicleAgg vehicle)
-//        {
-//            throw new NotImplementedException();
-//        }
+namespace States.Mongo.Repositories.Vehicle
+{
+    public class VehicleState : MongoRepositoryBase<VehicleAgg>, IVehicleState
+    {
+        public VehicleState(IMongoDatabase database) : base(database, "Vehicles")
+        {
 
-//        public Result<VehicleAgg> GetVehicle(string id)
-//        {
-//            throw new NotImplementedException();
-//        }
-
-//        public Result<VehicleAgg> GetVehicle(string id, string attendantId)
-//        {
-//            throw new NotImplementedException();
-//        }
-
-//        public Result<IEnumerable<VehicleAgg>> GetVehicles(QueryManyBase queryMany)
-//        {
-//            throw new NotImplementedException();
-//        }
-//    }
-//}
+        }
+    }
+}
