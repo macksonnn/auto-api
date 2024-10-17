@@ -2,6 +2,7 @@
 using AutoMais.Ticket.Core.Domain.Aggregates.Pump;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events;
+using AutoMais.Ticket.Core.Domain.Aggregates.Vehicle;
 using System.Security.Cryptography;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
@@ -14,6 +15,7 @@ public class TicketAgg : AggRoot
     public TicketStatusEnum Status { get; internal set; } = TicketStatusEnum.Opened;
     public Attendant Attendant { get; internal set; }
     public Driver Driver { get; internal set; }
+    public Vehicle Vehicle { get; internal set; }
 
     public DateTime CreatedDate { get; internal set; }
     public DateTime LastUpdatedDate { get; internal set; }
@@ -224,6 +226,14 @@ public class TicketAgg : AggRoot
     public Result<TicketUpdated> ChangeDriver(ChangeTicketDriverCommand command)
     {
         this.Driver = Driver.Create(command.CPF);
+        this.LastUpdatedDate = DateTime.Now;
+
+        return this.Updated();
+    }
+
+    public Result<TicketUpdated> ChangeVehicle(VehicleAgg vehicle)
+    {
+        this.Vehicle = Vehicle.Create(vehicle);
         this.LastUpdatedDate = DateTime.Now;
 
         return this.Updated();

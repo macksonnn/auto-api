@@ -2,18 +2,14 @@
 
 namespace AutoMais.Ticket.Core.Application.Ticket.Queries
 {
-    public record TicketsOfAttendant : IQueryMany<TicketAgg>
+    public record TicketsOfAttendant : QueryManyBase<TicketAgg>
     {
-        public TicketsOfAttendant(string attendantId, int pageSize, int pageNumber)
+        public TicketsOfAttendant(string attendantId)
         {
             CardId = attendantId;
-            PageNumber = pageNumber;
-            PageSize = pageSize;
         }
 
         public string CardId { get; set; }
-        public int PageNumber { get; set; } = 0;
-        public int PageSize { get; set; } = 20;
     }
 
     /// <summary>

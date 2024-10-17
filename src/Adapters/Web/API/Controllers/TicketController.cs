@@ -15,14 +15,14 @@ namespace AutoMais.Ticket.Api.Controllers
                 return await mediator.Send(query, cancellationToken);
             });
 
-            v1.MapGet("/attendant/{attendantId}", async (IMediator mediator, CancellationToken cancellationToken,
-                [FromRoute] string attendantId,
-                [FromQuery] int pageSize = 20,
-                [FromQuery] int pageNumber = 1) =>
-            {
-                var query = new TicketsOfAttendant(attendantId, pageSize, pageNumber);
-                return await mediator.Send(query, cancellationToken);
-            });
+            //v1.MapGet("/attendant/{attendantId}", async (IMediator mediator, CancellationToken cancellationToken,
+            //    [FromRoute] string attendantId,
+            //    [FromQuery] int pageSize = 20,
+            //    [FromQuery] int pageNumber = 1) =>
+            //{
+            //    var query = new TicketsOfAttendant(attendantId, pageSize, pageNumber);
+            //    return await mediator.Send(query, cancellationToken);
+            //});
 
 
 
@@ -102,6 +102,16 @@ namespace AutoMais.Ticket.Api.Controllers
                 CancellationToken cancellationToken) =>
             {
                 var command = new ChangeTicketDriverCommand(ticketId, CPF);
+                return await mediator.Send(command, cancellationToken);
+            });
+
+            v1.MapPatch("/{ticketId}/vehicle/{Plate}", async (
+                [FromRoute] string ticketId,
+                [FromRoute] string Plate,
+                IMediator mediator,
+                CancellationToken cancellationToken) =>
+            {
+                var command = new ChangeVehicleCommand(ticketId, Plate);
                 return await mediator.Send(command, cancellationToken);
             });
         }
