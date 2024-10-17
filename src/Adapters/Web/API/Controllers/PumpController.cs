@@ -9,6 +9,12 @@ namespace AutoMais.Ticket.Api.Controllers
         {
             var v1 = app.MapGroup("/v1/pumps").WithTags("Pumps");
 
+            v1.MapGet("/", async (IMediator mediator, CancellationToken cancellationToken,
+                [FromRoute] int id) =>
+            {
+                return await mediator.Send(new PumpGetAll(), cancellationToken);
+            });
+
             v1.MapGet("/{id}", async (IMediator mediator, CancellationToken cancellationToken,
                 [FromRoute] int id) =>
             {

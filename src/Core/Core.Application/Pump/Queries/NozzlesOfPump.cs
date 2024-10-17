@@ -3,7 +3,7 @@ using AutoMais.Ticket.Core.Domain.Aggregates.Pump;
 
 namespace AutoMais.Ticket.Core.Application.Pump.Queries
 {
-    public record NozzlesOfPump : IQueryMany<Nozzle>
+    public record NozzlesOfPump : QueryManyBase<Nozzle>
     {
         public NozzlesOfPump(int number, int pageSize, int pageNumber)
         {
