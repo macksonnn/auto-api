@@ -20,7 +20,7 @@ var app = builder.Build();
     });
 //}
 
-app.RegisterEndpointDefinitions();
+app.RegisterEndpointDefinitions("Automais SmartTicket");
 app.UseHttpsRedirection();
 //app.UseAuthorization();
 
