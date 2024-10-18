@@ -2,15 +2,7 @@
 
 namespace AutoMais.Ticket.Core.Application.Ticket.Queries
 {
-    public record TicketsOfAttendant : QueryManyBase<TicketAgg>
-    {
-        public TicketsOfAttendant(string attendantId)
-        {
-            CardId = attendantId;
-        }
-
-        public string CardId { get; set; }
-    }
+    public record TicketsOfAttendant(string CardId) : QueryManyBase<TicketAgg>;
 
     /// <summary>
     /// The command validator contains the rules to ensure the object is valid
