@@ -62,16 +62,16 @@ namespace AutoMais.Ticket.Api.Controllers
 
 
 
-            v1.MapPost("/attendant/{attendantId}/pump/{pumpNumber}/nozzles/{nozzleNumber}", async (IMediator mediator, CancellationToken cancellationToken,
-                [FromRoute] string attendantId,
+            v1.MapPost("/attendant/{cardId}/pump/{pumpNumber}/nozzles/{nozzleNumber}", async (IMediator mediator, CancellationToken cancellationToken,
+                [FromRoute] string cardId,
                 [FromRoute] int pumpNumber,
                 [FromRoute] int nozzleNumber) =>
             {
-                var query = new CreateTicketForAttendantCommand(attendantId, pumpNumber, nozzleNumber);
+                var query = new CreateTicketForAttendantCommand(cardId, pumpNumber, nozzleNumber);
                 return await mediator.Send(query, cancellationToken);
             }).WithOpenApi(o => new(o)
             {
-                Summary = "Created a new ticket associated with the informed Attendant and adding the Pump/Nozzle as an authorized refueling"
+                Summary = "Creates a new ticket associated with the informed Attendant and adding the Pump/Nozzle as an authorized refueling"
             });
 
 
@@ -96,8 +96,8 @@ namespace AutoMais.Ticket.Api.Controllers
 
 
 
-            v1.MapPatch("/attendant/{attendantId}/pump/{pumpNumber}/nozzles/{nozzleNumber}/quantity/{quantity}/cost/{cost}", async (IMediator mediator, CancellationToken cancellationToken,
-                [FromRoute] string attendantId,
+            v1.MapPatch("/attendant/{cardId}/pump/{pumpNumber}/nozzles/{nozzleNumber}/quantity/{quantity}/cost/{cost}", async (IMediator mediator, CancellationToken cancellationToken,
+                [FromRoute] string cardId,
                 [FromRoute] int pumpNumber,
                 [FromRoute] int nozzleNumber,
                 [FromRoute] decimal quantity,
@@ -105,7 +105,7 @@ namespace AutoMais.Ticket.Api.Controllers
             {
                 var query = new AddFuelToTicketCommand()
                 {
-                    CardId = attendantId,
+                    CardId = cardId,
                     PumpNumber = pumpNumber,
                     NozzleNumber = nozzleNumber,
                     Quantity = quantity,
@@ -140,7 +140,7 @@ namespace AutoMais.Ticket.Api.Controllers
                 Summary = "This operation adds the product in the specified ticket or sum the quantity if already exists"
             });
 
-            v1.MapDelete("/{ticketId}/product/{productId}", async (
+            v1.MapDelete("/{ticketId}/products/{productId}", async (
                 [FromRoute] string ticketId,
                 [FromRoute] string productId,
                 IMediator mediator,
@@ -154,7 +154,7 @@ namespace AutoMais.Ticket.Api.Controllers
             });
 
 
-            v1.MapPatch("/{ticketId}/product/{productId}/quantity/{quantity}", async (
+            v1.MapPatch("/{ticketId}/products/{productId}/quantity/{quantity}", async (
                 [FromRoute] string ticketId,
                 [FromRoute] string productId,
                 [FromRoute] decimal quantity,
