@@ -13,6 +13,9 @@ namespace AutoMais.Ticket.Api.Controllers
             {
                 var query = new TicketGetOne(id);
                 return await mediator.Send(query, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "Get one specific ticket based on it's id"
             });
 
             v1.MapGet("/{id}/payments", async ([FromRoute] string id, IMediator mediator, CancellationToken cancellationToken) =>
@@ -39,16 +42,22 @@ namespace AutoMais.Ticket.Api.Controllers
                         Type = "Money"
                     }
                 };
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "Get the allowed payment types for the specified ticket"
             });
 
 
-            v1.MapGet("/attendant/{attendantId}", async (IMediator mediator, CancellationToken cancellationToken,
-                [FromRoute] string attendantId,
+            v1.MapGet("/attendant/{cardId}", async (IMediator mediator, CancellationToken cancellationToken,
+                [FromRoute] string cardId,
                 [FromQuery] int pageSize = 20,
                 [FromQuery] int pageNumber = 1) =>
             {
-                var query = new TicketsOfAttendant(attendantId);
+                var query = new TicketsOfAttendant(cardId);
                 return await mediator.Send(query, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "Get a list of ticket of the specified attendant based on it's CardId"
             });
 
 
@@ -60,8 +69,10 @@ namespace AutoMais.Ticket.Api.Controllers
             {
                 var query = new CreateTicketForAttendantCommand(attendantId, pumpNumber, nozzleNumber);
                 return await mediator.Send(query, cancellationToken);
-            })
-            .WithDescription("Created a new ticket associated with the informed Attendant and adding the Pump/Nozzle as an authorized refueling");
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "Created a new ticket associated with the informed Attendant and adding the Pump/Nozzle as an authorized refueling"
+            });
 
 
             v1.MapPatch("fuel/pump/{pumpNumber}/nozzle/{nozzleNumber}/quantity/{quantity}/cost/{cost}", async (IMediator mediator, CancellationToken cancellationToken,
@@ -78,8 +89,10 @@ namespace AutoMais.Ticket.Api.Controllers
                     Cost = cost
                 };
                 return await mediator.Send(query, cancellationToken);
-            })
-            .WithDescription("This operation replaces the Quantity (volume) and Cost (price) with the informed values in the current in progress ticket .");
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "This operation replaces the Quantity (volume) and Cost (price) with the informed values in the current in progress ticket"
+            });
 
 
 
@@ -99,12 +112,18 @@ namespace AutoMais.Ticket.Api.Controllers
                     Cost = cost
                 };
                 return await mediator.Send(query, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "This operation Adds the Quantity (volume) and sum the Cost (price) in the current ticket"
             });
 
 
             v1.MapPost("/", async ([FromBody] CreateTicketCommand command, IMediator mediator, CancellationToken cancellationToken) =>
             {
                 return await mediator.Send(command, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "Creates a new ticket to the informed CardId and Plate without any pre-configured supplies"
             });
 
 
@@ -116,6 +135,9 @@ namespace AutoMais.Ticket.Api.Controllers
             {
                 command.TicketId = ticketId;
                 return await mediator.Send(command, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "This operation adds the product in the specified ticket or sum the quantity if already exists"
             });
 
             v1.MapDelete("/{ticketId}/product/{productId}", async (
@@ -126,6 +148,9 @@ namespace AutoMais.Ticket.Api.Controllers
             {
                 var command = new RemoveProductFromTicketCommand(ticketId, productId);
                 return await mediator.Send(command, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "This operation removes the product from the specified ticket"
             });
 
 
@@ -138,6 +163,9 @@ namespace AutoMais.Ticket.Api.Controllers
             {
                 var command = new ChangeProductQuantityOnTicketCommand(ticketId, productId, quantity);
                 return await mediator.Send(command, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "This operation updates the product quantity in the specified ticket"
             });
 
 
@@ -149,6 +177,9 @@ namespace AutoMais.Ticket.Api.Controllers
             {
                 var command = new ChangeTicketDriverCommand(ticketId, CPF);
                 return await mediator.Send(command, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "This operation changes the driver in the specified ticket"
             });
 
             v1.MapPatch("/{ticketId}/vehicle/{Plate}", async (
@@ -159,6 +190,9 @@ namespace AutoMais.Ticket.Api.Controllers
             {
                 var command = new ChangeVehicleCommand(ticketId, Plate);
                 return await mediator.Send(command, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "This operation changes the vehicle in the specified ticket based on it's Plate"
             });
         }
     }
