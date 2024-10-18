@@ -27,9 +27,9 @@ public class AttendantController : IEndpointDefinition
             Summary = "Disable the attendant based on his CardId"
         });
 
-        v1.MapPatch("/{id}/enable", async ([FromRoute] string id, IMediator mediator, CancellationToken cancellationToken) =>
+        v1.MapPatch("/{cardId}/enable", async ([FromRoute] string cardId, IMediator mediator, CancellationToken cancellationToken) =>
         {
-            return await mediator.Send(new EnableAttendantCommand(id), cancellationToken);
+            return await mediator.Send(new EnableAttendantCommand(cardId), cancellationToken);
         }).WithOpenApi(o => new(o)
         {
             Summary = "Enable the attendant based on his CardId"
