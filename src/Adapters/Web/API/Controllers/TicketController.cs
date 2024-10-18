@@ -15,6 +15,33 @@ namespace AutoMais.Ticket.Api.Controllers
                 return await mediator.Send(query, cancellationToken);
             });
 
+            v1.MapGet("/{id}/payments", async ([FromRoute] string id, IMediator mediator, CancellationToken cancellationToken) =>
+            {
+                return new List<dynamic>() {
+                    new {
+                        Id = "5d7dbee5-b97e-4d96-8a31-b690033954af",
+                        Name = "Cartão de crédito",
+                        Type = "Credit"
+                    },
+                    new {
+                        Id = "689b4159-7f7d-47f1-aced-1a229eaefedd",
+                        Name = "Cartão de débito",
+                        Type = "Debit"
+                    },
+                    new {
+                        Id = "7468e53b-8f59-4bcb-a391-09b0ac9a7d8f",
+                        Name = "Pix",
+                        Type = "Money"
+                    },
+                    new {
+                        Id = "f5bdfbbe-a0e9-4a50-89cf-35aaddc2ef98",
+                        Name = "Money",
+                        Type = "Money"
+                    }
+                };
+            });
+
+
             v1.MapGet("/attendant/{attendantId}", async (IMediator mediator, CancellationToken cancellationToken,
                 [FromRoute] string attendantId,
                 [FromQuery] int pageSize = 20,
