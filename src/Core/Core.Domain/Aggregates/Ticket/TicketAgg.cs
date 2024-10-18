@@ -128,15 +128,19 @@ public class TicketAgg : AggRoot
         LastUpdatedDate = DateTime.Now;
         Attendant = attendant;
         Status = TicketStatusEnum.Opened;
+
+        Supplies = new List<Supply>() {
+            Supply.Create(command.Pump, command.Nozzle)
+        };
     }
 
-    public static Result<TicketCreated> Create(CreateTicketForAttendantCommand command, Attendant attendant)
+    public static Result<TicketAgg> Create(CreateTicketForAttendantCommand command, Attendant attendant)
     {
         var result = Result.Ok();
         //Add additional validations and return failures in Result if needed
         var agg = new TicketAgg(command, attendant);
 
-        return result.ToResult(agg.Created());
+        return result.ToResult(agg);
     }
 
     public static Result<TicketCreated> Create(CreateTicketCommand command, Attendant attendant)
@@ -182,17 +186,27 @@ public class TicketAgg : AggRoot
         return result.ToResult(TicketProductsChanged.Create(this));
     }
 
-    public Result<TicketUpdated> AddOrUpdateSupply(Nozzle nozzle, AddFuelToTicketCommand command)
+    public Result<TicketUpdated> AddOrUpdateSupply(AddFuelToTicketCommand command)
+    {
+        return UpdateSupply(command.PumpNumber, command.NozzleNumber, command.Quantity, command.Cost, command.Pump, command.Nozzle);
+    }
+
+    public Result<TicketUpdated> AddOrUpdateSupply(UpdateFuelToTicketCommand command)
+    {
+        return UpdateSupply(command.PumpNumber, command.NozzleNumber, command.Quantity, command.Cost, command.Pump, command.Nozzle);
+    }
+
+    private Result<TicketUpdated> UpdateSupply(int pumpNumber, int nozzleNumber, decimal quantity, decimal cost, PumpAgg pump, Nozzle nozzle)
     {
         var list = this.Supplies.ToList();
-        var index = list.FindIndex(x => x.Nozzle.Number == nozzle.Number);
+        var index = list.FindIndex(x => x.Pump.Number == pumpNumber && x.Pump.Nozzle.Number == nozzleNumber);
         if (index >= 0)
         {
-            list[index].ChangeQuantityAndCost(command.Quantity, command.Cost);
+            list[index].ChangeQuantityAndCost(quantity, cost);
         }
         else
         {
-            list.Add(Supply.Create(nozzle, command.Quantity, command.Cost));
+            list.Add(Supply.Create(pump, nozzle, quantity, cost));
         }
 
         Supplies = list;

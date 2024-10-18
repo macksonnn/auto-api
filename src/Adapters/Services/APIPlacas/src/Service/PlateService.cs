@@ -20,7 +20,7 @@ namespace AutoMais.Services.Vehicles.APIPlacas.Service
 
             var vehiclePlate = await state.Get(x => x.placa == plate);
 
-            if (vehiclePlate == null || (vehiclePlate.date.AddDays(15) < DateTime.Now))
+            if (vehiclePlate == null)
             {
                 var download = await DownloadFromApi(plate);
                 vehiclePlate = download?.Value;
@@ -36,12 +36,12 @@ namespace AutoMais.Services.Vehicles.APIPlacas.Service
                 vehiclePlate.MODELO,
                 vehiclePlate.SUBMODELO,
                 vehiclePlate.segmento,
-                vehiclePlate.extra.tipo_veiculo,
+                vehiclePlate.extra?.tipo_veiculo,
                 Int32.Parse(vehiclePlate.ano),
-                vehiclePlate.extra.municipio,
-                vehiclePlate.extra.uf,
+                vehiclePlate.extra?.municipio,
+                vehiclePlate.extra?.uf,
                 vehiclePlate.cor,
-                vehiclePlate.extra.combustivel,
+                vehiclePlate.extra?.combustivel,
                 vehiclePlate.situacao,
                 vehiclePlate.logo
             );

@@ -65,7 +65,7 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
 
             if (openedTicket != null)
             {
-                var updated = openedTicket.AddOrUpdateSupply(command.Nozzle!, command);
+                var updated = openedTicket.AddOrUpdateSupply(command);
 
                 if (updated.IsSuccess)
                 {

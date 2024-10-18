@@ -15,14 +15,14 @@ namespace AutoMais.Ticket.Api.Controllers
                 return await mediator.Send(query, cancellationToken);
             });
 
-            //v1.MapGet("/attendant/{attendantId}", async (IMediator mediator, CancellationToken cancellationToken,
-            //    [FromRoute] string attendantId,
-            //    [FromQuery] int pageSize = 20,
-            //    [FromQuery] int pageNumber = 1) =>
-            //{
-            //    var query = new TicketsOfAttendant(attendantId, pageSize, pageNumber);
-            //    return await mediator.Send(query, cancellationToken);
-            //});
+            v1.MapGet("/attendant/{attendantId}", async (IMediator mediator, CancellationToken cancellationToken,
+                [FromRoute] string attendantId,
+                [FromQuery] int pageSize = 20,
+                [FromQuery] int pageNumber = 1) =>
+            {
+                var query = new TicketsOfAttendant(attendantId);
+                return await mediator.Send(query, cancellationToken);
+            });
 
 
 
@@ -33,7 +33,26 @@ namespace AutoMais.Ticket.Api.Controllers
             {
                 var query = new CreateTicketForAttendantCommand(attendantId, pumpNumber, nozzleNumber);
                 return await mediator.Send(query, cancellationToken);
-            });
+            })
+            .WithDescription("Created a new ticket associated with the informed Attendant and adding the Pump/Nozzle as an authorized refueling");
+
+
+            v1.MapPatch("fuel/pump/{pumpNumber}/nozzle/{nozzleNumber}/quantity/{quantity}/cost/{cost}", async (IMediator mediator, CancellationToken cancellationToken,
+                [FromRoute] int pumpNumber,
+                [FromRoute] int nozzleNumber,
+                [FromRoute] decimal quantity,
+                [FromRoute] decimal cost) =>
+            {
+                var query = new UpdateFuelToTicketCommand()
+                {
+                    PumpNumber = pumpNumber,
+                    NozzleNumber = nozzleNumber,
+                    Quantity = quantity,
+                    Cost = cost
+                };
+                return await mediator.Send(query, cancellationToken);
+            })
+            .WithDescription("This operation replaces the Quantity (volume) and Cost (price) with the informed values in the current in progress ticket .");
 
 
 

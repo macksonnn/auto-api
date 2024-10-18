@@ -1,6 +1,5 @@
 ﻿using AutoMais.Ticket.Core.Application.Ticket.Adapters;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
-using AutoMais.Ticket.States.Mongo;
 
 namespace AutoMais.Ticket.States.Mongo.Repositories.Ticket;
 
@@ -9,6 +8,19 @@ public class TicketRepository : MongoRepositoryBase<TicketAgg>, ITicketState
     public TicketRepository(IMongoDatabase database) : base(database, "Tickets")
     {
 
+    }
+
+    public async Task<Result<TicketAgg>> GetOpenedTicket(string cardId, int pumpNumber, int nozzleNumber)
+    {
+        var result = await db.Find(x => 
+            (x.Status == TicketStatusEnum.Opened || x.Status == TicketStatusEnum.InProgress) && 
+            x.Supplies.Any(s => s.Pump.Number == pumpNumber && s.Pump.Nozzle.Number == nozzleNumber))
+            .FirstOrDefaultAsync();
+
+        if (result != null)
+            return Result.Ok(result);
+
+        return Result.Fail<TicketAgg>($"No Ticket opened or in progress for Pump {pumpNumber} and Nozzle {nozzleNumber}");
     }
 
     //public async Task<Result<TicketAgg>> AddAsync(TicketAgg ticket)

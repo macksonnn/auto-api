@@ -5,8 +5,6 @@ using System.Text.Json.Serialization;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 
-
-
 /// <summary>
 /// Definition of the Command to create a new ticket with the required properties
 /// </summary>
@@ -16,6 +14,9 @@ public record CreateTicketForAttendantCommand(string CardId, int PumpNumber, int
 {
     [JsonIgnore]
     public PumpAgg Pump { get; set; }
+
+    [JsonIgnore]
+    public Nozzle Nozzle { get; set; }
 
     [JsonIgnore]
     public AttendantAgg Attendant { get; set; }
