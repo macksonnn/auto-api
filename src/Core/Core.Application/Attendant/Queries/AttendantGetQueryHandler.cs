@@ -3,11 +3,11 @@ using AutoMais.Ticket.Core.Domain.Aggregates.Attendant;
 
 namespace AutoMais.Ticket.Core.Application.Attendant.Queries;
 
-public class AttendantGetQueryHandler(IAttendantState state) : IQueryHandler<AttendantGetOne, AttendantAgg>
+public class AttendantGetByCardQueryHandler(IAttendantState state) : IQueryHandler<AttendantGetByCard, AttendantAgg>
 {
-    public async Task<Result<AttendantAgg>> Handle(AttendantGetOne request, CancellationToken cancellationToken)
+    public async Task<Result<AttendantAgg>> Handle(AttendantGetByCard request, CancellationToken cancellationToken)
     {
-        return await state.GetByCard(request.Id);
+        return await state.GetByCard(request.CardId);
     }
 }
 
