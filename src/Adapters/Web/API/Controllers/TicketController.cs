@@ -9,16 +9,16 @@ namespace AutoMais.Ticket.Api.Controllers
         {
             var v1 = app.MapGroup("/v1/tickets").WithTags("Tickets");
 
-            v1.MapGet("/{id}", async ([FromRoute] string id, IMediator mediator, CancellationToken cancellationToken) =>
+            v1.MapGet("/{ticketId}", async ([FromRoute] string ticketId, IMediator mediator, CancellationToken cancellationToken) =>
             {
-                var query = new TicketGetOne(id);
+                var query = new TicketGetOne(ticketId);
                 return await mediator.Send(query, cancellationToken);
             }).WithOpenApi(o => new(o)
             {
                 Summary = "Get one specific ticket based on it's id"
             });
 
-            v1.MapGet("/{id}/payments", async ([FromRoute] string id, IMediator mediator, CancellationToken cancellationToken) =>
+            v1.MapGet("/{ticketId}/payments", async ([FromRoute] string ticketId, IMediator mediator, CancellationToken cancellationToken) =>
             {
                 return new List<dynamic>() {
                     new {
