@@ -8,7 +8,6 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
         public string Code { get; private set; }
         public TicketStatusEnum Status { get; private set; }
 
-        public DateTime LastUpdatedDate { get; private set; }
         public decimal ProductsPrice { get; private set; }
         public decimal ProductsQuantity { get; private set; }
 
@@ -16,8 +15,7 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
         public decimal FuelPrice { get; private set; }
         public decimal TotalCost { get; private set; }
 
-        public IEnumerable<Supply> Supplies { get; private set; }
-        public IEnumerable<Product> Products { get; private set; }
+        public DateTime LastUpdatedDate { get; private set; }
 
 
         [JsonIgnore] //Make this property non-serializable
@@ -30,8 +28,6 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
                 TicketId = ticket.Id,
                 Code = ticket.Code,
                 Ticket = ticket,
-                Supplies = ticket.Supplies,
-                Products = ticket.Products,
                 ProductsPrice = ticket.ProductsTotalPrice,
                 ProductsQuantity = ticket.ProductsTotalQuantity,
                 FuelVolume = ticket.FuelTotalVolume,
