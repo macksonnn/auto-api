@@ -54,7 +54,7 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
                 return ticket.Value.Created();
 
             if (ticket.IsFailed)
-                ticket = TicketAgg.Create(command, Domain.Aggregates.Ticket.Attendant.Create(command.Attendant));
+                ticket = TicketAgg.Create(command, Domain.Aggregates.Ticket.Attendant.Create(command.Attendant!));
 
             if (ticket.IsSuccess)
             {

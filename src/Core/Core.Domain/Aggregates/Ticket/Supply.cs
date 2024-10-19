@@ -1,4 +1,5 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Pump;
+using System.Text.Json.Serialization;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket
 {
@@ -79,6 +80,8 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket
         }
     }
 
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum SupplyStatus
     {
         NotStarted,

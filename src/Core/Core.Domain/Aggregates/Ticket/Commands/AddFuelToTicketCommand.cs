@@ -33,10 +33,10 @@ public record AddFuelToTicketCommand() : ICommand<TicketUpdated>
 /// <summary>
 /// Command to insert a new product in an existing ticket
 /// </summary>
-/// <param name="TicketId">The Ticket unique Id</param>
 /// <param name="PumpNumber">The Pump Number</param>
 /// <param name="NozzleNumber">The Nozzle Number</param>
 /// <param name="Quantity">The quantity of fuel</param>
+/// <param name="Cost">The fuel cost</param>
 public record UpdateFuelToTicketCommand() : ICommand<TicketUpdated>
 {
     public required int PumpNumber { get; init; }
@@ -44,6 +44,20 @@ public record UpdateFuelToTicketCommand() : ICommand<TicketUpdated>
     public required decimal Quantity { get; init; }
     public required decimal Cost { get; init; }
 
+    [JsonIgnore]
+    public PumpAgg? Pump { get; set; }
+
+    [JsonIgnore]
+    public Nozzle? Nozzle { get; set; }
+}
+
+/// <summary>
+/// Command to insert a new product in an existing ticket
+/// </summary>
+/// <param name="PumpNumber">The Pump Number</param>
+/// <param name="NozzleNumber">The Nozzle Number</param>
+public record FinishSupply(int PumpNumber, int NozzleNumber) : ICommand<TicketUpdated>
+{
     [JsonIgnore]
     public PumpAgg? Pump { get; set; }
 

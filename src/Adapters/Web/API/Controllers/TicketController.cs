@@ -9,6 +9,15 @@ namespace AutoMais.Ticket.Api.Controllers
         {
             var v1 = app.MapGroup("/v1/tickets").WithTags("Tickets");
 
+
+            v1.MapPost("/", async ([FromBody] CreateTicketCommand command, IMediator mediator, CancellationToken cancellationToken) =>
+            {
+                return await mediator.Send(command, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "Creates a new ticket to the informed CardId and Plate without any pre-configured supplies"
+            });
+
             v1.MapGet("/{ticketId}", async ([FromRoute] string ticketId, IMediator mediator, CancellationToken cancellationToken) =>
             {
                 var query = new TicketGetOne(ticketId);
@@ -60,20 +69,54 @@ namespace AutoMais.Ticket.Api.Controllers
                 Summary = "Get a list of ticket of the specified attendant based on it's CardId"
             });
 
-
-
             v1.MapPost("/attendant/{cardId}/pump/{pumpNumber}/nozzles/{nozzleNumber}", async (IMediator mediator, CancellationToken cancellationToken,
                 [FromRoute] string cardId,
                 [FromRoute] int pumpNumber,
                 [FromRoute] int nozzleNumber) =>
             {
-                var query = new CreateTicketForAttendantCommand(cardId, pumpNumber, nozzleNumber);
-                return await mediator.Send(query, cancellationToken);
+                var command = new CreateTicketForAttendantCommand(cardId, pumpNumber, nozzleNumber);
+                return await mediator.Send(command, cancellationToken);
             }).WithOpenApi(o => new(o)
             {
                 Summary = "Creates a new ticket associated with the informed Attendant and adding the Pump/Nozzle as an authorized refueling"
             });
 
+
+            #region Refueling Management
+
+
+            v1.MapPatch("/attendant/{cardId}/pump/{pumpNumber}/nozzles/{nozzleNumber}/quantity/{quantity}/cost/{cost}", async (IMediator mediator, CancellationToken cancellationToken,
+                [FromRoute] string cardId,
+                [FromRoute] int pumpNumber,
+                [FromRoute] int nozzleNumber,
+                [FromRoute] decimal quantity,
+                [FromRoute] decimal cost) =>
+            {
+                var command = new AddFuelToTicketCommand()
+                {
+                    CardId = cardId,
+                    PumpNumber = pumpNumber,
+                    NozzleNumber = nozzleNumber,
+                    Quantity = quantity,
+                    Cost = cost
+                };
+                return await mediator.Send(command, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "This operation Adds the Quantity (volume) and sum the Cost (price) in the current ticket"
+            });
+
+
+            v1.MapPatch("fuel/pump/{pumpNumber}/nozzle/{nozzleNumber}/finish", async (IMediator mediator, CancellationToken cancellationToken,
+                [FromRoute] int pumpNumber,
+                [FromRoute] int nozzleNumber) =>
+            {
+                var command = new FinishSupply(pumpNumber, nozzleNumber);
+                return await mediator.Send(command, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "This operation replaces the Quantity (volume) and Cost (price) with the informed values in the current in progress ticket"
+            });
 
             v1.MapPatch("fuel/pump/{pumpNumber}/nozzle/{nozzleNumber}/quantity/{quantity}/cost/{cost}", async (IMediator mediator, CancellationToken cancellationToken,
                 [FromRoute] int pumpNumber,
@@ -94,38 +137,10 @@ namespace AutoMais.Ticket.Api.Controllers
                 Summary = "This operation replaces the Quantity (volume) and Cost (price) with the informed values in the current in progress ticket"
             });
 
+            #endregion
 
 
-            v1.MapPatch("/attendant/{cardId}/pump/{pumpNumber}/nozzles/{nozzleNumber}/quantity/{quantity}/cost/{cost}", async (IMediator mediator, CancellationToken cancellationToken,
-                [FromRoute] string cardId,
-                [FromRoute] int pumpNumber,
-                [FromRoute] int nozzleNumber,
-                [FromRoute] decimal quantity,
-                [FromRoute] decimal cost) =>
-            {
-                var query = new AddFuelToTicketCommand()
-                {
-                    CardId = cardId,
-                    PumpNumber = pumpNumber,
-                    NozzleNumber = nozzleNumber,
-                    Quantity = quantity,
-                    Cost = cost
-                };
-                return await mediator.Send(query, cancellationToken);
-            }).WithOpenApi(o => new(o)
-            {
-                Summary = "This operation Adds the Quantity (volume) and sum the Cost (price) in the current ticket"
-            });
-
-
-            v1.MapPost("/", async ([FromBody] CreateTicketCommand command, IMediator mediator, CancellationToken cancellationToken) =>
-            {
-                return await mediator.Send(command, cancellationToken);
-            }).WithOpenApi(o => new(o)
-            {
-                Summary = "Creates a new ticket to the informed CardId and Plate without any pre-configured supplies"
-            });
-
+            #region Product Management
 
             v1.MapPost("/{ticketId}/product", async (
                 [FromRoute] string ticketId,
@@ -168,6 +183,9 @@ namespace AutoMais.Ticket.Api.Controllers
                 Summary = "This operation updates the product quantity in the specified ticket"
             });
 
+            #endregion
+
+            #region Change Driver and Vehicle
 
             v1.MapPatch("/{ticketId}/driver/{CPF}", async (
                 [FromRoute] string ticketId,
@@ -194,6 +212,60 @@ namespace AutoMais.Ticket.Api.Controllers
             {
                 Summary = "This operation changes the vehicle in the specified ticket based on it's Plate"
             });
+
+            #endregion
+
+            #region State Management
+
+            v1.MapPatch("/{ticketId}/abandon", async (
+                [FromRoute] Guid ticketId,
+                IMediator mediator,
+                CancellationToken cancellationToken) =>
+            {
+                var command = new AbandonCommand(ticketId);
+                return await mediator.Send(command, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "This operation abandon the ticket and it cannot be changed anymore"
+            });
+
+            v1.MapPatch("/{ticketId}/reopen", async (
+                [FromRoute] Guid ticketId,
+                IMediator mediator,
+                CancellationToken cancellationToken) =>
+            {
+                var command = new ReopenCommand(ticketId);
+                return await mediator.Send(command, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "Reopen the ticket if the Ticket is Paid and last change happened before 5 minutes"
+            });
+
+            v1.MapPatch("/{ticketId}/pay", async (
+                [FromRoute] Guid ticketId,
+                IMediator mediator,
+                CancellationToken cancellationToken) =>
+            {
+                var command = new PayCommand(ticketId);
+                return await mediator.Send(command, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "Confirm the payment has been received by the cashier and make the ticket Paid"
+            });
+
+            v1.MapPatch("/{ticketId}/requestpayment", async (
+                [FromRoute] Guid ticketId,
+                IMediator mediator,
+                CancellationToken cancellationToken) =>
+            {
+                var command = new RequestPaymentCommand(ticketId);
+                return await mediator.Send(command, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "Make the ticket wait the payment by the cashier."
+            });
+
+            #endregion
         }
     }
 }
