@@ -12,7 +12,7 @@ namespace AutoMais.Services.Vehicles.APIPlacas.Service
     /// <summary>
     /// This class is the implementation of the IStream to connect to the Azure Service Bus.
     /// </summary>
-    public class PlateService(IMediator mediator, IVehiclePlateState state, HttpClient client, APIPlacasSettings settings) : IPlateService
+    public class PlateService(IMediator mediator, IVehiclePlateState state, HttpClient client, APIPlacasSettings settings, ILogger logger) : IPlateService
     {
         public async Task<Result<VehicleAgg>> GetPlate(string plate)
         {
@@ -23,7 +23,8 @@ namespace AutoMais.Services.Vehicles.APIPlacas.Service
             if (vehiclePlate == null)
             {
                 var download = await DownloadFromApi(plate);
-                vehiclePlate = download?.Value;
+                if (download.IsSuccess)
+                    vehiclePlate = download?.Value;
             }
 
             if (vehiclePlate == null)
@@ -49,26 +50,34 @@ namespace AutoMais.Services.Vehicles.APIPlacas.Service
 
         private async Task<Result<VehiclePlateDownloaded>> DownloadFromApi(string plate)
         {
-            var response = await client.GetAsync($"consulta/{plate}/{settings.Token}");
-
-            if (!response.IsSuccessStatusCode)
+            try
             {
-                return Result.Fail("API Placas failed to respond").WithError(await response.Content.ReadAsStringAsync());
+                var response = await client.GetAsync($"consulta/{plate}/{settings.Token}");
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return Result.Fail("API Placas failed to respond").WithError(await response.Content.ReadAsStringAsync());
+                }
+
+                var result = JsonSerializer.Deserialize<VehiclePlateDownloaded>(await response.Content.ReadAsStringAsync());
+
+                if (result is not null)
+                {
+                    result._id = plate;
+                    result.date = DateTime.Now;
+
+                    await mediator.Publish(result);
+
+                    return Result.Ok(result);
+                }
+
+                return Result.Fail("Failure downloading plate data");
             }
-
-            var result = JsonSerializer.Deserialize<VehiclePlateDownloaded>(await response.Content.ReadAsStringAsync());
-
-            if (result is not null)
+            catch (Exception ex)
             {
-                result._id = plate;
-                result.date = DateTime.Now;
-
-                await mediator.Publish(result);
-
-                return Result.Ok(result);
+                logger.LogError(ex, "Error downloading plate");
+                return Result.Fail("Failure downloading plate data").WithError(ex.Message);
             }
-
-            return Result.Fail("Failure downloading plate data");
         }
     }
 }

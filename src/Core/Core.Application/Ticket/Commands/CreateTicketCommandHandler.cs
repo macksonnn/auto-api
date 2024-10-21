@@ -30,7 +30,8 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
                         instance.Vehicle = result.Value;
 
                     return instance.Vehicle != null;
-                });
+                })
+                .WithMessage("Invalid plate");
 
         }
     }
