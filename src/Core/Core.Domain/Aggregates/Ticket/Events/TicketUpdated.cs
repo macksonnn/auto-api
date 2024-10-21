@@ -4,7 +4,7 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
 {
     public class TicketUpdated : IDomainEvent
     {
-        public string TicketId { get; private set; }
+        public string Id { get; private set; }
         public string Code { get; private set; }
         public TicketStatusEnum Status { get; private set; }
 
@@ -25,7 +25,7 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
         {
             return new TicketUpdated
             {
-                TicketId = ticket.Id,
+                Id = ticket.Id,
                 Code = ticket.Code,
                 Ticket = ticket,
                 ProductsPrice = ticket.ProductsTotalPrice,

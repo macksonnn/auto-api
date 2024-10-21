@@ -106,7 +106,7 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
             if (updated.IsFailed)
                 return updated;
 
-            var saved = await state.Update(updated.Value.TicketId, updated.Value.Ticket);
+            var saved = await state.Update(updated.Value.Id, updated.Value.Ticket);
             if (saved.IsSuccess)
                 await mediator.Publish(updated.Value);
 

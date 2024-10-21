@@ -5,13 +5,13 @@
 /// </summary>
 public class TicketProductsChanged : IDomainEvent
 {
-    public string TicketId { get; private set; }
+    public string Id { get; private set; }
     public decimal TotalItems { get; private set; }
     public decimal TotalPrice { get; private set; }
 
     internal TicketProductsChanged(string ticketId, decimal totalItems, decimal totalPrice)
     {
-        TicketId = ticketId;
+        Id = ticketId;
         TotalItems = totalItems;
         TotalPrice = totalPrice;
     }
