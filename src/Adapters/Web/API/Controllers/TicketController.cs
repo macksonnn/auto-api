@@ -27,7 +27,7 @@ namespace AutoMais.Ticket.Api.Controllers
                 Summary = "Get one specific ticket based on it's id"
             });
 
-            v1.MapGet("/{ticketId}/payments", async ([FromRoute] string ticketId, IMediator mediator, CancellationToken cancellationToken) =>
+            v1.MapGet("/{ticketId}/payments", ([FromRoute] string ticketId, IMediator mediator, CancellationToken cancellationToken) =>
             {
                 return new List<dynamic>() {
                     new {

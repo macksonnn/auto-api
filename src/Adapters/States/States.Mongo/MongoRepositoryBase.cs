@@ -98,7 +98,7 @@ public abstract class MongoRepositoryBase<T> : IState<T> where T : class
             return Result.Fail("Update failed");
     }
 
-    public async Task<IEnumerable<T>> GetPagedAsync(Expression<Func<T, bool>> filter, int pageNumber, int pageSize, Expression<Func<T, object>> sortBy = null, bool ascending = true)
+    public async Task<IEnumerable<T>> GetPagedAsync(Expression<Func<T, bool>> filter, int pageNumber, int pageSize, Expression<Func<T, object>>? sortBy = null, bool ascending = true)
     {
         var find = db.Find(filter);
 
