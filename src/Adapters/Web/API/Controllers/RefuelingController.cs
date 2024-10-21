@@ -33,6 +33,19 @@ namespace AutoMais.Ticket.Api.Controllers
             });
 
 
+            v1.MapPost("/ticket/{ticketId}/pump/{pumpNumber}/nozzles/{nozzleNumber}", async (IMediator mediator, CancellationToken cancellationToken,
+                [FromRoute] Guid ticketId,
+                [FromRoute] int pumpNumber,
+                [FromRoute] int nozzleNumber) =>
+            {
+                var command = new AuthorizeRefuelingForTicketCommand(ticketId, pumpNumber, nozzleNumber);
+                return await mediator.Send(command, cancellationToken);
+            }).WithOpenApi(o => new(o)
+            {
+                Summary = "Creates a new ticket associated with the informed Attendant and adding the Pump/Nozzle as an authorized refueling"
+            });
+
+
             v1.MapPatch("/attendant/{cardId}/pump/{pumpNumber}/nozzles/{nozzleNumber}/quantity/{quantity}/cost/{cost}", async (IMediator mediator, CancellationToken cancellationToken,
                 [FromRoute] string cardId,
                 [FromRoute] int pumpNumber,

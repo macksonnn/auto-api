@@ -23,6 +23,13 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Adapters
         /// <summary>
         /// Get the Opened or In Progress ticket to the specified Pump and Nozzle
         /// </summary>
+        /// <param name="command">The FinishRefuelingCommand to search ticket</param>
+        /// <returns>Returns the ticket aggregate</returns>
+        Task<Result<TicketAgg>> GetOpenedTicket(AuthorizeRefuelingForTicketCommand command);
+
+        /// <summary>
+        /// Get the Opened or In Progress ticket to the specified Pump and Nozzle
+        /// </summary>
         /// <param name="command">The AddFuelToTicketCommand to search ticket</param>
         /// <returns>Returns the ticket aggregate</returns>
         Task<Result<TicketAgg>> GetOpenedTicket(AddFuelToTicketCommand command);

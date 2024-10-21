@@ -426,6 +426,11 @@ public class TicketAgg : AggRoot
 
     #region Refueling Management
 
+    public Result<TicketUpdated> AddOrUpdateSupply(AuthorizeRefuelingForTicketCommand command)
+    {
+        return UpdateSupply(command.PumpNumber, command.NozzleNumber, 0, 0, command.Pump, command.Nozzle);
+    }
+
     public Result<TicketUpdated> AddOrUpdateSupply(AddFuelToTicketCommand command)
     {
         return UpdateSupply(command.PumpNumber, command.NozzleNumber, command.Quantity, command.Cost, command.Pump, command.Nozzle);

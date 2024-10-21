@@ -43,6 +43,43 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
                 .NotEmpty();
         }
     }
+    /// <summary>
+    /// The command validator contains the rules to ensure the object is valid
+    /// </summary>
+    public sealed class AuthorizeRefuelingForTicketCommandValidator : AbstractValidator<AuthorizeRefuelingForTicketCommand>
+    {
+        public AuthorizeRefuelingForTicketCommandValidator(IPumpState pumpState, ITicketState ticketState)
+        {
+            RuleFor(command => command.TicketId)
+                .NotEmpty()
+                .MustAsync(async (instance, propValue, c) =>
+                {
+                    var result = await ticketState.GetOpenedTicket(instance);
+                    if (result.IsSuccess)
+                        instance.Ticket = result.Value;
+
+                    return instance.Ticket != null;
+                })
+                .WithMessage("Ticket not found");
+
+            RuleFor(command => command.PumpNumber)
+                .NotEmpty()
+                .MustAsync(async (instance, propValue, cancellationToken) =>
+                {
+                    instance.Pump = await pumpState.Get(x => x.Number == propValue);
+                    return instance.Pump != null;
+                }).DependentRules(() =>
+                {
+                    RuleFor(command => command.NozzleNumber)
+                        .NotEmpty()
+                        .Must((instance, property, token) =>
+                        {
+                            instance.Nozzle = instance?.Pump?.Nozzles?.FirstOrDefault(x => x.Number == property);
+                            return instance?.Nozzle != null;
+                        });
+                });
+        }
+    }
 
     /// <summary>
     /// The command validator contains the rules to ensure the object is valid
@@ -105,7 +142,8 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
     public class UpdateFuelToTicketCommandHandler(ITicketState ticketState, IMediator mediator) : 
         ICommandHandler<FinishSupply, TicketUpdated>,
         ICommandHandler<UpdateFuelToTicketCommand, TicketUpdated>,
-        ICommandHandler<AddFuelToTicketCommand, TicketUpdated>
+        ICommandHandler<AddFuelToTicketCommand, TicketUpdated>,
+        ICommandHandler<AuthorizeRefuelingForTicketCommand, TicketUpdated>
     {
         public async Task<Result<TicketUpdated>> Handle(AddFuelToTicketCommand command, CancellationToken cancellationToken)
         {
@@ -201,6 +239,42 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
             }
 
             result.WithErrors(updated.Errors);
+
+            return result;
+        }
+
+        public async Task<Result<TicketUpdated>> Handle(AuthorizeRefuelingForTicketCommand command, CancellationToken cancellationToken)
+        {
+            if (command.Ticket == null)
+            {
+                var ticketCreated = await mediator.Send(new CreateTicketForAttendantCommand(command.Ticket.Attendant.CardId, command.PumpNumber, command.NozzleNumber));
+
+                if (ticketCreated.IsSuccess)
+                    command.Ticket = ticketCreated.Value.Ticket;
+                else
+                    return Result.Fail<TicketUpdated>("Failure creating ticket").WithErrors(ticketCreated.Errors);
+            }
+
+            var result = Result.Ok();
+
+            if (command.Ticket != null)
+            {
+                var updated = command.Ticket.AddOrUpdateSupply(command);
+
+                if (updated.IsSuccess)
+                {
+                    var saved = await ticketState.Update(command.Ticket.Id, updated.Value.Ticket);
+                    if (saved.IsSuccess)
+                    {
+                        await mediator.Publish(updated.Value);
+                        return updated.Value;
+                    }
+                    else
+                        result.WithErrors(saved.Errors);
+                }
+
+                result.WithErrors(updated.Errors);
+            }
 
             return result;
         }

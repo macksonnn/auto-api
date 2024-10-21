@@ -16,6 +16,19 @@ public class TicketRepository : MongoRepositoryBase<TicketAgg>, ITicketState
         return GetOpenedTicket(command.PumpNumber, command.NozzleNumber);
     }
 
+    public async Task<Result<TicketAgg>> GetOpenedTicket(AuthorizeRefuelingForTicketCommand command)
+    {
+        var result = await db.Find(x =>
+            x.Id == command.TicketId.ToString() &&
+            (x.Status == TicketStatusEnum.Opened || x.Status == TicketStatusEnum.InProgress))
+            .FirstOrDefaultAsync();
+
+        if (result != null)
+            return Result.Ok(result);
+
+        return Result.Fail<TicketAgg>($"No Ticket opened or in progress for Pump {command.PumpNumber} and Nozzle {command.NozzleNumber}");
+    }
+
     public Task<Result<TicketAgg>> GetOpenedTicket(AddFuelToTicketCommand command)
     {
         return GetOpenedTicket(command.CardId, command.PumpNumber, command.NozzleNumber);
