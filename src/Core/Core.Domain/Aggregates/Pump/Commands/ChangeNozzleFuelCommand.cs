@@ -1,9 +1,11 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Pump.Events;
+using System.Text.Json.Serialization;
 
 namespace AutoMais.Ticket.Core.Domain.Aggregates.Pump.Commands;
 
 public record ChangeNozzleFuelCommand : ICommand<FuelChanged>
 {
+    [JsonIgnore]
     public string Id { get; set; }
     public string Name { get; set; }
     public string Color { get; set; }

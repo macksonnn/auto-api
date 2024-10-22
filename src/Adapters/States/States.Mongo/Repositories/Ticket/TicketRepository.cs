@@ -1,6 +1,6 @@
 ﻿using AutoMais.Ticket.Core.Application.Ticket.Adapters;
 using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
-using AutoMais.Ticket.States.Mongo;
+using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 
 namespace AutoMais.Ticket.States.Mongo.Repositories.Ticket;
 
@@ -9,6 +9,61 @@ public class TicketRepository : MongoRepositoryBase<TicketAgg>, ITicketState
     public TicketRepository(IMongoDatabase database) : base(database, "Tickets")
     {
 
+    }
+
+    public Task<Result<TicketAgg>> GetOpenedTicket(FinishSupply command)
+    {
+        return GetOpenedTicket(command.PumpNumber, command.NozzleNumber);
+    }
+
+    public async Task<Result<TicketAgg>> GetOpenedTicket(AuthorizeRefuelingForTicketCommand command)
+    {
+        var result = await db.Find(x =>
+            x.Id == command.TicketId.ToString() &&
+            (x.Status == TicketStatusEnum.Opened || x.Status == TicketStatusEnum.InProgress))
+            .FirstOrDefaultAsync();
+
+        if (result != null)
+            return Result.Ok(result);
+
+        return Result.Fail<TicketAgg>($"No Ticket opened or in progress for Pump {command.PumpNumber} and Nozzle {command.NozzleNumber}");
+    }
+
+    public Task<Result<TicketAgg>> GetOpenedTicket(AddFuelToTicketCommand command)
+    {
+        return GetOpenedTicket(command.CardId, command.PumpNumber, command.NozzleNumber);
+    }
+
+    public async Task<Result<TicketAgg>> GetOpenedTicket(string cardId, int pumpNumber, int nozzleNumber)
+    {
+        var result = await db.Find(x =>
+            x.Attendant.CardId == cardId &&
+            (x.Status == TicketStatusEnum.Opened || x.Status == TicketStatusEnum.InProgress) && 
+            x.Supplies.Any(s => s.Pump.Number == pumpNumber && s.Pump.Nozzle.Number == nozzleNumber))
+            .FirstOrDefaultAsync();
+
+        if (result != null)
+            return Result.Ok(result);
+
+        return Result.Fail<TicketAgg>($"No Ticket opened or in progress for Pump {pumpNumber} and Nozzle {nozzleNumber}");
+    }
+
+    public Task<Result<TicketAgg>> GetOpenedTicket(UpdateFuelToTicketCommand command)
+    {
+        return GetOpenedTicket(command.PumpNumber, command.NozzleNumber);
+    }
+
+    public async Task<Result<TicketAgg>> GetOpenedTicket(int pumpNumber, int nozzleNumber)
+    {
+        var result = await db.Find(x =>
+            (x.Status == TicketStatusEnum.Opened || x.Status == TicketStatusEnum.InProgress) &&
+            x.Supplies.Any(s => s.Pump.Number == pumpNumber && s.Pump.Nozzle.Number == nozzleNumber))
+            .FirstOrDefaultAsync();
+
+        if (result != null)
+            return Result.Ok(result);
+
+        return Result.Fail<TicketAgg>($"No Ticket opened or in progress for Pump {pumpNumber} and Nozzle {nozzleNumber}");
     }
 
     //public async Task<Result<TicketAgg>> AddAsync(TicketAgg ticket)

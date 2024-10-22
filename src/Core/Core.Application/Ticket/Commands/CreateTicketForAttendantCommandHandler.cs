@@ -25,10 +25,13 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
                 {
                     RuleFor(command => command.NozzleNumber)
                         .NotEmpty()
-                        .MustAsync(async (instance, property, token) =>
+                        .Must((instance, property, token) =>
                         {
-                            return instance?.Pump?.Nozzles?.FirstOrDefault(x => x.Number == property) != null;
-                        });
+                            instance.Nozzle = instance?.Pump?.Nozzles?.FirstOrDefault(x => x.Number == property);
+
+                            return instance?.Nozzle != null;
+                        })
+                        .WithMessage("Pump does not contain this Nozzle");
                 });
 
             RuleFor(command => command.CardId)
@@ -45,27 +48,25 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
     {
         public async Task<Result<TicketCreated>> Handle(CreateTicketForAttendantCommand command, CancellationToken cancellationToken)
         {
-            var nozzle = command.Pump.Nozzles.FirstOrDefault(x => x.Number == command.NozzleNumber);
+            var ticket = await ticketState.GetOpenedTicket(command.CardId, command.PumpNumber, command.NozzleNumber);
 
-            if (nozzle == null)
-                return Result.Fail<TicketCreated>("Nozzle not found");
+            if (ticket.IsSuccess)
+                return ticket.Value.Created();
 
-            var existingTicket = ticketState.Get(x => x.Attendant.CardId == command.CardId && (x.Status == TicketStatusEnum.Opened || x.Status == TicketStatusEnum.InProgress));
+            if (ticket.IsFailed)
+                ticket = TicketAgg.Create(command, Domain.Aggregates.Ticket.Attendant.Create(command.Attendant!));
 
-            //TODO: Implementar uma lógica para reutilizar um ticket em aberto
-
-            var ticketCreated = TicketAgg.Create(command, Domain.Aggregates.Ticket.Attendant.Create(command.Attendant));
-
-            if (ticketCreated.IsSuccess)
+            if (ticket.IsSuccess)
             {
-                var saved = await ticketState.Add(ticketCreated.Value.Ticket);
+                var saved = await ticketState.Add(ticket.Value);
                 if (saved.IsSuccess)
-                    await mediator.Publish(ticketCreated.Value);
-
-                ticketCreated.WithErrors(saved.Errors);
+                {
+                    await mediator.Publish(ticket.Value.Created());
+                    return ticket.Value.Created();
+                }
             }
 
-            return ticketCreated;
+            return Result.Fail<TicketCreated>("Ticket creation failed").WithErrors(ticket.Errors);
         }
     }
 }

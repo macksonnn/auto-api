@@ -49,6 +49,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMais.Services.Vehicles.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMais.Core.Common", "src\Core\AutoMais.Core.Common\src\AutoMais.Core.Common.csproj", "{11345BBD-CC21-4A2F-B0A2-B013A68EB284}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D137EEB2-196C-4688-AA7B-17EF4BAA5874}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -1,36 +1,56 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Ticket;
+using AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Commands;
 
 namespace AutoMais.Ticket.Core.Application.Ticket.Adapters
 {
     public interface ITicketState : IState<TicketAgg>
     {
-        ///// <summary>
-        ///// Get one ticket with the specified Id
-        ///// </summary>
-        ///// <param name="id">The ticket Id</param>
-        ///// <returns>An instance of a TicketAgg hydrated</returns>
-        //Result<TicketAgg> GetTicket(string id);
+        /// <summary>
+        /// Get the Opened or In Progress ticket to the specified Pump and Nozzle
+        /// </summary>
+        /// <param name="pumpNumber">The Pump unique number</param>
+        /// <param name="nozzleNumber">The Pump Nozzle unique number</param>
+        /// <returns>Returns the ticket aggregate</returns>
+        Task<Result<TicketAgg>> GetOpenedTicket(int pumpNumber, int nozzleNumber);
 
-        ///// <summary>
-        ///// Add a new ticket to the state
-        ///// </summary>
-        ///// <param name="ticket">The ticket to be added</param>
-        ///// <returns>The same instance of the recently added item</returns>
-        //Task<Result<TicketAgg>> AddAsync(TicketAgg ticket);
+        /// <summary>
+        /// Get the Opened or In Progress ticket to the specified Pump and Nozzle
+        /// </summary>
+        /// <param name="command">The FinishRefuelingCommand to search ticket</param>
+        /// <returns>Returns the ticket aggregate</returns>
+        Task<Result<TicketAgg>> GetOpenedTicket(FinishSupply command);
 
-        ///// <summary>
-        ///// Get one ticket for the specified Attendant
-        ///// </summary>
-        ///// <param name="id">The ticket Id</param>
-        ///// <param name="attendantId">The attendant id</param>
-        ///// <returns>An instance of a TicketAgg hydrated</returns>
-        //Result<TicketAgg> GetTicket(string id, string attendantId);
+        /// <summary>
+        /// Get the Opened or In Progress ticket to the specified Pump and Nozzle
+        /// </summary>
+        /// <param name="command">The FinishRefuelingCommand to search ticket</param>
+        /// <returns>Returns the ticket aggregate</returns>
+        Task<Result<TicketAgg>> GetOpenedTicket(AuthorizeRefuelingForTicketCommand command);
 
-        ///// <summary>
-        ///// Get a list of tickets based on the query parameter
-        ///// </summary>
-        ///// <param name="queryMany">Query object with parameters</param>
-        ///// <returns>A list of TicketAgg hydrated</returns>
-        //Result<IEnumerable<TicketAgg>> GetTickets(QueryManyBase queryMany);
+        /// <summary>
+        /// Get the Opened or In Progress ticket to the specified Pump and Nozzle
+        /// </summary>
+        /// <param name="command">The AddFuelToTicketCommand to search ticket</param>
+        /// <returns>Returns the ticket aggregate</returns>
+        Task<Result<TicketAgg>> GetOpenedTicket(AddFuelToTicketCommand command);
+
+
+        /// <summary>
+        /// Get the Opened or In Progress ticket to the specified Car, Pump and Nozzle
+        /// </summary>
+        /// <param name="cardId">The attendant cardId</param>
+        /// <param name="pumpNumber">The Pump unique number</param>
+        /// <param name="nozzleNumber">The Pump Nozzle unique number</param>
+        /// <returns>Returns the ticket aggregate</returns>
+        Task<Result<TicketAgg>> GetOpenedTicket(string cardId, int pumpNumber, int nozzleNumber);
+
+        /// <summary>
+        /// Get the Opened or In Progress ticket to the specified Car, Pump and Nozzle
+        /// </summary>
+        /// <param name="cardId">The attendant cardId</param>
+        /// <param name="pumpNumber">The Pump unique number</param>
+        /// <param name="nozzleNumber">The Pump Nozzle unique number</param>
+        /// <returns>Returns the ticket aggregate</returns>
+        Task<Result<TicketAgg>> GetOpenedTicket(UpdateFuelToTicketCommand command);
     }
 }
