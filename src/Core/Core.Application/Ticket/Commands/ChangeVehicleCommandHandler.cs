@@ -18,6 +18,14 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
                 {
                     instance.Ticket = await ticketState.Get(value);
                     return instance.Ticket != null;
+                }).DependentRules(() => {
+                    RuleFor(x => x.Ticket.Vehicle)
+                        .Must((i, v, c) => {
+                            if (i?.Ticket?.Vehicle is null)
+                                return true;
+
+                            return i.Ticket.Vehicle.LastChangeDate.AddMinutes(5) < DateTime.Now;
+                        }).WithMessage("Cannot change plate after 5 minutes");
                 });
 
             RuleFor(command => command.Plate)
@@ -29,7 +37,7 @@ namespace AutoMais.Ticket.Core.Application.Ticket.Commands
                         instance.Vehicle = result.Value;
 
                     return instance.Vehicle != null;
-                });
+                }).WithMessage("Plate does not exist");
         }
     }
 

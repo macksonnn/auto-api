@@ -1,6 +1,10 @@
 ﻿using AutoMais.Ticket.Core.Application;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Conventions;
+using System;
 using System.Reflection;
 
 namespace AutoMais.Ticket.States.Mongo.Startup
@@ -15,6 +19,14 @@ namespace AutoMais.Ticket.States.Mongo.Startup
     {
         public IServiceCollection Register(IServiceCollection services, IConfiguration configuration)
         {
+            // Set up MongoDB conventions
+            var pack = new ConventionPack
+            {
+                new EnumRepresentationConvention(BsonType.String)
+            };
+
+            ConventionRegistry.Register("EnumStringConvention", pack, t => true);
+
             // Bind MongoSettings from configuration
             var settings = configuration.GetSection("StateSettings:MongoDB").Get<MongoSettings>();
             services.AddSingleton(settings ?? new MongoSettings());

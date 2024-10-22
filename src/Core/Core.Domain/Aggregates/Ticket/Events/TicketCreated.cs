@@ -4,7 +4,7 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
 {
     public class TicketCreated : IDomainEvent
     {
-        public string TicketId { get; private set; }
+        public string Id { get; private set; }
         public string Code { get; private set; }
 
         public DateTime CreatedDate { get; private set; }
@@ -21,7 +21,7 @@ namespace AutoMais.Ticket.Core.Domain.Aggregates.Ticket.Events
         {
             return new TicketCreated
             {
-                TicketId = ticket.Id,
+                Id = ticket.Id,
                 Code = ticket.Code,
                 Description = ticket.Description,
                 CreatedDate = ticket.CreatedDate,

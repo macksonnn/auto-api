@@ -128,4 +128,5 @@ namespace AutoMais.Services.Vehicles.APIPlacas.Service.Model
     }
 
     public record VehiclePlateDownloaded : ConsultaPlaca, IDomainEvent;
+
 }

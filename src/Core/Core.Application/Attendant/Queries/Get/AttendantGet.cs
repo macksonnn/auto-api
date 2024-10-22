@@ -1,11 +1,12 @@
 ﻿using AutoMais.Ticket.Core.Domain.Aggregates.Attendant;
 
-namespace AutoMais.Ticket.Core.Application.Attendant.Queries.Get;
-public record AttendantGetOne : IQuery<AttendantAgg>
+namespace AutoMais.Ticket.Core.Application.Attendant.Queries;
+public record AttendantGetByCard : IQuery<AttendantAgg>
 {
-    public AttendantGetOne(string id)
+    public AttendantGetByCard(string id)
     {
-        Id = id.ToLower();
+        CardId = id.ToLower();
     }
-    public string Id { get; set; }
+    public string CardId { get; set; }
 }
+

@@ -3,17 +3,17 @@ using AutoMais.Ticket.Core.Domain.Aggregates.Pump;
 
 namespace AutoMais.Ticket.Core.Application.Pump.Queries
 {
-    public record PumpGet(int Number) : IQuery<PumpAgg>;
+    public record PumpGetbyNumber(int Number) : IQuery<PumpAgg>;
 
     public record PumpGetAll() : QueryManyBase<PumpAgg>;
 
 
 
     public class PumpGetQueryHandler(IPumpState state) : 
-        IQueryHandler<PumpGet, PumpAgg>,
+        IQueryHandler<PumpGetbyNumber, PumpAgg>,
         IQueryManyHandler<PumpGetAll, PumpAgg>
     {
-        public async Task<Result<PumpAgg>> Handle(PumpGet request, CancellationToken cancellationToken)
+        public async Task<Result<PumpAgg>> Handle(PumpGetbyNumber request, CancellationToken cancellationToken)
         {
             //Validate if user can retrieve the desired information
             //Check if the information can be returned to the user...
