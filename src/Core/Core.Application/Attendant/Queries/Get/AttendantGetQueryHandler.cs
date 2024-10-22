@@ -1,7 +1,7 @@
 ﻿using AutoMais.Ticket.Core.Application.Attendant.State;
 using AutoMais.Ticket.Core.Domain.Aggregates.Attendant;
 
-namespace AutoMais.Ticket.Core.Application.Attendant.Queries;
+namespace AutoMais.Ticket.Core.Application.Attendant.Queries.Get;
 
 public class AttendantGetByCardQueryHandler(IAttendantState state) : IQueryHandler<AttendantGetByCard, AttendantAgg>
 {

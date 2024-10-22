@@ -1,4 +1,5 @@
 ﻿using AutoMais.Ticket.Core.Application.Attendant.Queries;
+using AutoMais.Ticket.Core.Application.Attendant.Queries.Get;
 using AutoMais.Ticket.Core.Domain.Aggregates.Attendant.Commands;
 
 namespace AutoMais.Ticket.Api.Controllers;
@@ -41,6 +42,11 @@ public class AttendantController : IEndpointDefinition
         }).WithOpenApi(o => new(o)
         {
             Summary = "Creates a new record for attendant"
+        });
+        v1.MapGet("/", async (IMediator mediator, CancellationToken cancellationToken) =>
+        {
+            var query = new AttendantGetAll();
+            return await mediator.Send(query, cancellationToken);
         });
 
     }

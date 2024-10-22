@@ -9,4 +9,3 @@ public record AttendantGetByCard : IQuery<AttendantAgg>
     }
     public string CardId { get; set; }
 }
-

@@ -10,7 +10,15 @@ public class AttendantRepository : MongoRepositoryBase<AttendantAgg>, IAttendant
 
     public async Task<AttendantAgg> GetByCard(string cardId)
     {
-        var filter = Builders<AttendantAgg>.Filter.Eq("CardId", cardId);
+        var filter = Builders<AttendantAgg>.Filter.And(
+            Builders<AttendantAgg>.Filter.Eq("CardId", cardId)
+            //Builders<AttendantAgg>.Filter.Ne<DateTime?>("DisableDate", null)
+        );
+
         return await db.Find(filter).FirstOrDefaultAsync();
+    }
+    public async Task<IEnumerable<AttendantAgg>> GetAll()
+    {
+        return await GetMany(x => true);
     }
 }
