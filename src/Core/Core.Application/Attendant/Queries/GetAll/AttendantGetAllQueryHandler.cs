@@ -11,7 +11,6 @@ namespace AutoMais.Ticket.Core.Application.Attendant.Queries.GetAll
         {
             var attendants = await state.GetAll();
             var models = Result.Ok(attendants);
-            models.WithError("errr");
             return models;
         }
     }
