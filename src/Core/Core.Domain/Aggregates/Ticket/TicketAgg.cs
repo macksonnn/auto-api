@@ -304,7 +304,7 @@ public class TicketAgg : AggRoot
 
     private bool AllRefuelingFinished()
     {
-        return this.Supplies.All(x => x.Status == SupplyStatus.Finished);
+        return this.Supplies.Count() != 0 && this.Supplies.All(x => x.Status == SupplyStatus.Finished);
     }
 
     /// <summary>
