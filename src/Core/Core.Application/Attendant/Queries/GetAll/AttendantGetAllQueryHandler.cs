@@ -9,9 +9,17 @@ namespace AutoMais.Ticket.Core.Application.Attendant.Queries.GetAll
         
         public async Task<Result<IEnumerable<AttendantAgg>>> Handle(AttendantGetAll request, CancellationToken cancellationToken)
         {
-            var attendants = await state.GetAll();
-            var models = Result.Ok(attendants);
-            return models;
+            try
+            {
+                var attendants = await state.GetAll();
+                var models = Result.Ok(attendants);
+                return models;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 
